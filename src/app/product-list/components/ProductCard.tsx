@@ -66,14 +66,14 @@ export default function ProductCard({
       </div>
 
       {/* CONTENT */}
-      <div className="px-3 pt-2 pb-3 flex flex-col gap-2">
+      <div className="px-3 mb-2 md:mb-0 pt-2 pb-3 flex flex-col gap-2">
         {/* TITLE */}
         <p className="text-[14px] font-semibold text-[#131313] leading-snug line-clamp-2">
           {name}
         </p>
 
         {/* PRICE + CTA */}
-        <div className="flex items-center justify-between h-[40px]">
+        <div className="flex items-center flex-col md:flex-row justify-between h-[40px] gap-2">
           <div className="flex items-center gap-2">
             <span className="text-[18px] font-bold text-[#131313] leading-none">
               ${price.toFixed(2)}
@@ -85,7 +85,7 @@ export default function ProductCard({
             )}
           </div>
 
-          <button className="h-[40px] w-[138px] rounded-[10px] border border-[#D2D2D2] bg-white flex items-center justify-center gap-[10px] text-[12px] font-semibold text-[#131313] hover:bg-gray-50 transition">
+          <button className="h-[40px] p-1 w-[130px] md:w-[138px]  rounded-[10px] border border-[#D2D2D2] bg-white flex items-center justify-center gap-[5px] text-[8px] md:text-[10px] font-semibold text-[#131313] hover:bg-gray-50 transition">
             <ShoppingCart className="w-4 h-4" />
             ADD TO CART
           </button>

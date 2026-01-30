@@ -95,11 +95,11 @@ export default function ProductListPage() {
           />
 
           <div className="flex-1 min-w-0 flex flex-col">
-            <div className="lg:hidden mb-4">
+            <div className="lg:hidden mb-4 justify-between">
               <button
                 type="button"
                 onClick={() => setFilterDrawerOpen(true)}
-                className="btn-outline min-h-[44px] w-full sm:w-auto flex items-center justify-center gap-2 text-design-14"
+                className="btn-outline min-h-[44px] w-[100px] md:w-full justify-end sm:w-auto flex items-center md:justify-center gap-2 text-design-14"
               >
                 <SlidersHorizontal className="w-4 h-4" />
                 Filters
