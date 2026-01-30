@@ -50,6 +50,12 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/auth/create",
+      "regex": "^/auth/create(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/create(?:/)?$"
+    },
+    {
       "page": "/auth/forgot",
       "regex": "^/auth/forgot(?:/)?$",
       "routeKeys": {},
@@ -74,10 +80,28 @@
       "namedRegex": "^/auth/otp(?:/)?$"
     },
     {
-      "page": "/auth/register",
-      "regex": "^/auth/register(?:/)?$",
+      "page": "/auth/reset-comple",
+      "regex": "^/auth/reset\\-comple(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/auth/register(?:/)?$"
+      "namedRegex": "^/auth/reset\\-comple(?:/)?$"
+    },
+    {
+      "page": "/auth/sign_up",
+      "regex": "^/auth/sign_up(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/sign_up(?:/)?$"
+    },
+    {
+      "page": "/auth/username",
+      "regex": "^/auth/username(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/username(?:/)?$"
+    },
+    {
+      "page": "/auth/username_sent",
+      "regex": "^/auth/username_sent(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/username_sent(?:/)?$"
     },
     {
       "page": "/cart",
@@ -110,10 +134,28 @@
       "namedRegex": "^/favicon\\.ico(?:/)?$"
     },
     {
+      "page": "/live-now",
+      "regex": "^/live\\-now(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/live\\-now(?:/)?$"
+    },
+    {
+      "page": "/product-list",
+      "regex": "^/product\\-list(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/product\\-list(?:/)?$"
+    },
+    {
       "page": "/products",
       "regex": "^/products(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/products(?:/)?$"
+    },
+    {
+      "page": "/top-category",
+      "regex": "^/top\\-category(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/top\\-category(?:/)?$"
     },
     {
       "page": "/wishlist",
