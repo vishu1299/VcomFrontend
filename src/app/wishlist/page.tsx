@@ -28,7 +28,7 @@ export default function WishlistPage() {
         <h1 className="text-3xl font-bold mb-8">My Wishlist</h1>
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg mb-4">Your wishlist is empty</p>
-          <Link href="/products" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+          <Link href="/product-list" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
             Browse Products
           </Link>
         </div>

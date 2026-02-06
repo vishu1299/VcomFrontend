@@ -4,77 +4,112 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const reviewers = [
-  { name: 'Maria Hyle', image: '/images/logo.png', active: true },
-  { name: 'John Doe', image: '/images/logo.png', active: false },
-  { name: 'Jane Smith', image: '/images/logo.png', active: false },
-  { name: 'Alex Lee', image: '/images/logo.png', active: false },
-  { name: 'Sam Wilson', image: '/images/logo.png', active: false },
+  { name: 'Reviewer 1', image: '/images/logo.png', active: false },
+  { name: 'Reviewer 2', image: '/images/logo.png', active: false },
+  { name: 'Maria Nyla', image: '/images/logo.png', active: true }, // ACTIVE
+  { name: 'Reviewer 4', image: '/images/logo.png', active: false },
+  { name: 'Reviewer 5', image: '/images/logo.png', active: false },
 ];
 
 export default function CustomerReviewsSection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12 py-8 sm:py-10" aria-label="Customer reviews">
-      <h2 className="text-design-24 sm:text-design-32 font-semibold text-[var(--color-black)] text-center mb-6 sm:mb-8">
+    <section
+      className="w-full bg-[#FFF9E7] flex flex-col items-center"
+      aria-label="Customer reviews"
+    >
+      {/* Title */}
+      <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-semibold text-[var(--color-black)] text-center mt-8 sm:mt-10 px-4">
         Customer Reviews
       </h2>
 
-      <div className="relative max-w-3xl mx-auto">
-        <div className="bg-white rounded-xl sm:rounded-2xl border border-[var(--color-border)] p-6 sm:p-8 shadow-sm">
-          <p className="text-design-16 sm:text-design-18 text-[var(--color-black)] leading-relaxed text-center mb-6 sm:mb-8">
-            <span className="text-4xl sm:text-5xl text-amber-400 font-serif leading-none">"</span>
-            The product quality and customer service exceeded my expectations. I will definitely
-            shop here again and recommend to my friends.
-            <span className="text-4xl sm:text-5xl text-amber-400 font-serif leading-none">"</span>
+      <div className="max-w-[920px] w-full flex flex-col items-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
+        {/* Review Text */}
+        <div className="relative max-w-[820px] text-center px-6 sm:px-8">
+          <span className="absolute left-0 sm:-left-2 -top-1 sm:-top-2 text-[32px] sm:text-[40px] lg:text-[48px] text-[#F5B700] font-serif leading-none">
+            “
+          </span>
+
+          <p className="font-poppins text-[16px] font-medium leading-[18px] text-[#767676]">
+            Great Service and Good Quality Product and it helped my wife
+            osteoarthritis on her knees and hips and myself for arthritis.
+            We have asked our doctor before we used it he said it is fine
+            because we are on other medications. We have recommended to
+            our friends and family in United States they have order and
+            have been using Rumatis Cream. Thank You very much. Whoever
+            has invented this cream. Kind Regards.
           </p>
 
-          <div className="flex items-center justify-center gap-4 overflow-x-auto pb-2 scrollbar-hide">
-            <button
-              type="button"
-              className="w-10 h-10 rounded-full bg-[var(--color-border)] hover:bg-[var(--color-muted-alt-2)]/20 flex items-center justify-center shrink-0 transition"
-              aria-label="Previous reviewer"
-            >
-              <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
-            </button>
-            <div className="flex items-end gap-2 sm:gap-4">
-              {reviewers.map((r, i) => (
+          <span className="absolute right-0 sm:-right-2 -bottom-2 sm:-bottom-4 text-[32px] sm:text-[40px] lg:text-[48px] text-[#F5B700] font-serif leading-none">
+            ”
+          </span>
+        </div>
+
+        {/* Avatar Slider */}
+        <div className="w-full max-w-[654px] min-h-[80px] sm:min-h-[113px] flex items-center justify-center gap-3 sm:gap-4 lg:gap-6 px-2">
+          {/* Left Arrow */}
+          <button
+            type="button"
+            className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow flex items-center justify-center hover:opacity-90 transition"
+            aria-label="Previous review"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+          </button>
+
+          {/* Avatars */}
+          <div className="flex items-end justify-center gap-2 sm:gap-3 lg:gap-4 flex-1 min-w-0 overflow-x-auto scrollbar-hide py-2">
+            {reviewers.map((r, i) =>
+              r.active ? (
+                /* ACTIVE AVATAR — responsive: 56/72/96px */
                 <div
                   key={i}
-                  className={`flex flex-col items-center shrink-0 transition ${
-                    r.active ? 'scale-110' : 'scale-90 opacity-70'
-                  }`}
+                  className="shrink-0 w-14 h-14 sm:w-[72px] sm:h-[72px] lg:w-24 lg:h-24 flex items-center justify-center"
+                  style={{
+                    border: '2px dashed #F5B700',
+                    borderRadius: '9999px',
+                  }}
                 >
-                  <div
-                    className={`relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 ${
-                      r.active ? 'border-amber-400' : 'border-[var(--color-border)]'
-                    }`}
-                  >
+                  <div className="relative w-12 h-12 sm:w-[64px] sm:h-[64px] lg:w-[88px] lg:h-[88px] rounded-full overflow-hidden">
                     <Image
                       src={r.image}
                       alt={r.name}
                       fill
                       className="object-cover"
-                      sizes="56px"
+                      sizes="96px"
                     />
                   </div>
-                  <span
-                    className={`text-design-12 sm:text-design-14 mt-2 font-medium ${
-                      r.active ? 'text-[var(--color-black)]' : 'text-[var(--color-muted-alt-2)]'
-                    }`}
-                  >
-                    {r.name}
-                  </span>
                 </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="w-10 h-10 rounded-full bg-[var(--color-border)] hover:bg-[var(--color-muted-alt-2)]/20 flex items-center justify-center shrink-0 transition"
-              aria-label="Next reviewer"
-            >
-              <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />
-            </button>
+              ) : (
+                /* INACTIVE AVATAR — responsive: 44/56/70px */
+                <div
+                  key={i}
+                  className="shrink-0 relative w-11 h-11 sm:w-14 sm:h-14 lg:w-[70px] lg:h-[70px] rounded-full border-2 border-white overflow-hidden opacity-80"
+                >
+                  <Image
+                    src={r.image}
+                    alt={r.name}
+                    fill
+                    className="object-cover"
+                    sizes="70px"
+                  />
+                </div>
+              )
+            )}
           </div>
+
+          {/* Right Arrow */}
+          <button
+            type="button"
+            className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow flex items-center justify-center hover:opacity-90 transition"
+            aria-label="Next review"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+          </button>
         </div>
+
+        {/* Reviewer Name */}
+        <p className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)]">
+          Maria Nyla
+        </p>
       </div>
     </section>
   );

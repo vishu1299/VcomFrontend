@@ -48,7 +48,7 @@ export function TermsAndSocial() {
           <FaGoogle className="w-4 h-4 text-[#4285F4]" aria-hidden />
           Sign in with Google
         </button>
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-col gap-3">
           <button
             type="button"
             className="flex-1 rounded-[6px] flex items-center justify-center gap-2 text-[14px] font-medium border transition hover:bg-[#f9fafb]"

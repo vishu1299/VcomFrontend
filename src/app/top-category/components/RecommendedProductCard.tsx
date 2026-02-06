@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Heart, Play, ShoppingCart } from 'lucide-react';
-import type { RecommendedProduct } from '../data/products';
+import type { RecommendedProduct } from '../data/product-list';
 
 type RecommendedProductCardProps = RecommendedProduct;
 

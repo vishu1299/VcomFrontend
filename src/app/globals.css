@@ -10,6 +10,7 @@
   --foreground: #171717;
 
   /* Font sizes (design system) */
+  --text-12: 12px;
   --text-14: 14px;
   --text-16: 16px;
   --text-18: 18px;
@@ -32,6 +33,25 @@
   --color-error-bg: #fee2e2;
   --color-success: #16a34a;
   --color-link: #1d4ed8;
+  --color-category-card-bg: #f7f8fa;
+
+  /* Hero Carousel (Figma) */
+  --hero-overlay-gradient: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  --hero-height-desktop: 548px;
+
+  /* Cart (Figma) */
+  --color-cart-bg: #f8f8fa;
+  --color-cart-continue: #fbbf24;
+  --color-cart-save: #22c55e;
+
+  /* Ad Cards (Figma) */
+  --color-ad-badge: #f5b700;
+  --color-ad-shape-orange: #ffb276;
+  --color-ad-shape-purple: #ddbbff;
 
   /* Button / CTA (Figma CTA_BTN) */
   --btn-cta-bg: var(--color-main-blue);
@@ -75,6 +95,12 @@ body {
 /* ─────────────────────────────────────────────────────────────────────────────
    TYPOGRAPHY UTILITIES (Poppins, design sizes)
    ───────────────────────────────────────────────────────────────────────────── */
+
+.text-design-12 {
+  font-size: var(--text-12);
+  line-height: 100%;
+  letter-spacing: 0%;
+}
 
 .text-design-14 {
   font-size: var(--text-14);

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Heart, Play, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 export type ProductCardProps = {
   id: string | number;
@@ -11,19 +12,37 @@ export type ProductCardProps = {
   image: string;
   badges?: string[];
   hasVideo?: boolean;
+  onQuickView?: () => void;
 };
 
 export default function ProductCard({
+  id,
   name,
   price,
   originalPrice,
   image,
   badges = [],
   hasVideo = false,
+  onQuickView,
 }: ProductCardProps) {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart({ id, name, price, originalPrice, image });
+  };
+
+  const handleCardClick = () => {
+    onQuickView?.();
+  };
+
   return (
     <article
-      className="w-full rounded-[10px] border border-[#E5E7EB] bg-white shadow-sm hover:shadow transition flex flex-col"
+      role={onQuickView ? 'button' : undefined}
+      tabIndex={onQuickView ? 0 : undefined}
+      onClick={onQuickView ? handleCardClick : undefined}
+      onKeyDown={onQuickView ? (e) => e.key === 'Enter' && handleCardClick() : undefined}
+      className={`w-full rounded-[10px] border border-[#E5E7EB] bg-white shadow-sm hover:shadow transition flex flex-col ${onQuickView ? 'cursor-pointer' : ''}`}
       style={{ fontFamily: 'var(--font-poppins)' }}
     >
       {/* IMAGE */}
@@ -37,10 +56,20 @@ export default function ProductCard({
         />
 
         {/* BADGES */}
-        <div className="absolute top-2 left-2 flex gap-1">
-          {badges.includes('10% OFF') && (
+        <div className="absolute top-2 left-2 flex gap-1 flex-wrap">
+          {badges.includes('SALE') && (
             <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313]">
-              10% OFF
+              SALE
+            </span>
+          )}
+          {badges.includes('NEW') && (
+            <span className="bg-[#2563EB] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white">
+              NEW
+            </span>
+          )}
+          {badges.find((b) => typeof b === 'string' && (b as string).includes('% OFF')) && (
+            <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313]">
+              {badges.find((b) => typeof b === 'string' && (b as string).includes('% OFF'))}
             </span>
           )}
           {badges.includes('SPONSORED') && (
@@ -51,7 +80,11 @@ export default function ProductCard({
         </div>
 
         {/* WISHLIST */}
-        <button className="absolute top-2 right-2 w-[40px] h-[40px] rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center">
+        <button
+          type="button"
+          onClick={(e) => e.stopPropagation()}
+          className="absolute top-2 right-2 w-[40px] h-[40px] rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center"
+        >
           <Heart className="w-4 h-4 text-[#131313]" />
         </button>
 
@@ -85,7 +118,11 @@ export default function ProductCard({
             )}
           </div>
 
-          <button className="h-[40px] p-1 w-[130px] md:w-[138px]  rounded-[10px] border border-[#D2D2D2] bg-white flex items-center justify-center gap-[5px] text-[8px] md:text-[10px] font-semibold text-[#131313] hover:bg-gray-50 transition">
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="h-[40px] p-1 w-[130px] md:w-[138px] rounded-[10px] border border-[#D2D2D2] bg-white flex items-center justify-center gap-[5px] text-[8px] md:text-[10px] font-semibold text-[#131313] hover:bg-gray-50 transition touch-manipulation"
+          >
             <ShoppingCart className="w-4 h-4" />
             ADD TO CART
           </button>

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Play, ShoppingCart, Video } from 'lucide-react';
-import type { LiveNowProduct } from '../data/products';
+import type { LiveNowProduct } from '../data/product-list';
 
 type LiveNowProductCardProps = LiveNowProduct;
 

@@ -35,7 +35,7 @@ export default function BlogInsightsSection() {
   return (
     <section className="mt-8 sm:mt-10 lg:mt-12 py-8 sm:py-10" aria-label="Blog insights">
       <div className="text-center mb-6 sm:mb-8">
-        <span className="inline-block text-design-14 font-medium bg-[var(--color-main-blue)] text-white px-4 py-2 rounded-lg mb-3">
+        <span className="inline-block text-design-14 font-medium bg-[var(--color-main-blue)] text-white px-4 py-2 rounded-md mb-3">
           LATEST NEWS
         </span>
         <h2 className="text-design-24 sm:text-design-32 font-semibold text-[var(--color-black)]">
@@ -49,7 +49,7 @@ export default function BlogInsightsSection() {
             key={i}
             className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-sm hover:shadow transition flex flex-col"
           >
-            <div className="relative aspect-[4/3] bg-[var(--color-border)]">
+            <div className="relative aspect-[5/3] bg-[var(--color-border)]">
               <Image
                 src={post.image}
                 alt=""
@@ -60,7 +60,7 @@ export default function BlogInsightsSection() {
             </div>
             <div className="p-4 sm:p-6 flex flex-col flex-1">
               <span
-                className={`inline-block text-design-12 sm:text-design-14 font-medium ${post.categoryBg} text-[var(--color-black)] px-2 py-1 rounded w-fit mb-3`}
+                className={`inline-block text-[10px] sm:text-[12px] font-medium ${post.categoryBg} text-[#FFFFFF] px-1  rounded w-fit mb-3`}
               >
                 {post.category}
               </span>

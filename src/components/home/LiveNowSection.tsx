@@ -38,7 +38,7 @@ const products = [
 export default function LiveNowSection() {
   return (
     <section
-      className="mt-8 sm:mt-10 lg:mt-12 py-6 sm:py-8 lg:py-10"
+      className=" p-7 mt-8 sm:mt-10 lg:mt-12 py-6 sm:py-8 lg:py-10"
       style={{ background: '#FAE5F1' }}
       aria-label="LIVE NOW products"
     >

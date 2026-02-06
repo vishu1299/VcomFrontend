@@ -1,29 +1,29 @@
 'use client';
 
-import { MessageCircle, RotateCcw, CheckCircle, Package } from 'lucide-react';
+import Image from 'next/image';
 
 const services = [
   {
-    icon: MessageCircle,
+    icon: '/images/signin.png',
     title: '24/7 Customer Service',
     description:
-      "We're here to help you with any questions or concerns you may have, 24/7.",
+      "We're here to help you with any questions or concerns you have, 24/7.",
   },
   {
-    icon: RotateCcw,
+    icon: '/images/forgot.png',
     title: '14-Day Money Back',
     description:
       "If you're not satisfied with your purchase, simply return it within 14 days for a refund.",
   },
   {
-    icon: CheckCircle,
+    icon: '/images/logo.png',
     title: 'Our Guarantee',
     description:
-      'We stand behind our products to ensure you receive only genuine products and services that guarantee your satisfaction.',
+      'We stand behind our products and services and guarantee your satisfaction.',
   },
   {
-    icon: Package,
-    title: 'Shipping Worldwide',
+    icon: '/images/otp.png',
+    title: 'Shipping worldwide',
     description:
       'We ship our products worldwide, making them accessible to customers everywhere.',
   },
@@ -31,21 +31,40 @@ const services = [
 
 export default function ServiceGuaranteesSection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12 py-8 sm:py-10 bg-white rounded-xl sm:rounded-2xl border border-[var(--color-border)]" aria-label="Service guarantees">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-        {services.map((service, i) => (
-          <article key={i} className="flex flex-col items-center text-center">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[var(--color-main-blue)]/10 flex items-center justify-center mb-4">
-              <service.icon className="w-7 h-7 sm:w-8 sm:h-8 text-[var(--color-main-blue)]" />
+    <section
+      aria-label="Service guarantees"
+      className="w-full flex justify-center mt-8 sm:mt-10 lg:mt-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="w-full max-w-[1488px] bg-white rounded-[12px] sm:rounded-[16px] p-6 sm:p-8 lg:p-10 xl:p-[40px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6 lg:gap-8 xl:gap-10">
+          {services.map((service, i) => (
+            <div
+              key={i}
+              className="flex flex-col items-center text-center gap-3 sm:gap-4 max-w-[300px] mx-auto sm:mx-0"
+            >
+              {/* Icon */}
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 relative">
+                <Image
+                  src={service.icon}
+                  alt=""
+                  fill
+                  className="object-contain"
+                  sizes="48px"
+                />
+              </div>
+
+              {/* Title */}
+              <h3 className="text-design-14 sm:text-design-16 font-semibold text-[var(--color-black)]">
+                {service.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-[11px] sm:text-[12px] font-normal text-[var(--color-muted-alt-2)] leading-[18px] sm:leading-[20px]">
+                {service.description}
+              </p>
             </div>
-            <h3 className="text-design-16 sm:text-design-18 font-semibold text-[var(--color-black)] mb-2">
-              {service.title}
-            </h3>
-            <p className="text-design-14 sm:text-design-16 text-[var(--color-muted-alt-2)] leading-relaxed">
-              {service.description}
-            </p>
-          </article>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

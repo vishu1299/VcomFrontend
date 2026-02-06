@@ -1,125 +1,148 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { Share2 } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
+import { CartItemCard } from './components/CartItemCard';
+import { OrderSummary } from './components/OrderSummary';
+import { RecentlyBrowsed } from './components/RecentlyBrowsed';
 
-// Mock cart data
-const initialCartItems = [
-  { id: 1, name: 'Premium Wireless Headphones', price: 199.99, quantity: 1, image: '/placeholder.jpg' },
-  { id: 2, name: 'Smart Fitness Watch', price: 299.99, quantity: 2, image: '/placeholder.jpg' },
-];
-
+/**
+ * Figma layout specs (Frame 2147226731):
+ * - Padding: Top 20px, Right 216px, Bottom 40px, Left 216px
+ * - Gap: 20px
+ * - Flow: Vertical
+ * - Width: Fill (1920px ref)
+ * - Background: #F8F8FA (--color-cart-bg)
+ *
+ * Responsive: px-4 sm:px-6 md:px-12 lg:px-[108px] xl:px-[216px]
+ * to preserve ratios while fitting mobile/tablet
+ */
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const { cartItems, updateQuantity, removeItem } = useCart();
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity === 0) {
-      setCartItems(cartItems.filter(item => item.id !== id));
-    } else {
-      setCartItems(cartItems.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
-    }
+  const handleUpdateQuantity = (id: number, newQuantity: number) => {
+    updateQuantity(id, newQuantity);
   };
 
-  const removeItem = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = subtotal * 0.08;
-  const shipping = subtotal > 100 ? 0 : 9.99;
-  const total = subtotal + tax + shipping;
+  // Figma Order Summary: Price $399, Savings -$100, Delivery $2, Total $308
+  const price = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const originalTotal = cartItems.reduce(
+    (sum, item) => sum + (item.originalPrice ?? item.price) * item.quantity,
+    0
+  );
+  const savings = Math.max(0, originalTotal - price);
+  const delivery = 2;
+  const total = price - savings + delivery;
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg mb-4">Your cart is empty</p>
-          <Link href="/products" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
-            Continue Shopping
-          </Link>
+      <main
+        className="min-h-screen"
+        style={{ backgroundColor: 'var(--color-cart-bg)' }}
+      >
+        <div
+          className="mx-auto w-full max-w-[1920px] px-4 pt-5 pb-10 sm:px-6 md:px-12 lg:px-[108px] xl:px-[216px]"
+          style={{ fontFamily: 'var(--font-poppins)' }}
+        >
+          <h1
+            className="text-[24px] sm:text-[28px] lg:text-[32px] font-semibold mb-2"
+            style={{ color: '#1F1D2B' }}
+          >
+            Your Cart
+          </h1>
+          <div className="flex flex-col items-center justify-center py-16 sm:py-24">
+            <p
+              className="text-[14px] sm:text-[16px] mb-6"
+              style={{ color: 'var(--color-muted-alt-2)' }}
+            >
+              Your cart is empty
+            </p>
+            <Link
+              href="/product-list"
+              className="inline-flex items-center justify-center min-h-[48px] px-6 rounded-[8px] font-medium text-[16px] transition hover:opacity-95"
+              style={{
+                backgroundColor: 'var(--color-cart-continue)',
+                color: '#1F1D2B',
+              }}
+            >
+              Continue Shopping
+            </Link>
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <div className="space-y-4">
-            {cartItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-20 h-20 bg-gray-200 rounded flex items-center justify-center">
-                    <span className="text-gray-500 text-sm">Image</span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center hover:bg-gray-300"
-                    >
-                      -
-                    </button>
-                    <span className="w-8 text-center">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center hover:bg-gray-300"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="text-red-600 hover:text-red-800 text-sm"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: 'var(--color-cart-bg)' }}
+    >
+      <div
+        className="mx-auto w-full max-w-[1920px] pt-5 pb-10 px-4 sm:px-6 md:px-12 lg:px-[108px] xl:px-[216px] flex flex-col gap-5"
+        style={{ fontFamily: 'var(--font-poppins)' }}
+      >
+        {/* Top: Cart items + Order Summary (2-col on desktop) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-[20px]">
+          {/* Left: Cart items list — Figma card 868×213 Hug */}
+          <div className="lg:col-span-8 flex flex-col gap-5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <h1
+                  className="text-[24px] sm:text-[28px] lg:text-[32px] font-semibold"
+                  style={{ color: '#1F1D2B' }}
+                >
+                  Cart ({cartItems.length})
+                </h1>
+                <p
+                  className="text-[12px] sm:text-[14px] mt-1"
+                  style={{ color: 'var(--color-muted-alt-2)' }}
+                >
+                  Review your items before checkout
+                </p>
               </div>
-            ))}
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 text-[14px] font-medium self-start sm:self-center px-4 py-2 rounded-[8px] border transition hover:bg-white/80 touch-manipulation"
+                style={{
+                  borderColor: 'var(--color-border)',
+                  color: 'var(--color-muted-alt-2)',
+                  backgroundColor: '#fff',
+                }}
+                aria-label="Share cart"
+              >
+                <Share2 className="w-4 h-4" strokeWidth={2} />
+                Share Cart
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-5 overflow-y-auto">
+              {cartItems.map((item) => (
+                <CartItemCard
+                  key={item.id}
+                  item={item}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemove={removeItem}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Order Summary — Figma 480 Fill x 156 Hug on mobile */}
+          <div className="lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
+            <OrderSummary
+              price={price}
+              savings={savings}
+              delivery={delivery}
+              total={total}
+            />
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 h-fit">
-          <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-          <div className="space-y-2 mb-4">
-            <div className="flex justify-between">
-              <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Tax</span>
-              <span>${tax.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Shipping</span>
-              <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
-            </div>
-            <div className="flex justify-between text-lg font-semibold border-t pt-2">
-              <span>Total</span>
-              <span>${total.toFixed(2)}</span>
-            </div>
-          </div>
-          <Link
-            href="/(checkout)"
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 text-center block"
-          >
-            Proceed to Checkout
-          </Link>
-        </div>
+        {/* Bottom: Recently Browsed */}
+        <RecentlyBrowsed />
       </div>
-    </div>
+    </main>
   );
 }
