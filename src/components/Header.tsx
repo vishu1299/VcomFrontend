@@ -469,12 +469,12 @@ function NavItems({ mobile }: { mobile?: boolean }) {
       <Link href="#" className={`${linkClass} ${!mobile ? 'border-b-2 border-[#131313] pb-0.5' : ''}`}>
         Explore
       </Link>
-      <Link href="#" className={linkClass}>Top Products</Link>
-      <Link href="#" className={linkClass}>Top Stores</Link>
-      <Link href="#" className={linkClass}>Top Deals</Link>
-      <Link href="#" className={linkClass}>Just Dropped</Link>
+      <Link href="/top-products" className={linkClass}>Top Products</Link>
+      <Link href="/top-stores" className={linkClass}>Top Stores</Link>
+      <Link href="/top-deals" className={linkClass}>Top Deals</Link>
+      <Link href="/just-dropped" className={linkClass}>Just Dropped</Link>
       <Link
-        href="/live-now"
+        href="/all-live-now"
         className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[14px] border border-red-500 font-normal ${mobile ? 'w-fit' : ''}`}
         style={{ backgroundColor: LIVE_RED_BG, color: LIVE_RED }}
       >

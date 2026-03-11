@@ -281,3 +281,37 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Dual-handle price range slider */
+.price-range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+.price-range-input::-webkit-slider-runnable-track {
+  height: 0;
+  background: transparent;
+}
+.price-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1e3a8a;
+  cursor: grab;
+  border: none;
+  margin-top: -7px;
+}
+.price-range-input::-moz-range-track {
+  height: 0;
+  background: transparent;
+}
+.price-range-input::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1e3a8a;
+  cursor: grab;
+  border: none;
+}
