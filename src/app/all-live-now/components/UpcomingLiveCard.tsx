@@ -18,12 +18,7 @@ export default function UpcomingLiveCard({
   return (
     <article className="bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] overflow-hidden shadow-sm hover:shadow transition flex flex-col">
       <div className="relative aspect-square bg-[#f3f4f6]">
-        <img
-          src={image}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute top-0 left-0 right-0 flex justify-between items-start gap-1 p-1.5 sm:p-2">
+        <div className="relative bg-white flex justify-between items-start gap-1 p-1.5 sm:p-2">
           <span className="bg-[#facc15] text-[#131313] text-[9px] sm:text-[10px] md:text-[11px] font-semibold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-r-md shadow-sm max-w-[45%] sm:max-w-[55%] truncate">
             {scheduledDate}
           </span>
@@ -31,6 +26,11 @@ export default function UpcomingLiveCard({
             {viewCount ?? 'Set Reminder'}
           </span>
         </div>
+        <img
+          src={image}
+          alt={title}
+          className=" w-full h-full object-cover"
+        />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <span className="w-10 h-10 flex items-center justify-center drop-shadow-md">
             <svg width="40" height="40" viewBox="0 0 24 24" className="ml-0.5">

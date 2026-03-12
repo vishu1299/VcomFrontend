@@ -57,7 +57,12 @@ export default function DealCard({
           </span>
         )}
         {sponsored && (
-          <span className="absolute bottom-3 left-2 bg-[#234093] text-white text-[10px] font-medium px-2 py-1 rounded-md">
+          <span
+            className="absolute bottom-3 left-2 text-white text-[10px] font-medium px-2 py-1 rounded-md"
+            style={{
+              background: "linear-gradient(to right, #628AFF 0%, #4164C7 60%, #1E3A8A 100%)",
+            }}
+          >
             SPONSORED
           </span>
         )}
@@ -72,8 +77,8 @@ export default function DealCard({
 
         {hasVideo && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center border border-[#e5e7eb] drop-shadow-md">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white" className="ml-0.5 shrink-0">
+            <span className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-[#e5e7eb] drop-shadow-md">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 shrink-0 text-[#131313]">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>
@@ -83,7 +88,7 @@ export default function DealCard({
 
       <div className="px-3 pt-2 pb-3 flex flex-col flex-1">
         <p className="text-sm font-medium text-[#131313] line-clamp-1 mb-2">{name}</p>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mt-auto">
+        <div className="flex justify-between flex-col sm:flex-row items-start sm:items-center gap-2 mt-auto">
           <div className="flex items-center gap-2">
             <span className="text-[1rem] font-bold text-[#131313]">
               ${typeof price === 'number' ? price.toFixed(2) : price}
@@ -94,7 +99,7 @@ export default function DealCard({
           </div>
           <button
             type="button"
-            className="flex items-center border border-[#e5e7eb] justify-center gap-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg py-2 px-3 transition w-full sm:w-auto"
+            className="flex items-center border border-[#e5e7eb] gap-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg py-2 px-3 transition"
             aria-label="Add to cart"
           >
             <CartIcon /> <span className="text-[0.8rem]">ADD TO CART</span>

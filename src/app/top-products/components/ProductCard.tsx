@@ -88,7 +88,12 @@ export default function ProductCard({
           </span>
         )}
         {sponsored && (
-          <span className="absolute bottom-3 left-2 bg-[#1E3A8A] text-white text-[10px] font-semibold px-3 py-[4px]">
+          <span
+            className="absolute bottom-3 left-2 text-white text-[10px] font-semibold px-3 py-[4px] rounded-md"
+            style={{
+              background: "linear-gradient(to right, #628AFF 0%, #4164C7 60%, #1E3A8A 100%)",
+            }}
+          >
             SPONSORED
           </span>
         )}

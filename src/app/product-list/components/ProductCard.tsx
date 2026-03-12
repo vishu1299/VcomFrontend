@@ -44,7 +44,12 @@ export default function ProductCard({
             </span>
           )}
           {badges.includes('SPONSORED') && (
-            <span className="bg-[#2563EB] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white">
+            <span
+              className="px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white"
+              style={{
+                background: "linear-gradient(to right, #628AFF 0%, #4164C7 60%, #1E3A8A 100%)",
+              }}
+            >
               SPONSORED
             </span>
           )}

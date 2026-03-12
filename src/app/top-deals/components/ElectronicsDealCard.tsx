@@ -45,8 +45,13 @@ export default function ElectronicsDealCard({ name, price, originalPrice, image,
         {bottomBadge && (
           <span
             className={`absolute bottom-2 left-2 text-white text-[10px] font-medium px-2 py-1 rounded-md ${
-              bottomBadge === 'SPONSORED' ? 'bg-[#234093]' : 'bg-blue-600'
+              bottomBadge === "LIMITED" ? "bg-blue-600" : ""
             }`}
+            style={
+              bottomBadge === "SPONSORED"
+                ? { background: "linear-gradient(to right, #628AFF 0%, #4164C7 60%, #1E3A8A 100%)" }
+                : undefined
+            }
           >
             {bottomBadge}
           </span>
