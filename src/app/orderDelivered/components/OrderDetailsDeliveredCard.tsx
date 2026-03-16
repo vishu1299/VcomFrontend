@@ -57,12 +57,13 @@ export default function OrderDetailsDeliveredCard() {
             </h2>
             <p className="text-xs text-gray-600 mt-1">Color: <span className=" font-bold text-black">Orange</span> QTY:  <span className=" font-bold text-black">1</span> <span className=" font-bold text-black">Product Number: 43-4234324</span></p>
             <div className="flex flex-wrap gap-2 mt-3">
-              <button
+              <Link
+                href="/review-item"
                 type="button"
                 className="inline-flex items-center px-3 py-2 rounded-lg border border-gray-200 bg-white text-[#131313] text-xs font-medium hover:bg-gray-50 transition"
               >
                 Write a review
-              </button>
+              </Link>
               <button
                 type="button"
                 className="inline-flex items-center px-3 py-2 rounded-lg border border-gray-200 bg-white text-[#131313] text-xs font-medium hover:bg-gray-50 transition"
