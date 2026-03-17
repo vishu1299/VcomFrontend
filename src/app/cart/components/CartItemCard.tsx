@@ -156,3 +156,5 @@ export function CartItemCard({ item, onUpdateQuantity, onRemove }: CartItemCardP
     </article>
   );
 }
+
+export default CartItemCard;

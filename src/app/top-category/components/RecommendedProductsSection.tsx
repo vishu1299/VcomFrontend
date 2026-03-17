@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import RecommendedProductCard from './RecommendedProductCard';
-import { RECOMMENDED_PRODUCTS } from '../data/product-list';
+import { RECOMMENDED_PRODUCTS } from '../data/products';
 
 export default function RecommendedProductsSection() {
   return (
