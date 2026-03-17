@@ -14,6 +14,7 @@
   "/dashboard/orders/page": "app/dashboard/orders/page.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/profile/page": "app/dashboard/profile/page.js",
+  "/exclusive/page": "app/exclusive/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/live-now/page": "app/live-now/page.js",
   "/page": "app/page.js",

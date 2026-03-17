@@ -100,7 +100,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\latest",
+    "outputFileTracingRoot": "C:\\Users\\ritik",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -157,7 +157,7 @@ self.__SERVER_FILES_MANIFEST={
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 15,
+      "cpus": 11,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -293,12 +293,12 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "C:\\latest"
+      "root": "C:\\Users\\ritik"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "C:\\latest\\vcom-fronted",
-  "relativeAppDir": "vcom-fronted",
+  "appDir": "C:\\Users\\ritik\\OneDrive\\Desktop\\vcom\\vcom-fronted",
+  "relativeAppDir": "OneDrive\\Desktop\\vcom\\vcom-fronted",
   "files": [
     ".next\\routes-manifest.json",
     ".next\\server\\pages-manifest.json",

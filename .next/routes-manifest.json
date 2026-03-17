@@ -128,6 +128,12 @@
       "namedRegex": "^/dashboard/profile(?:/)?$"
     },
     {
+      "page": "/exclusive",
+      "regex": "^/exclusive(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/exclusive(?:/)?$"
+    },
+    {
       "page": "/favicon.ico",
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
