@@ -1,0 +1,35 @@
+'use client';
+
+import Link from 'next/link';
+import DarkStoriesBar from './components/DarkStoriesBar';
+import TopStoriesSection from './components/TopStoriesSection';
+import RecommendedStoriesSection from './components/RecommendedStoriesSection';
+import HeroBanner from '../top-products/components/HeroBanner';
+import StoriesHeader from './components/StoriesHeader';
+
+export default function TopStoriesPage() {
+    return (
+        <main className="min-h-screen bg-[#f3f7fa]">
+            <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
+                <nav className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4 text-[14px] sm:text-[16px] text-[#131313]">
+                    <Link href="/" className="hover:underline">
+                        Home
+                    </Link>
+                    <span className="text-[#767676]">/</span>
+                    <span className="font-medium text-[#131313]">Top Stories</span>
+                </nav>
+
+                <HeroBanner />
+                <DarkStoriesBar />
+
+                <TopStoriesSection />
+                <StoriesHeader
+                    iconType="purple"
+                    title="Stores That Match Your Interests"
+                    subtitle="Recommended for you"
+                />
+                <RecommendedStoriesSection />
+            </div>
+        </main>
+    );
+}
