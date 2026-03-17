@@ -51,7 +51,11 @@ const carouselProducts: ProductCardProps[] = [
   },
 ];
 
-export default function TopProductsCarousel() {
+type TopProductsCarouselProps = {
+  onProductClick?: (product: ProductCardProps) => void;
+};
+
+export default function TopProductsCarousel({ onProductClick }: TopProductsCarouselProps) {
   return (
     <section
       className="py-4 md:px-4 px-6  mb-2 sm:mb-2"
@@ -74,7 +78,10 @@ export default function TopProductsCarousel() {
               key={product.id}
               className="min-w-[200px] sm:min-w-[210px] lg:min-w-[220px] snap-start shrink-0"
             >
-              <ProductCard {...product} />
+              <ProductCard
+                {...product}
+                onQuickView={onProductClick ? () => onProductClick(product) : undefined}
+              />
             </div>
           ))}
         </div>

@@ -13,6 +13,7 @@ import {
   X,
 } from 'lucide-react';
 import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter, FaPinterestP } from 'react-icons/fa';
+import { useCart } from '@/context/CartContext';
 
 const MAIN_BLUE = '#1E3A8A';
 const BORDER_GRAY = '#e5e7eb';
@@ -24,6 +25,8 @@ const YELLOW_BTN = '#FACC15';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className=" bg-[#f5f5f5] overflow-x-hidden">
@@ -33,11 +36,12 @@ export default function Header() {
         <MobileHeader
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
+          cartCount={cartCount}
         />
       </div>
 
       <div className="hidden lg:block">
-        <DesktopHeader />
+        <DesktopHeader cartCount={cartCount} />
       </div>
 
       {isMobileMenuOpen && (
@@ -143,9 +147,11 @@ function TopStrip() {
 function MobileHeader({
   isMobileMenuOpen,
   setIsMobileMenuOpen,
+  cartCount,
 }: {
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (v: boolean) => void;
+  cartCount: number;
 }) {
   return (
     <div className="bg-white border-b border-[#e5e7eb]">
@@ -231,30 +237,18 @@ function MobileHeader({
           <Link
             href="/cart"
             className="relative flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-[#131313] hover:opacity-80 transition"
-            aria-label="Cart"
+            aria-label={`Cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}
           >
             <div className="relative">
               <ShoppingBag className="w-[20px] h-[20px]" />
-              <span
-                className="
-          absolute
-          -top-[6px]
-          -right-[8px]
-          min-w-[16px]
-          h-[16px]
-          rounded-full
-          bg-[YELLOW_BTN]
-          text-[#131313]
-          text-[10px]
-          font-bold
-          flex
-          items-center
-          justify-center
-          px-[4px]
-        "
-              >
-                1
-              </span>
+              {cartCount > 0 && (
+                <span
+                  className="absolute -top-[6px] -right-[8px] min-w-[16px] h-[16px] rounded-full flex items-center justify-center px-[4px] text-[10px] font-bold"
+                  style={{ backgroundColor: YELLOW_BTN, color: '#131313' }}
+                >
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
             </div>
             <span className="hidden lg:block text-[12px] font-medium leading-none mt-[6px]">
               Cart
@@ -297,7 +291,7 @@ function MobileHeader({
 
 /* ───────────────────────── DESKTOP HEADER ───────────────────────── */
 
-function DesktopHeader() {
+function DesktopHeader({ cartCount }: { cartCount: number }) {
   return (
     <>
       <header className="bg-white border-b border-[#e5e7eb]">
@@ -381,30 +375,18 @@ function DesktopHeader() {
             <Link
               href="/cart"
               className="relative flex flex-col items-center gap-[6px] text-[#131313] hover:opacity-80 transition"
-              aria-label="Cart"
+              aria-label={`Cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}
             >
               <div className="relative">
                 <ShoppingBag className="w-[20px] h-[20px]" />
-                <span
-                  className="
-          absolute
-          -top-[4px]
-          -right-[6px]
-          min-w-[16px]
-          h-[16px]
-          rounded-full
-          bg-[YELLOW_BTN]
-          text-[#131313]
-          text-[10px]
-          font-bold
-          flex
-          items-center
-          justify-center
-          px-[4px]
-        "
-                >
-                  1
-                </span>
+                {cartCount > 0 && (
+                  <span
+                    className="absolute -top-[4px] -right-[6px] min-w-[16px] h-[16px] rounded-full flex items-center justify-center px-[4px] text-[10px] font-bold"
+                    style={{ backgroundColor: YELLOW_BTN, color: '#131313' }}
+                  >
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                )}
               </div>
               <span className="text-[12px] font-medium leading-none">Cart</span>
             </Link>

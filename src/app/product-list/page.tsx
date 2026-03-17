@@ -11,7 +11,9 @@ import ProductListSortBar, {
 import FilterSidebar, { initialFilters, type FilterState } from './components/FilterSidebar';
 import ProductGrid from './components/ProductGrid';
 import ProductListPagination from './components/ProductListPagination';
+import QuickViewModal from './components/QuickViewModal';
 import { ALL_PRODUCTS, PAGE_SIZE } from './data/products';
+import { getProductDetail } from './data/productDetails';
 import type { ProductCardProps } from './components/ProductCard';
 
 function filterAndSortProducts(
@@ -51,6 +53,7 @@ export default function ProductListPage() {
   const [popularSort, setPopularSort] = useState<PopularSortOption>('low-to-high');
   const [currentPage, setCurrentPage] = useState(1);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<ProductCardProps | null>(null);
 
   const filteredProducts = useMemo(
     () => filterAndSortProducts(ALL_PRODUCTS, filters, sortBy, popularSort),
@@ -73,7 +76,7 @@ export default function ProductListPage() {
     <main className="min-h-screen bg-[#f5f5f5]">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
         <ProductListBanner />
-        <TopProductsCarousel />
+        <TopProductsCarousel onProductClick={setQuickViewProduct} />
 
         {/* Sort bar above filter + product list (Figma: full-width top strip) */}
         <ProductListSortBar
@@ -108,7 +111,10 @@ export default function ProductListPage() {
               </button>
             </div>
 
-            <ProductGrid products={paginatedProducts} />
+            <ProductGrid
+              products={paginatedProducts}
+              onProductClick={setQuickViewProduct}
+            />
             <ProductListPagination
               currentPage={currentPage}
               totalPages={totalPages}
@@ -117,6 +123,14 @@ export default function ProductListPage() {
           </div>
         </div>
       </div>
+
+      {quickViewProduct && (
+        <QuickViewModal
+          product={getProductDetail(quickViewProduct)}
+          onClose={() => setQuickViewProduct(null)}
+          onGoToProduct={() => setQuickViewProduct(null)}
+        />
+      )}
     </main>
   );
 }

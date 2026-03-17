@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -18,70 +19,148 @@ const slides = [
     brand: 'Sarah Styl',
     cta: 'WATCH NOW',
   },
+  {
+    image: '/images/logo.png',
+    liveCount: '3.1k',
+    title: 'Tech Gadgets Showcase',
+    brand: 'TechFlow',
+    cta: 'WATCH NOW',
+  },
 ];
 
+/**
+ * DESIGN CONSTANTS (match Figma)
+ */
+const SLIDE_WIDTH = 70; // % → center slide visible, ~30% peek
+const GAP = 10; // px
+const DESKTOP_HEIGHT = 388; // px
+
 export default function HeroCarousel() {
+  const [current, setCurrent] = useState(0);
+
+  const goPrev = useCallback(() => {
+    setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  }, []);
+
+  const goNext = useCallback(() => {
+    setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  }, []);
+
   return (
-    <section className="mt-4 sm:mt-6" aria-label="Hero carousel">
-      <div className="relative rounded-2xl overflow-hidden bg-[var(--color-black)]">
-        <div className="relative h-[220px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[560px] 2xl:h-[600px]">
-          <Image
-            src={slides[0].image}
-            alt={slides[0].title}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1440px"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-
-          <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12">
-            <span className="inline-flex items-center gap-2 text-design-14 bg-[var(--color-error)] text-white px-3 py-1.5 rounded-full w-max mb-3 sm:mb-4">
-              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              LIVE <span className="opacity-90">{slides[0].liveCount} Watching</span>
-            </span>
-
-            <h1 className="text-white text-design-24 sm:text-design-28 lg:text-design-32 font-semibold leading-[1.1] max-w-xl">
-              {slides[0].title}
-            </h1>
-
-            <div className="mt-4 sm:mt-5 flex items-center gap-3">
-              <span className="text-white text-design-14 sm:text-design-16">
-                {slides[0].brand}
-              </span>
-              <button
-                type="button"
-                className="bg-[var(--color-error)] text-white text-design-14 font-medium px-4 py-2.5 rounded-lg hover:opacity-95 transition"
+    <section
+      aria-label="Hero carousel"
+      className="mt-4 sm:mt-6 px-4 sm:px-6 lg:px-8"
+    >
+      {/* Fixed desktop width wrapper */}
+      <div className="relative max-w-[1440px] mx-auto">
+        {/* Carousel viewport */}
+        <div
+          className="relative overflow-hidden rounded-2xl bg-black"
+          style={{
+            height: `clamp(220px, 38vw, ${DESKTOP_HEIGHT}px)`,
+          }}
+        >
+          {/* Track */}
+          <div
+            className="flex h-full transition-transform duration-500 ease-out"
+            style={{
+              gap: `${GAP}px`,
+              transform: `translateX(calc(50% - ${SLIDE_WIDTH / 2}% - ${
+                current * (SLIDE_WIDTH + GAP / 14.4)
+              }%))`,
+            }}
+          >
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className="relative h-full shrink-0 rounded-2xl overflow-hidden"
+                style={{
+                  width: `clamp(85%, ${SLIDE_WIDTH}%, ${SLIDE_WIDTH}%)`,
+                }}
+                aria-hidden={index !== current}
               >
-                {slides[0].cta}
-              </button>
-            </div>
+                {/* Image */}
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  priority={index === current}
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 80vw, 1000px"
+                  className="object-cover"
+                />
+
+                {/* Gradient overlay (from Figma) */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 60%)',
+                  }}
+                  aria-hidden
+                />
+
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 lg:p-10">
+                  {/* LIVE badge */}
+                  <span className="inline-flex items-center gap-2 bg-red-600 text-white text-xs sm:text-sm px-3 py-1.5 rounded-full w-max">
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                    LIVE
+                    <span className="opacity-80">
+                      {slide.liveCount} Watching
+                    </span>
+                  </span>
+
+                  {/* Title */}
+                  <h1 className="text-white font-semibold leading-tight text-[20px] sm:text-[26px] lg:text-[32px] max-w-xl">
+                    {slide.title}
+                  </h1>
+
+                  {/* Footer */}
+                  <div className="flex items-center gap-4">
+                    <span className="text-white text-xs sm:text-sm">
+                      {slide.brand}
+                    </span>
+                    <button
+                      type="button"
+                      className="bg-red-600 text-white text-xs sm:text-sm font-medium px-4 py-2.5 rounded-lg hover:opacity-95 transition"
+                    >
+                      {slide.cta}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
+          {/* Navigation */}
           <button
-            type="button"
-            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition"
+            onClick={goPrev}
             aria-label="Previous slide"
+            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
+
           <button
-            type="button"
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition"
+            onClick={goNext}
             aria-label="Next slide"
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
-          {[0, 1, 2].map((i) => (
-            <span
+        {/* Pagination dots */}
+        <div className="flex justify-center gap-1.5 mt-4">
+          {slides.map((_, i) => (
+            <button
               key={i}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              aria-current={i === current}
               className={`w-2 h-2 rounded-full transition ${
-                i === 0 ? 'bg-white' : 'bg-white/50'
+                i === current ? 'bg-black' : 'bg-black/40 hover:bg-black/60'
               }`}
-              aria-hidden
             />
           ))}
         </div>

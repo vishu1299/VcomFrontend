@@ -1,162 +1,365 @@
 'use client';
 
-import Image from 'next/image';
-import { ChevronDown, ShoppingCart, Heart } from 'lucide-react';
-import SectionHeader from './SectionHeader';
 import { useState } from 'react';
+import Image from 'next/image';
+import {
+  ChevronDown,
+  ShoppingCart,
+  Eye,
+  Play,
+  LayoutGrid,
+  Shirt,
+  Sparkles,
+  Home,
+  Gem,
+  Smartphone,
+  Baby,
+  Hand,
+} from 'lucide-react';
+
+/** Figma: section #F8F8FA, title #1F1D2B 20-24px, icon #8B5CF6, sidebar #1F1D2B, cards white 12px radius */
+const FIGMA = {
+  sectionBg: '#F8F8FA',
+  titleColor: '#1F1D2B',
+  titleSize: 'clamp(20px, 2.5vw, 24px)',
+  iconColor: '#8B5CF6',
+  mutedColor: '#767676',
+  mutedSize: 14,
+  borderColor: '#E5E7EB',
+  cardRadius: 12,
+  cardBg: '#FFFFFF',
+  imageBg: '#F7F7F7',
+  sidebarBg: '#1F1D2B',
+  sidebarRadius: 8,
+  headerPaddingTop: 30,
+  headerPaddingX: 15,
+  headerGap: 8,
+  categoryWidth: 264,
+  saleBadge: '#FBBF24',
+  newBadge: '#1E3A8A',
+  watchingBadge: 'rgba(0,0,0,0.5)',
+} as const;
+
+const CATEGORY_ICONS = {
+  all: Shirt,
+  beauty: Sparkles,
+  home: Home,
+  jewelry: Gem,
+  electronics: Smartphone,
+  toys: Baby,
+  handmade: Hand,
+} as const;
 
 const categories = [
-  { id: 'all', label: 'Fashion & Apparel', icon: '👗' },
-  { id: 'beauty', label: 'Beauty & Personal Care', icon: '🧴' },
-  { id: 'home', label: 'Home & Living', icon: '🏠' },
-  { id: 'jewelry', label: 'Jewelry & Watches', icon: '💍' },
-  { id: 'electronics', label: 'Electronic & Gadgets', icon: '📱' },
-  { id: 'toys', label: 'Toys & Kids', icon: '🧸' },
-  { id: 'handmade', label: 'Handmade & Artisanal', icon: '✋' },
+  { id: 'all', label: 'Fashion & Apparel' },
+  { id: 'beauty', label: 'Beauty & Personal Care' },
+  { id: 'home', label: 'Home & Living' },
+  { id: 'jewelry', label: 'Jewelry & Watches' },
+  { id: 'electronics', label: 'Electronic & Gadgets' },
+  { id: 'toys', label: 'Toys & Kids' },
+  { id: 'handmade', label: 'Handmade & Artisanal' },
 ];
 
 const products = [
   {
     name: 'Aloe Vera Face Serum',
     price: 229,
-    rating: 4.8,
-    reviews: '1.2K',
+    rating: 4.9,
+    reviews: '349',
+    watching: '2.8K',
     image: '/images/signin.png',
     badges: ['SALE', 'NEW'],
+    tags: ['DRY SKIN', '30ML', 'NATURAL'],
   },
   {
     name: 'Vitamin C Serum',
     price: 189,
     rating: 4.9,
     reviews: '2.1K',
+    watching: '1.5K',
     image: '/images/create.png',
     badges: ['NEW'],
+    tags: ['OILY SKIN', '50ML', 'ORGANIC'],
   },
   {
     name: 'Hydrating Face Cream',
     price: 149,
     rating: 4.7,
     reviews: '980',
+    watching: '890',
     image: '/images/logo.png',
     badges: ['SALE'],
+    tags: ['ALL SKIN', '60ML', 'HYPOALLERGENIC'],
   },
   {
     name: 'Organic Face Oil',
     price: 199,
     rating: 4.8,
     reviews: '1.5K',
+    watching: '1.2K',
     image: '/images/forgot.png',
     badges: ['NEW', 'SALE'],
+    tags: ['DRY SKIN', '30ML', 'NATURAL'],
   },
 ];
+
+function GridIcon() {
+  return (
+    <LayoutGrid
+      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
+      style={{ color: FIGMA.iconColor }}
+      strokeWidth={2}
+      aria-hidden
+    />
+  );
+}
+
+function ProductCard({
+  product,
+  className = '',
+}: {
+  product: (typeof products)[0];
+  className?: string;
+}) {
+  return (
+    <article
+      className={`bg-white overflow-hidden flex flex-col rounded-[10px] sm:rounded-[12px] border shadow-sm hover:shadow transition min-w-0 ${className}`}
+      style={{
+        borderColor: FIGMA.borderColor,
+        backgroundColor: FIGMA.cardBg,
+      }}
+    >
+      <div
+        className="relative aspect-square"
+        style={{ backgroundColor: FIGMA.imageBg }}
+      >
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+        />
+        {/* Badges top-left: SALE (amber), NEW (blue) */}
+        <div className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2 flex gap-1">
+          {product.badges.includes('SALE') && (
+            <span
+              className="px-1.5 sm:px-2 py-0.5 rounded-[4px] font-medium text-[10px] sm:text-[12px]"
+              style={{
+                backgroundColor: FIGMA.saleBadge,
+                color: FIGMA.titleColor,
+                fontFamily: 'var(--font-poppins)',
+              }}
+            >
+              SALE
+            </span>
+          )}
+          {product.badges.includes('NEW') && (
+            <span
+              className="px-1.5 sm:px-2 py-0.5 rounded-[4px] font-medium text-[10px] sm:text-[12px] text-white"
+              style={{
+                backgroundColor: FIGMA.newBadge,
+                fontFamily: 'var(--font-poppins)',
+              }}
+            >
+              NEW
+            </span>
+          )}
+        </div>
+        {/* Watching badge top-right: Eye + count */}
+        <div
+          className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-white text-[9px] sm:text-[11px] font-medium"
+          style={{
+            backgroundColor: FIGMA.watchingBadge,
+            fontFamily: 'var(--font-poppins)',
+          }}
+        >
+          <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" strokeWidth={2} />
+          {product.watching} Watching
+        </div>
+        {/* Play button center */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <button
+            type="button"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition border touch-manipulation"
+            style={{ borderColor: FIGMA.borderColor }}
+            aria-label="Play"
+          >
+            <Play
+              className="w-4 h-4 sm:w-5 sm:h-5 ml-0.5 text-amber-500 fill-amber-500"
+              strokeWidth={2}
+            />
+          </button>
+        </div>
+      </div>
+      <div className="p-3 sm:p-4 flex flex-col flex-1 min-w-0">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-1.5 sm:mb-2">
+          {product.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-1.5 sm:px-2 py-0.5 rounded-[4px] text-[9px] sm:text-[11px] font-normal"
+              style={{
+                color: FIGMA.mutedColor,
+                backgroundColor: FIGMA.sectionBg,
+                fontFamily: 'var(--font-poppins)',
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <p
+          className="font-medium line-clamp-2 mb-0.5 sm:mb-1 text-[12px] sm:text-[14px]"
+          style={{
+            color: FIGMA.titleColor,
+            fontFamily: 'var(--font-poppins)',
+          }}
+        >
+          {product.name}
+        </p>
+        <p
+          className="mb-1 sm:mb-2 text-[10px] sm:text-[12px]"
+          style={{
+            color: FIGMA.mutedColor,
+            fontFamily: 'var(--font-poppins)',
+          }}
+        >
+          ⭐ {product.rating} ({product.reviews} Reviews)
+        </p>
+        <p
+          className="font-semibold mb-2 sm:mb-3 text-[14px] sm:text-[16px]"
+          style={{
+            color: FIGMA.titleColor,
+            fontFamily: 'var(--font-poppins)',
+          }}
+        >
+          ${product.price}
+        </p>
+        <button
+          type="button"
+          className="mt-auto min-h-[44px] sm:min-h-[40px] py-2 flex items-center justify-center gap-2 w-full rounded-[6px] font-medium border transition hover:bg-[#f9fafb] active:bg-[#f3f4f6] touch-manipulation text-[12px] sm:text-[14px]"
+          style={{
+            color: FIGMA.titleColor,
+            borderColor: FIGMA.borderColor,
+            fontFamily: 'var(--font-poppins)',
+          }}
+        >
+          <ShoppingCart className="w-4 h-4 shrink-0" />
+          ADD TO CART
+        </button>
+      </div>
+    </article>
+  );
+}
 
 export default function TopProductsSection() {
   const [selectedCategory, setSelectedCategory] = useState('beauty');
   const [sortBy, setSortBy] = useState('Most Browsed');
 
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12 bg-white py-6 sm:py-8" aria-label="Top products">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <h2 className="text-design-18 sm:text-design-20 font-semibold text-[var(--color-black-01)] flex items-center gap-2">
-          <span className="text-[var(--color-main-blue)]">📄</span>
+    <section
+      className="mt-6 sm:mt-8 lg:mt-10 xl:mt-12 py-4 sm:py-6 lg:py-8 px-3 sm:px-4 md:px-6 lg:px-8"
+      style={{
+        backgroundColor: FIGMA.sectionBg,
+        fontFamily: 'var(--font-poppins)',
+      }}
+      aria-label="Top products"
+    >
+      {/* Header: Title + Sort */}
+      <div
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 pt-4 sm:pt-6 lg:pt-8"
+      >
+        <h2
+          className="font-semibold flex items-center gap-2 text-[18px] sm:text-[20px] lg:text-[24px]"
+          style={{
+            lineHeight: '100%',
+            color: FIGMA.titleColor,
+          }}
+        >
+          <GridIcon />
           Top Products
         </h2>
-        <div className="flex items-center gap-2">
-          <label htmlFor="sort-top-products" className="text-design-14 sm:text-design-16 text-[var(--color-muted-alt-2)] shrink-0">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <label
+            htmlFor="sort-top-products"
+            className="font-normal shrink-0 text-[13px] sm:text-[14px]"
+            style={{ color: FIGMA.mutedColor }}
+          >
             Sort by
           </label>
-          <div className="relative">
+          <div className="relative flex-1 sm:flex-initial min-w-0 sm:min-w-[140px] lg:min-w-[180px]">
             <select
               id="sort-top-products"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="input-design min-h-[40px] py-2 px-4 pr-10 text-design-14 w-full sm:w-[180px] appearance-none cursor-pointer"
+              className="w-full min-h-[44px] sm:h-10 pl-3 sm:pl-4 pr-10 appearance-none cursor-pointer bg-white border rounded-[6px] font-normal focus:outline-none focus:ring-1 focus:ring-[#1E3A8A] text-[13px] sm:text-[14px]"
+              style={{
+                fontSize: FIGMA.mutedSize,
+                color: FIGMA.titleColor,
+                borderColor: FIGMA.borderColor,
+                fontFamily: 'var(--font-poppins)',
+              }}
             >
               <option>Most Browsed</option>
               <option>Newest</option>
               <option>Price: Low to High</option>
               <option>Price: High to Low</option>
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted-alt)] pointer-events-none" />
+            <ChevronDown
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none shrink-0"
+              style={{ color: FIGMA.mutedColor }}
+            />
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-        <aside className="lg:w-56 xl:w-64 shrink-0">
+      {/* Main: Category sidebar + Product grid */}
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
+        {/* Category sidebar — dark #1F1D2B, vertical on desktop */}
+        <aside
+          className=" w-[200px] lg:w-[264px] shrink-0 rounded-[8px] p-2"
+          style={{ backgroundColor: FIGMA.sidebarBg }}
+        >
           <nav
             className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-hide"
             aria-label="Categories"
           >
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-3 rounded-lg text-design-14 sm:text-design-16 whitespace-nowrap shrink-0 lg:shrink-none transition ${
-                  selectedCategory === cat.id
-                    ? 'bg-amber-400 text-[var(--color-black)] font-medium'
-                    : 'bg-[var(--color-black-01)] text-white hover:bg-[var(--color-black-01)]/90'
-                }`}
-              >
-                <span>{cat.icon}</span>
-                {cat.label}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const Icon = CATEGORY_ICONS[cat.id as keyof typeof CATEGORY_ICONS];
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`flex items-center gap-2 px-4 py-3 rounded-[8px] whitespace-nowrap shrink-0 lg:shrink-none transition font-normal ${
+                    selectedCategory === cat.id
+                      ? 'bg-amber-400 text-[#1F1D2B] font-medium'
+                      : 'text-white hover:opacity-90'
+                  }`}
+                  style={{
+                    fontSize: FIGMA.mutedSize,
+                    fontFamily: 'var(--font-poppins)',
+                  }}
+                >
+                  {Icon && (
+                    <Icon
+                      className="w-4 h-4 shrink-0"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  )}
+                  {cat.label}
+                </button>
+              );
+            })}
           </nav>
         </aside>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 flex-1 min-w-0">
+        {/* Product grid — 2 cols mobile, 3 tablet, 4 desktop */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 flex-1 min-w-0">
           {products.map((product, i) => (
-            <article
-              key={i}
-              className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden shadow-sm hover:shadow transition flex flex-col"
-            >
-              <div className="relative aspect-square bg-[var(--color-border)]">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                />
-                <div className="absolute top-2 left-2 right-2 flex justify-between items-start">
-                  <span className="bg-amber-400 text-[var(--color-black)] text-design-12 font-medium px-2 py-0.5 rounded">
-                    {product.badges[0]}
-                  </span>
-                  <button
-                    type="button"
-                    className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white"
-                    aria-label="Add to wishlist"
-                  >
-                    <Heart className="w-4 h-4 text-[var(--color-black)]" />
-                  </button>
-                </div>
-                {product.badges.includes('NEW') && (
-                  <span className="absolute top-2 right-2 bg-[var(--color-main-blue)] text-white text-design-12 font-medium px-2 py-0.5 rounded">
-                    NEW
-                  </span>
-                )}
-              </div>
-              <div className="p-3 sm:p-4 flex flex-col flex-1">
-                <p className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)] line-clamp-2 mb-1">
-                  {product.name}
-                </p>
-                <p className="text-design-12 sm:text-design-14 text-[var(--color-muted-alt-2)] mb-2">
-                  ⭐ {product.rating} ({product.reviews} Reviews)
-                </p>
-                <p className="text-design-16 sm:text-design-18 font-semibold text-[var(--color-black)] mb-3">
-                  ${product.price}
-                </p>
-                <button
-                  type="button"
-                  className="mt-auto btn-secondary min-h-[40px] py-2 text-design-14 flex items-center justify-center gap-2 w-full"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  Add to Cart
-                </button>
-              </div>
-            </article>
+            <ProductCard key={i} product={product} />
           ))}
         </div>
       </div>

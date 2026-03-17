@@ -1,105 +1,171 @@
 'use client';
 
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Heart, Play, ShoppingCart } from 'lucide-react';
-import SectionHeader from './SectionHeader';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  Play,
+  ShoppingCart,
+} from 'lucide-react';
 
 const products = [
   { name: 'NovaPulse Smartwatch', price: 229, image: '/images/signin.png' },
-  { name: 'Velbob Classic Bomber Jacket', price: 115, image: '/images/create.png' },
-  { name: 'Sonicidge Pro Headphones', price: 150, image: '/images/logo.png' },
+  { name: 'Velloré Classic Bomber Jacket', price: 115, image: '/images/create.png' },
+  { name: 'SonicEdge Pro Headphones', price: 150, image: '/images/logo.png' },
   { name: 'DriftStep Sneakers', price: 84, image: '/images/forgot.png' },
   { name: 'Zenith Polarized Sunglasses', price: 64, image: '/images/otp.png' },
   { name: 'Elara Gold Perfume', price: 60, image: '/images/success.png' },
-  { name: 'Astria Mini Tote Bag', price: 108, image: '/images/signin.png' },
-  { name: 'Eclipse Chrono Watch', price: 390, image: '/images/create.png' },
+  { name: 'Astrid Mini Tote Bag', price: 108, image: '/images/signin.png' },
+  { name: 'Eclipse Chrono Watch', price: 360, image: '/images/create.png' },
 ];
 
 export default function ExclusiveSection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12" aria-label="Exclusive on TibiMall">
-      <SectionHeader
-        title="Exclusive on TibiMall"
-        viewAllHref="#"
-        viewAllLabel="View All"
-        icon={<span className="text-amber-400">⚡</span>}
-      />
+    <section className="w-full bg-[#F6F9FC] py-10 md:py-12">
+      {/* HEADER */}
+      <div
+        className="
+          max-w-[1920px] mx-auto
+          
+          flex items-center justify-between mb-6
+        "
+      >
+        <h2 className="flex items-center gap-2 text-[16px] sm:text-[18px] font-semibold text-[#131313]">
+          <span className="text-[#F5B700]">⚡</span>
+          Exclusive on TibilMall
+        </h2>
 
-      <div className="relative">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {products.map((product, i) => (
-            <article
-              key={i}
-              className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden shadow-sm hover:shadow transition flex flex-col"
-            >
-              <div className="relative aspect-square bg-[var(--color-border)]">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
-                <span className="absolute top-2 left-2 bg-violet-600 text-white text-design-12 font-medium px-2 py-0.5 rounded">
-                  Exclusive
-                </span>
-                <button
-                  type="button"
-                  className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white"
-                  aria-label="Wishlist"
+        <a
+          href="#"
+          className="text-[13px] sm:text-[14px] text-[#6B7280] hover:underline"
+        >
+          View All →
+        </a>
+      </div>
+
+      {/* GRID */}
+      <div
+        className="
+          max-w-[1920px] mx-auto
+          
+          grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
+          gap-4 sm:gap-6
+        "
+      >
+        {products.map((product, i) => (
+          <article
+            key={i}
+            className="
+              bg-white rounded-[20px] p-4
+              shadow-[0_8px_24px_rgba(0,0,0,0.06)]
+            "
+          >
+            {/* IMAGE */}
+            <div className="relative w-full h-[220px] sm:h-[240px] md:h-[251.67px] rounded-[14px] bg-[#F5F5F5] overflow-hidden">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-contain"
+              />
+
+              {/* EXCLUSIVE TAG */}
+              <span
+                className="
+                  absolute top-3 left-3
+                  inline-flex items-center justify-center
+                  h-[30px] px-[10px]
+                  text-white text-[11px] font-medium
+                  rounded-[6px]
+                  shadow-[3px_4px_0px_0px_rgba(0,0,0,0.15)]
+                "
+                style={{
+                  background:
+                    'linear-gradient(90deg, #8E44AD 0%, #3A1C47 100%)',
+                }}
+              >
+                EXCLUSIVE
+              </span>
+
+              {/* WISHLIST */}
+              <button
+                type="button"
+                className="
+                  absolute top-3 right-3
+                  w-[34px] h-[34px] sm:w-[36px] sm:h-[36px]
+                  rounded-full bg-white
+                  shadow-[0_4px_12px_rgba(0,0,0,0.12)]
+                  flex items-center justify-center
+                "
+              >
+                <Heart className="w-4 h-4 text-[#131313]" />
+              </button>
+
+              {/* PLAY */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                <div
+                  className="
+                    w-[46px] h-[46px] sm:w-[52px] sm:h-[52px]
+                    rounded-full bg-white
+                    shadow-[0_8px_20px_rgba(0,0,0,0.2)]
+                    flex items-center justify-center
+                  "
                 >
-                  <Heart className="w-4 h-4 text-[var(--color-black)]" />
-                </button>
-                <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 hover:opacity-100 transition">
-                  <span className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center border border-[var(--color-border)]">
-                    <Play className="w-5 h-5 text-[var(--color-black)] ml-0.5" fill="currentColor" />
-                  </span>
+                  <Play
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-[#131313]"
+                    fill="currentColor"
+                  />
                 </div>
               </div>
-              <div className="p-3 sm:p-4 flex flex-col flex-1">
-                <p className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)] line-clamp-2 mb-2">
-                  {product.name}
-                </p>
-                <p className="text-design-16 sm:text-design-18 font-semibold text-[var(--color-black)] mb-3">
+            </div>
+
+            {/* CONTENT */}
+            <div className="pt-4">
+              <p className="text-[15px] sm:text-[16px] font-medium text-[#131313] mb-2 leading-[22px] sm:leading-[24px]">
+                {product.name}
+              </p>
+
+              <div className="flex items-center justify-between">
+                <span className="text-[15px] sm:text-[16px] font-semibold text-[#131313]">
                   ${product.price}
-                </p>
+                </span>
+
                 <button
                   type="button"
-                  className="mt-auto btn-cta-sm w-full flex items-center justify-center gap-2 text-design-14"
+                  className="
+                    flex items-center gap-2
+                    text-[11px] sm:text-[12px] font-medium
+                    text-[#131313]
+                    border border-[#E5E7EB]
+                    px-3 py-1.5
+                    rounded-[6px]
+                  "
                 >
                   <ShoppingCart className="w-4 h-4" />
-                  ADD TO CART
+                  ADD
                 </button>
               </div>
-            </article>
-          ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {/* PAGINATION */}
+      <div className="flex justify-center items-center gap-3 mt-8">
+        <button className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] flex items-center justify-center">
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        <div className="flex gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
+          <span className="w-2 h-2 rounded-full bg-[#D1D5DB]" />
+          <span className="w-2 h-2 rounded-full bg-[#D1D5DB]" />
         </div>
-        <div className="flex justify-center gap-2 mt-6">
-          <button
-            type="button"
-            className="w-10 h-10 rounded-full bg-[var(--color-border)] hover:bg-[var(--color-muted-alt-2)]/20 flex items-center justify-center transition"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
-          </button>
-          <span className="flex gap-1.5 items-center">
-            {[1, 2, 3].map((i) => (
-              <span
-                key={i}
-                className={`w-2 h-2 rounded-full ${
-                  i === 1 ? 'bg-[var(--color-main-blue)]' : 'bg-[var(--color-border)]'
-                }`}
-              />
-            ))}
-          </span>
-          <button
-            type="button"
-            className="w-10 h-10 rounded-full bg-[var(--color-border)] hover:bg-[var(--color-muted-alt-2)]/20 flex items-center justify-center transition"
-            aria-label="Next"
-          >
-            <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />
-          </button>
-        </div>
+
+        <button className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] flex items-center justify-center">
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
     </section>
   );

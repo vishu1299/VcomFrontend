@@ -5,8 +5,8 @@ import LiveNowBanner from './components/LiveNowBanner';
 import LiveNowFilters, { type TabType } from './components/LiveNowFilters';
 import LiveNowProductCard from './components/LiveNowProductCard';
 import Pagination from './components/Pagination';
-import { LIVE_PRODUCTS, PAGE_SIZE } from './data/products';
-import type { LiveNowProduct } from './data/products';
+import { LIVE_PRODUCTS, PAGE_SIZE } from './data/product-list';
+import type { LiveNowProduct } from './data/product-list';
 
 function sortProducts(
   products: LiveNowProduct[],

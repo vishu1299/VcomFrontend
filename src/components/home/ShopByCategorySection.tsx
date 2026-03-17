@@ -32,21 +32,29 @@ export default function ShopByCategorySection() {
           {categories.map((cat, i) => (
             <article
               key={i}
-              className="bg-white rounded-xl overflow-hidden border border-[var(--color-border)] shadow-sm hover:shadow transition group"
+              className="bg-[var(--color-category-card-bg)] rounded-[14px] overflow-hidden flex flex-col aspect-[4/5] transition group"
             >
-              <a href="#" className="block">
-                <div className="relative aspect-square bg-[var(--color-border)]">
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition"
-                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                  />
+              <a href="#" className="flex flex-col flex-1 min-h-0">
+                {/* Image section: ~70–75% of card, white bg, product centered with padding */}
+                <div className="relative flex-[3] min-h-0 flex items-center justify-center p-4 sm:p-5 md:p-6">
+                  <div className="relative w-full aspect-square max-w-[85%] bg-white rounded-lg overflow-hidden">
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      fill
+                      className="object-contain group-hover:scale-105 transition"
+                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                    />
+                  </div>
                 </div>
-                <p className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)] text-center py-3 px-2">
-                  {cat.name}
-                </p>
+                {/* Text label: white box, rounded corners, gap above, generous padding */}
+                <div className="flex-[1] flex flex-col justify-end px-3 sm:px-4 pb-3 sm:pb-4 pt-2">
+                  <div className="bg-white rounded-[12px] py-3 sm:py-4 px-4 flex items-center justify-center min-h-[48px] sm:min-h-[52px]">
+                    <span className="text-design-16 sm:text-design-18 font-semibold text-[var(--color-black)] text-center">
+                      {cat.name}
+                    </span>
+                  </div>
+                </div>
               </a>
             </article>
           ))}
