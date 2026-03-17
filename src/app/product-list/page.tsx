@@ -10,6 +10,7 @@ import ProductListSortBar, {
 } from './components/ProductListSortBar';
 import FilterSidebar, { initialFilters, type FilterState } from './components/FilterSidebar';
 import ProductGrid from './components/ProductGrid';
+import ProductListPagination from './components/ProductListPagination';
 import { ALL_PRODUCTS, PAGE_SIZE } from './data/products';
 import type { ProductCardProps } from './components/ProductCard';
 
@@ -57,6 +58,7 @@ export default function ProductListPage() {
   );
 
   const totalCount = filteredProducts.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * PAGE_SIZE;
     return filteredProducts.slice(start, start + PAGE_SIZE);
@@ -84,8 +86,8 @@ export default function ProductListPage() {
           onPopularSortChange={setPopularSort}
         />
 
-        {/* Two columns: filter (left) | product grid (right) */}
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 xl:gap-8">
+        {/* Two columns: filter (left) | product grid (right). items-start keeps sidebar at content height when grid is taller. */}
+        <div className="flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-6 xl:gap-8">
           <FilterSidebar
             filters={filters}
             onFiltersChange={setFilters}
@@ -107,6 +109,11 @@ export default function ProductListPage() {
             </div>
 
             <ProductGrid products={paginatedProducts} />
+            <ProductListPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
           </div>
         </div>
       </div>

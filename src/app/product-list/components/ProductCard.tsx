@@ -23,69 +23,85 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <article
-      className="w-full rounded-[10px] border border-[#E5E7EB] bg-white shadow-sm hover:shadow transition flex flex-col"
+      className="w-full rounded-[10px] border border-[#D2D2D2] bg-white shadow-sm hover:shadow transition flex flex-col overflow-visible"
       style={{ fontFamily: 'var(--font-poppins)' }}
     >
       {/* IMAGE */}
-      <div className="relative aspect-square bg-[#F3F4F6] rounded-t-[10px] overflow-hidden">
+      <div className="relative aspect-square bg-white rounded-t-[10px] overflow-hidden">
         <Image
           src={image}
           alt={name}
           fill
-          className="object-cover"
+          className="object-contain"
           sizes="280px"
         />
 
-        {/* BADGES */}
-        <div className="absolute top-2 left-2 flex gap-1">
-          {badges.includes('10% OFF') && (
-            <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313]">
-              10% OFF
-            </span>
-          )}
-          {badges.includes('SPONSORED') && (
-            <span className="bg-[#2563EB] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white">
-              SPONSORED
-            </span>
-          )}
+        {/* BADGES (left) + WISHLIST (right) — same row, aligned */}
+        <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2 z-10">
+          <div className="flex items-center gap-1 min-w-0">
+            {badges.includes('NEW') && (
+              <span className="bg-[#3581EA] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white shrink-0">
+                New
+              </span>
+            )}
+            {badges.includes('10% OFF') && (
+              <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313] shrink-0">
+                10% OFF
+              </span>
+            )}
+          </div>
+          <button className="w-[40px] h-[40px] shrink-0 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow" aria-label="Add to wishlist">
+            <Heart className="w-4 h-4 text-black" />
+          </button>
         </div>
-
-        {/* WISHLIST */}
-        <button className="absolute top-2 right-2 w-[40px] h-[40px] rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center">
-          <Heart className="w-4 h-4 text-[#131313]" />
-        </button>
 
         {/* VIDEO */}
         {hasVideo && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-            <div className="w-12 h-12 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-white border border-[#D2D2D2] flex items-center justify-center">
               <Play className="w-5 h-5 text-[#374151] ml-[2px]" fill="currentColor" />
             </div>
           </div>
         )}
       </div>
 
-      {/* CONTENT */}
-      <div className="px-3 mb-2 md:mb-0 pt-2 pb-3 flex flex-col gap-2">
+      {/* CONTENT — overflow-visible so SPONSORED badge isn't cut when moved up */}
+      <div className="px-3 mb-2 md:mb-0 pt-2 pb-3 flex flex-col gap-2 overflow-visible">
+        {/* Reserve fixed height for SPONSORED row so Add to cart aligns across all cards */}
+        <div className="min-h-[28px] flex items-end">
+          {badges.includes('SPONSORED') && (
+            <div className="flex justify-start -mt-4.5 relative z-10">
+              <span
+                className="inline-block px-2.5 py-1 rounded-[4px] text-[10px] font-semibold text-white uppercase tracking-wide"
+                style={{
+                  background: 'linear-gradient(180deg, #4b7be8 0%, #2563EB 35%, #1d4ed8 70%, #1e3a8a 100%)',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 4px rgba(0,0,0,0.2)',
+                }}
+              >
+                SPONSORED
+              </span>
+            </div>
+          )}
+        </div>
         {/* TITLE */}
         <p className="text-[14px] font-semibold text-[#131313] leading-snug line-clamp-2">
           {name}
         </p>
 
-        {/* PRICE + CTA */}
-        <div className="flex items-center flex-col md:flex-row justify-between h-[40px] gap-2">
-          <div className="flex items-center gap-2">
-            <span className="text-[18px] font-bold text-[#131313] leading-none">
+        {/* PRICE + CTA: mobile = 2 rows (price row, then button); desktop = 1 row (price left, button right) */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 min-h-0">
+          <div className="flex items-center gap-2 min-w-0 flex-shrink">
+            <span className="text-[16px] sm:text-[18px] font-bold text-[#131313] leading-none whitespace-nowrap">
               ${price.toFixed(2)}
             </span>
             {originalPrice && (
-              <span className="text-[12px] text-[#9CA3AF] line-through leading-none">
+              <span className="text-[12px] sm:text-[14px] text-[#9CA3AF] line-through leading-none whitespace-nowrap">
                 ${originalPrice}
               </span>
             )}
           </div>
 
-          <button className="h-[40px] p-1 w-[130px] md:w-[138px]  rounded-[10px] border border-[#D2D2D2] bg-white flex items-center justify-center gap-[5px] text-[8px] md:text-[10px] font-semibold text-[#131313] hover:bg-gray-50 transition">
+          <button className="h-[36px] sm:h-[40px] w-full md:w-auto px-2 sm:px-3 rounded-[10px] border border-[#D2D2D2] bg-white flex items-center justify-center gap-1 sm:gap-[5px] text-[12px] font-semibold text-[#131313] hover:bg-gray-50 transition">
             <ShoppingCart className="w-4 h-4" />
             ADD TO CART
           </button>

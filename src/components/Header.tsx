@@ -261,9 +261,9 @@ function MobileHeader({
             </span>
           </Link>
 
-          {/* Avatar (Desktop only) */}
-          <button
-            type="button"
+          {/* Profile Avatar -> Account page */}
+          <Link
+            href="/account"
             className="
       hidden
       lg:flex
@@ -277,15 +277,17 @@ function MobileHeader({
       items-center
       justify-center
       shrink-0
+      hover:opacity-90
+      transition
     "
-            aria-label="Profile"
+            aria-label="My Account"
           >
             <img
               src="/images/logo.png"
               alt="Profile"
               className="w-full h-full rounded-full object-cover"
             />
-          </button>
+          </Link>
         </div>
 
       </div>
@@ -407,9 +409,9 @@ function DesktopHeader() {
               <span className="text-[12px] font-medium leading-none">Cart</span>
             </Link>
 
-            {/* Profile Avatar */}
-            <button
-              type="button"
+            {/* Profile Avatar -> Account page */}
+            <Link
+              href="/account"
               className="
       w-[61px]
       h-[61px]
@@ -422,15 +424,17 @@ function DesktopHeader() {
       items-center
       justify-center
       shrink-0
+      hover:opacity-90
+      transition
     "
-              aria-label="Profile"
+              aria-label="My Account"
             >
               <img
                 src="/images/logo.png"
                 alt="Profile"
                 className="w-full h-full rounded-full object-cover"
               />
-            </button>
+            </Link>
           </div>
 
         </div>
@@ -469,7 +473,7 @@ function NavItems({ mobile }: { mobile?: boolean }) {
       <Link href="#" className={`${linkClass} ${!mobile ? 'border-b-2 border-[#131313] pb-0.5' : ''}`}>
         Explore
       </Link>
-      <Link href="#" className={linkClass}>Top Products</Link>
+      <Link href="/product-list" className={linkClass}>Top Products</Link>
       <Link href="#" className={linkClass}>Top Stores</Link>
       <Link href="#" className={linkClass}>Top Deals</Link>
       <Link href="#" className={linkClass}>Just Dropped</Link>

@@ -2,7 +2,7 @@
 
 import { Star, ChevronDown } from 'lucide-react';
 
-/** Figma: Frame radius 16px, padding 20px, gap 31px. Header 18px Medium #131313. Section titles 18px Medium. List 16px Regular #131313, count #767676. Content left, checkbox right. */
+/** Figma: Frame radius 16px, padding 20px, gap 31px. Header 18px Medium #131313. Section titles 18px Medium. List value 14px Regular #131313, count #767676. Content left, checkbox right. */
 const FIGMA = {
   radius: 16,
   padding: 20,
@@ -13,6 +13,7 @@ const FIGMA = {
   red: '#dc2626',
   blue: '#1e3a8a',
   checkboxSize: 16,
+  valueFontSize: 14,
 } as const;
 
 export type FilterState = {
@@ -138,7 +139,7 @@ export default function FilterSidebar({
       )}
       <aside
         className={`bg-white border shadow-sm overflow-y-auto shrink-0 ${isOpen ? 'block' : 'hidden lg:block'} ${
-          onClose ? 'fixed lg:relative inset-y-0 left-0 lg:inset-auto w-full max-w-[378px] lg:max-w-none lg:w-[338px] xl:w-[378px] z-50 lg:z-auto' : 'lg:w-[338px] xl:w-[378px]'
+          onClose ? 'fixed lg:relative inset-y-0 left-0 lg:inset-auto w-full max-w-[378px] lg:max-w-none lg:w-[338px] xl:w-[320px] z-50 lg:z-auto' : 'lg:w-[338px] xl:w-[378px]'
         }`}
         style={{
           borderRadius: FIGMA.radius,
@@ -198,8 +199,8 @@ export default function FilterSidebar({
                     htmlFor={`filter-cat-${c.id}`}
                     className="flex-1 min-w-0 cursor-pointer flex items-baseline gap-1 truncate"
                   >
-                    <span style={{ fontSize: 16, fontWeight: 400, color: FIGMA.black }}>{c.label}</span>
-                    <span style={{ fontSize: 16, fontWeight: 400, color: FIGMA.muted }}> ({c.count})</span>
+                    <span style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.black }}>{c.label}</span>
+                    <span style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.muted }}> ({c.count})</span>
                   </label>
                   <input
                     id={`filter-cat-${c.id}`}
@@ -217,7 +218,7 @@ export default function FilterSidebar({
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-2 flex items-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
+            <button type="button" className="mt-2 w-full flex items-center justify-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
               See more <ChevronDown className="w-4 h-4 shrink-0" />
             </button>
           </section>
@@ -237,7 +238,7 @@ export default function FilterSidebar({
                   <label
                     htmlFor={`filter-best-${b.id}`}
                     className="flex-1 min-w-0 cursor-pointer truncate"
-                    style={{ fontSize: 16, fontWeight: 400, color: FIGMA.black }}
+                    style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.black }}
                   >
                     {b.label}
                   </label>
@@ -257,7 +258,7 @@ export default function FilterSidebar({
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-2 flex items-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
+            <button type="button" className="mt-2 w-full flex items-center justify-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
               See more <ChevronDown className="w-4 h-4 shrink-0" />
             </button>
           </section>
@@ -278,8 +279,8 @@ export default function FilterSidebar({
                     htmlFor={`filter-brand-${b.id}`}
                     className="flex-1 min-w-0 cursor-pointer flex items-baseline gap-1 truncate"
                   >
-                    <span style={{ fontSize: 16, fontWeight: 400, color: FIGMA.black }}>{b.label}</span>
-                    <span style={{ fontSize: 16, fontWeight: 400, color: FIGMA.muted }}> ({b.count})</span>
+                    <span style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.black }}>{b.label}</span>
+                    <span style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.muted }}> ({b.count})</span>
                   </label>
                   <input
                     id={`filter-brand-${b.id}`}
@@ -297,7 +298,7 @@ export default function FilterSidebar({
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-2 flex items-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
+            <button type="button" className="mt-2 w-full flex items-center justify-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
               See more <ChevronDown className="w-4 h-4 shrink-0" />
             </button>
           </section>
@@ -312,12 +313,12 @@ export default function FilterSidebar({
               Customer Ratings
             </h4>
             <ul className="space-y-2">
-              {[5, 4, 3, 2, 1].map((stars) => (
+              {[1,2,3,4,5].map((stars) => (
                 <li key={stars} className="flex items-center justify-between gap-3">
                   <label
                     htmlFor={`filter-rating-${stars}`}
                     className="flex-1 min-w-0 cursor-pointer flex items-center gap-1"
-                    style={{ fontSize: 16, fontWeight: 400, color: FIGMA.black }}
+                    style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.black }}
                   >
                     {stars} Star
                     {Array.from({ length: stars }).map((_, i) => (
@@ -340,7 +341,7 @@ export default function FilterSidebar({
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-2 flex items-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
+            <button type="button" className="mt-2 w-full flex items-center justify-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
               See more <ChevronDown className="w-4 h-4 shrink-0" />
             </button>
           </section>
@@ -390,8 +391,8 @@ export default function FilterSidebar({
                       className="w-5 h-5 rounded-full shrink-0 border"
                       style={{ backgroundColor: c.hex, borderColor: c.hex === '#ffffff' ? FIGMA.border : 'transparent' }}
                     />
-                    <span style={{ fontSize: 16, fontWeight: 400, color: FIGMA.black }}>{c.label}</span>
-                    <span style={{ fontSize: 16, fontWeight: 400, color: FIGMA.muted }}> ({c.count})</span>
+                    <span style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.black }}>{c.label}</span>
+                    <span style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.muted }}> ({c.count})</span>
                   </label>
                   <input
                     id={`filter-color-${c.id}`}
@@ -409,7 +410,7 @@ export default function FilterSidebar({
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-2 flex items-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
+            <button type="button" className="mt-2 w-full flex items-center justify-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
               See more <ChevronDown className="w-4 h-4 shrink-0" />
             </button>
           </section>
@@ -429,7 +430,7 @@ export default function FilterSidebar({
                   <label
                     htmlFor={`filter-discount-${d.id}`}
                     className="flex-1 min-w-0 cursor-pointer truncate"
-                    style={{ fontSize: 16, fontWeight: 400, color: FIGMA.black }}
+                    style={{ fontSize: FIGMA.valueFontSize, fontWeight: 400, color: FIGMA.black }}
                   >
                     {d.label}
                   </label>
@@ -445,7 +446,7 @@ export default function FilterSidebar({
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-2 flex items-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
+            <button type="button" className="mt-2 w-full flex items-center justify-center gap-1 hover:underline font-normal" style={{ fontSize: 14, color: FIGMA.blue }}>
               See more <ChevronDown className="w-4 h-4 shrink-0" />
             </button>
           </section>

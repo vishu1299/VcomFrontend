@@ -9,7 +9,7 @@ const carouselProducts: ProductCardProps[] = [
     name: "Men's Half Sleeve Solid Casual Regular Fit",
     price: 29,
     originalPrice: 32,
-    image: '/images/signin.png',
+    image: '/images/product1.png',
     badges: ['10% OFF'],
     hasVideo: true,
   },
@@ -18,7 +18,7 @@ const carouselProducts: ProductCardProps[] = [
     name: "Men's Half Sleeve Solid Casual Regular Fit",
     price: 29,
     originalPrice: 32,
-    image: '/images/create.png',
+    image: '/images/product2.png',
     badges: ['10% OFF', 'NEW'],
     hasVideo: true,
   },
@@ -27,7 +27,7 @@ const carouselProducts: ProductCardProps[] = [
     name: "Men's Half Sleeve Solid Casual Regular Fit",
     price: 29,
     originalPrice: 32,
-    image: '/images/logo.png',
+    image: '/images/product3.png',
     badges: ['10% OFF'],
     hasVideo: true,
   },
@@ -36,7 +36,7 @@ const carouselProducts: ProductCardProps[] = [
     name: "Men's Half Sleeve Solid Casual Regular Fit",
     price: 29,
     originalPrice: 58,
-    image: '/images/forgot.png',
+    image: '/images/product1.png',
     badges: ['10% OFF'],
     hasVideo: false,
   },
@@ -45,7 +45,7 @@ const carouselProducts: ProductCardProps[] = [
     name: "Men's Half Sleeve Solid Casual Regular Fit",
     price: 29,
     originalPrice: 32,
-    image: '/images/otp.png',
+    image: '/images/product2.png',
     badges: ['10% OFF'],
     hasVideo: true,
   },
@@ -54,15 +54,15 @@ const carouselProducts: ProductCardProps[] = [
 export default function TopProductsCarousel() {
   return (
     <section
-      className="py-4 md:px-4 px-6  mb-6 sm:mb-8"
+      className="py-4 md:px-4 px-6  mb-2 sm:mb-2"
       style={{ background: '#FFF3CF' }}
       aria-label="Top products"
     >
-      <div className="mb-4 sm:mb-5">
-        <h2 className="text-design-18 sm:text-design-20 font-bold text-[var(--color-black)]">
+      <div className="mb-4 sm:mb-5 flex flex-wrap items-baseline gap-2 sm:gap-3">
+        <h2 className="text-design-24 sm:text-design-28 lg:text-design-32 font-bold text-black">
           Top Products
         </h2>
-        <p className="text-design-14 sm:text-design-16 text-[var(--color-muted-alt-2)] mt-0.5">
+        <p className="text-design-12 sm:text-design-14 text-[#767676]">
           Most selling across all categories - updated daily
         </p>
       </div>
@@ -72,7 +72,7 @@ export default function TopProductsCarousel() {
           {carouselProducts.map((product) => (
             <div
               key={product.id}
-              className="min-w-[240px] sm:min-w-[240px] lg:min-w-[250px] snap-start shrink-0"
+              className="min-w-[200px] sm:min-w-[210px] lg:min-w-[220px] snap-start shrink-0"
             >
               <ProductCard {...product} />
             </div>
@@ -80,14 +80,14 @@ export default function TopProductsCarousel() {
         </div>
         <button
           type="button"
-          className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition z-10"
+          className="hidden lg:flex absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition z-10"
           aria-label="Previous products"
         >
           <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
         </button>
         <button
           type="button"
-          className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition z-10"
+          className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition z-10"
           aria-label="Next products"
         >
           <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />
