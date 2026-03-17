@@ -469,6 +469,7 @@ function NavItems({ mobile }: { mobile?: boolean }) {
       </Link>
       <Link href="#" className={linkClass}>Upcoming Soon</Link>
       <Link href="#" className={linkClass}>Exclusively on TibiMall</Link>
+      <Link href="/mens" className={linkClass}>Men&apos;s</Link>
       <Link href="#" className={linkClass}>Featured</Link>
       <Link href="#" className={linkClass}>Trendy</Link>
       <Link href="#" className={linkClass}>Discover</Link>
