@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 
@@ -106,7 +107,8 @@ function StatusBadge({ status }: { status: OrderStatus }) {
 const btnRadius = 'rounded-[6px]';
 const btnHeight = 'min-h-[40px] h-[40px]';
 
-function OrderCardActions({ status }: { status: OrderStatus }) {
+function OrderCardActions({ order }: { order: OrderItem }) {
+  const { status } = order;
   if (status === 'IN TRANSIT') {
     return (
       <div className="flex flex-col gap-2 w-[280px] shrink-0">
@@ -117,18 +119,18 @@ function OrderCardActions({ status }: { status: OrderStatus }) {
           Track Order
         </button>
         <div className="flex gap-1 w-full">
-          <button
-            type="button"
+          <Link
+            href={`/return-item/${order.id}`}
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
           >
             View Order Details
-          </button>
-          <button
-            type="button"
+          </Link>
+          <Link
+            href={`/cancel-order/${order.id}`}
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-red-300 text-red-500 hover:bg-red-50 flex items-center justify-center`}
           >
             Cancel Order
-          </button>
+          </Link>
         </div>
       </div>
     );
@@ -136,19 +138,19 @@ function OrderCardActions({ status }: { status: OrderStatus }) {
   if (status === 'RETURNED') {
     return (
       <div className="flex flex-col gap-2 w-[280px] shrink-0">
-        <button
-          type="button"
+        <Link
+          href={`/return-details/${order.id}`}
           className={`w-full ${btnHeight} px-4 ${btnRadius} text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
         >
           Track Return
-        </button>
+        </Link>
         <div className="flex gap-1 w-full">
-          <button
-            type="button"
+          <Link
+            href={`/return-item/${order.id}`}
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
           >
             View Order Details
-          </button>
+          </Link>
           <button
             type="button"
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 inline-flex items-center justify-center gap-1`}
@@ -170,12 +172,12 @@ function OrderCardActions({ status }: { status: OrderStatus }) {
         Buy Again
       </button>
       <div className="flex gap-1 w-full">
-        <button
-          type="button"
+        <Link
+          href={`/return-item/${order.id}`}
           className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
         >
           View Order Details
-        </button>
+        </Link>
         <button
           type="button"
           className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 inline-flex items-center justify-center gap-1`}
@@ -321,7 +323,7 @@ export default function MyOrdersPage() {
               </div>
               {/* Right side: primary button (full width), then two buttons 50-50 */}
               <div className="flex flex-col justify-start items-end sm:items-stretch">
-                <OrderCardActions status={order.status} />
+                <OrderCardActions order={order} />
               </div>
             </div>
 
