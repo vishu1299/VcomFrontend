@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import { REMOTE_IMG } from "@/lib/remoteAssets";
+
 const STAR_COLOR_FILLED = "#F5B700";
 const STAR_COLOR_EMPTY = "#ADADAD";
 
@@ -20,10 +23,17 @@ export default function ReviewItemHeader({ overallRating, onOverallRatingChange 
   return (
     <div className="mb-8">
       <h1 className="text-xl sm:text-2xl font-bold text-[#131313]">Review Item</h1>
-      <p className="text-sm text-gray-600 mt-1">Share your experience with this product.</p>
-      <div className="flex flex-col  gap-2 mt-6">
-        <div className="w-30 h-25 rounded-lg overflow-hidden shrink-0">
-          <img src="/images/customerReviews/product.png" alt="iPhone 17 Pro" className="w-full h-full object-cover" />
+      <p className="text-sm text-[#131313] mt-1">Share your experience with this product.</p>
+      <div className="flex flex-col gap-2 mt-6">
+        <div className="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-gray-100">
+          <Image
+            src={REMOTE_IMG.productPhone}
+            alt="iPhone 17 Pro"
+            fill
+            className="object-cover"
+            sizes="96px"
+            unoptimized
+          />
         </div>
           <p className="text-sm font-medium text-[#131313] ml-5">iPhone 17 Pro</p>
 

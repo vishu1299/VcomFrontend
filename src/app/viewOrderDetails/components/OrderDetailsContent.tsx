@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+import { REMOTE_IMG } from "@/lib/remoteAssets";
 
 const ORDER_NUMBER = "#ORD-78461";
 const ORDER_SUMMARY = [
@@ -84,20 +86,23 @@ export default function OrderDetailsContent() {
             <div className="p-4 sm:p-6 flex flex-col gap-4">
             <div className="flex flex-col sm:flex-row gap-6 rounded-xl border border-gray-200  p-4 ">
                 <div className="flex gap-4 flex-1 min-w-0">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden  shrink-0 ">
-                    <img
-                      src="/images/customerReviews/product.png"
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden shrink-0 bg-gray-100">
+                    <Image
+                      src={REMOTE_IMG.productPhone}
                       alt="iPhone 17 Pro"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                      unoptimized
                     />
                   </div>
                   <div className="min-w-0">
                     <h3 className="text-sm font-bold text-[#131313] line-clamp-2">
                       iPhone 17 Pro 256 GB: 15.93 cm (6.3&quot;) Display
                     </h3>
-                    <p className="text-xs text-gray-600 mt-1">Seller: Urbantech</p>
-                    <p className="text-xs text-gray-600">Product Number: 43-4234324</p>
-                    <p className="text-xs text-gray-600 mt-0.5">
+                    <p className="text-xs text-[#131313] mt-1">Seller: Urbantech</p>
+                    <p className="text-xs text-[#131313]">Product Number: 43-4234324</p>
+                    <p className="text-xs text-[#131313] mt-0.5">
                       QTY: 1 Color: <span className=" font-medium">Orange</span>
                     </p>
                     <div className="flex items-baseline gap-2 mt-2">
@@ -127,7 +132,7 @@ export default function OrderDetailsContent() {
                   <dl className="space-y-3 text-sm">
                     {ORDER_SUMMARY.map(({ label, value, copyable }) => (
                       <div key={label} className="flex justify-between items-center gap-4">
-                        <dt className="text-gray-600 font-medium shrink-0">{label}</dt>
+                        <dt className="text-[#131313] font-medium shrink-0">{label}</dt>
                         <dd className="text-[#131313] text-right flex items-center justify-end gap-1.5 min-w-0">
                           {value}
                           {copyable && (
@@ -147,7 +152,7 @@ export default function OrderDetailsContent() {
                   <dl className="space-y-3 text-sm">
                     {RECIPIENT_INFO.map(({ label, value }) => (
                       <div key={label} className="flex justify-between items-center gap-4">
-                        <dt className="text-gray-600 font-medium shrink-0">{label}</dt>
+                        <dt className="text-[#131313] font-medium shrink-0">{label}</dt>
                         <dd className="text-[#131313] text-right min-w-0 break-words">{value}</dd>
                       </div>
                     ))}

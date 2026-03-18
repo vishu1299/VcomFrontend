@@ -1,3 +1,5 @@
+import { remoteGalleryImage } from "@/lib/remoteAssets";
+
 export type RelatedProduct = {
   id: string;
   name: string;
@@ -9,53 +11,13 @@ export type RelatedProduct = {
   sponsored?: boolean;
 };
 
-export const RELATED_PRODUCTS: RelatedProduct[] = [
-  {
-    id: "1",
-    name: "Apple iPhone X 256GB 3GB RAM",
-    price: 29,
-    originalPrice: 33,
-    image: "/images/customerReviews/seller1.png",
-    badges: ["SALE", "NEW"],
-    hasVideo: true,
-    sponsored: true,
-  },
-  {
-    id: "2",
-    name: "Apple iPhone X 256GB 3GB RAM",
-    price: 29,
-    originalPrice: 59,
-    image: "/images/customerReviews/seller2.png",
-    badges: ["SALE", "NEW"],
-    hasVideo: true,
-    sponsored: true,
-  },
-  {
-    id: "3",
-    name: "Apple iPhone X 256GB 3GB RAM",
-    price: 29,
-    originalPrice: 59,
-    image: "/images/customerReviews/seller3.png",
-    badges: ["SALE", "NEW"],
-    hasVideo: true,
-  },
-  {
-    id: "4",
-    name: "Apple iPhone X 256GB 3GB RAM",
-    price: 29,
-    originalPrice: 59,
-    image: "/images/customerReviews/seller4.png",
-    badges: ["SALE", "NEW"],
-    hasVideo: true,
-  },
-  {
-    id: "5",
-    name: "Apple iPhone X 256GB 3GB RAM",
-    price: 29,
-    originalPrice: 59,
-    image: "/images/customerReviews/seller2.png",
-    badges: ["SALE", "NEW"],
-    hasVideo: true,
-  },
-  
-];
+export const RELATED_PRODUCTS: RelatedProduct[] = [1, 2, 3, 4, 5].map((n, i) => ({
+  id: String(n),
+  name: "Apple iPhone X 256GB 3GB RAM",
+  price: 29,
+  originalPrice: i % 2 === 0 ? 33 : 59,
+  image: remoteGalleryImage(i + 20, 500),
+  badges: ["SALE", "NEW"] as ("SALE" | "NEW")[],
+  hasVideo: true,
+  sponsored: i < 2,
+}));

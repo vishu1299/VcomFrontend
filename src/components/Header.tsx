@@ -122,10 +122,10 @@ function TopStrip() {
           </div>
         </div>
         <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 shrink-0">
-          <Link href="#" className="text-[10px] sm:text-[11px] font-medium hover:underline whitespace-nowrap">
+          <Link href="/help" className="text-[10px] sm:text-[11px] font-medium hover:underline whitespace-nowrap">
             Contact Us
           </Link>
-          <Link href="#" className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium hover:underline whitespace-nowrap">
+          <Link href="/trackOrder" className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium hover:underline whitespace-nowrap">
             <Truck className="w-3.5 h-3.5 shrink-0" />
             Track Your Order
           </Link>
@@ -183,14 +183,14 @@ function MobileHeader({
           </button>
         </div>
 
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-2 min-h-[44px] rounded-lg text-white text-[14px] font-medium"
-          style={{ backgroundColor: MAIN_BLUE }}
-        >
-          All Categories
-          <ChevronDown className="w-4 h-4" />
-        </button>
+          <Link
+            href="/product-categories"
+            className="w-full flex items-center justify-center gap-2 min-h-[44px] rounded-lg text-white text-[14px] font-medium"
+            style={{ backgroundColor: MAIN_BLUE }}
+          >
+            All Categories
+            <ChevronDown className="w-4 h-4" />
+          </Link>
 
         <div className="flex min-h-[44px]">
           <input
@@ -211,7 +211,7 @@ function MobileHeader({
         <div className="flex items-center gap-[16px] lg:gap-[24px] h-[69px] shrink-0">
           {/* Chat */}
           <Link
-            href="#"
+            href="/chat"
             className="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-[#131313] hover:opacity-80 transition"
             aria-label="Chat"
           >
@@ -223,7 +223,7 @@ function MobileHeader({
 
           {/* Wishlist */}
           <Link
-            href="#"
+            href="/wishlist"
             className="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] text-[#131313] hover:opacity-80 transition"
             aria-label="Wishlist"
           >
@@ -318,14 +318,14 @@ function DesktopHeader({ cartCount }: { cartCount: number }) {
           {/* Attached: All Categories + Search input + Search button */}
           <div className="flex flex-1 min-w-0 lg:min-w-[280px] xl:min-w-[360px] border-b border-[#e5e7eb] lg:border-b-0 lg:border-r lg:border-[#e5e7eb] lg:px-4 xl:px-6 lg:py-1 pb-3 lg:pb-0">
             <div className="flex w-full rounded-lg overflow-hidden border border-[#d1d5db] focus-within:ring-1 focus-within:ring-[#1E3A8A] focus-within:border-[#1E3A8A]">
-              <button
-                type="button"
+              <Link
+                href="/product-categories"
                 className="flex items-center gap-1.5 lg:gap-2 h-10 px-3 lg:px-4 rounded-none text-white text-[12px] lg:text-[14px] font-medium shrink-0 border-r border-[#1E3A8A]/30"
                 style={{ backgroundColor: MAIN_BLUE }}
               >
                 All Categories
                 <ChevronDown className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0" />
-              </button>
+              </Link>
               <input
                 type="search"
                 className="flex-1 min-w-0 h-10 px-3 lg:px-4 rounded-none border-0 text-[12px] lg:text-[14px] text-[#131313] placeholder:text-[#767676] focus:outline-none focus:ring-0 bg-white"
@@ -353,7 +353,7 @@ function DesktopHeader({ cartCount }: { cartCount: number }) {
           >
             {/* Chat */}
             <Link
-              href="#"
+              href="/chat"
               className="flex flex-col items-center gap-[6px] text-[#131313] hover:opacity-80 transition"
               aria-label="Chat"
             >
@@ -363,7 +363,7 @@ function DesktopHeader({ cartCount }: { cartCount: number }) {
 
             {/* Wishlist */}
             <Link
-              href="#"
+              href="/wishlist"
               className="flex flex-col items-center gap-[6px] text-[#131313] hover:opacity-80 transition"
               aria-label="Wishlist"
             >
@@ -427,14 +427,14 @@ function DesktopHeader({ cartCount }: { cartCount: number }) {
           <NavItems />
         </div>
         <div className="max-w-[1920px] mx-auto px-6 lg:px-8 xl:px-12 2xl:px-[136px] py-1.5 flex border-b border-[BORDER_GRAY]  items-center justify-center gap-4 lg:gap-5 xl:gap-6">
-          <button
-            type="button"
+          <Link
+            href="/product-categories"
             className="flex items-center gap-2 h-9 px-4 rounded-sm text-white text-[14px] font-medium shrink-0"
             style={{ backgroundColor: MAIN_BLUE }}
           >
             Browse Categories
             <ChevronDown className="w-4 h-4" />
-          </button>
+          </Link>
           <CategoryItems />
         </div>
       </nav>
@@ -452,13 +452,13 @@ function NavItems({ mobile }: { mobile?: boolean }) {
 
   return (
     <div className={wrapperClass} style={{ fontFamily: 'var(--font-poppins)', lineHeight: '100%' }}>
-      <Link href="#" className={`${linkClass} ${!mobile ? 'border-b-2 border-[#131313] pb-0.5' : ''}`}>
+      <Link href="/" className={`${linkClass} ${!mobile ? 'border-b-2 border-[#131313] pb-0.5' : ''}`}>
         Explore
       </Link>
       <Link href="/product-list" className={linkClass}>Top Products</Link>
-      <Link href="#" className={linkClass}>Top Stores</Link>
-      <Link href="#" className={linkClass}>Top Deals</Link>
-      <Link href="#" className={linkClass}>Just Dropped</Link>
+      <Link href="/top-stores" className={linkClass}>Top Stores</Link>
+      <Link href="/top-deals" className={linkClass}>Top Deals</Link>
+      <Link href="/just-dropped" className={linkClass}>Just Dropped</Link>
       <Link
         href="/all-live-now"
         className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[14px] border border-red-500 font-normal ${mobile ? 'w-fit' : ''}`}
@@ -467,27 +467,26 @@ function NavItems({ mobile }: { mobile?: boolean }) {
         Live now
         <span className="w-1.5 h-1.5 rounded-full bg-[#dc2626]" aria-hidden />
       </Link>
-      <Link href="#" className={linkClass}>Upcoming Soon</Link>
-      <Link href="#" className={linkClass}>Exclusively on TibiMall</Link>
+      <Link href="/live-now" className={linkClass}>Upcoming Soon</Link>
+      <Link href="/exclusive" className={linkClass}>Exclusively on TibiMall</Link>
       <Link href="/mens" className={linkClass}>Men&apos;s</Link>
-      <Link href="#" className={linkClass}>Featured</Link>
-      <Link href="#" className={linkClass}>Trendy</Link>
-      <Link href="#" className={linkClass}>Discover</Link>
+      <Link href="/top-products" className={linkClass}>Featured</Link>
+      <Link href="/top-category" className={linkClass}>Trendy</Link>
+      <Link href="/discover" className={linkClass}>Discover</Link>
     </div>
   );
 }
 
+const CATEGORY_LINKS: { label: string; href: string }[] = [
+  { label: 'Fashion & Apparel', href: '/product-categories' },
+  { label: 'Beauty & Personal Care', href: '/product-categories' },
+  { label: 'Home & Living', href: '/product-categories' },
+  { label: 'Jewelry & Watches', href: '/product-categories' },
+  { label: 'Electronics & Gadgets', href: '/product-categories' },
+  { label: 'Handmade & Artisanal', href: '/product-categories' },
+];
+
 function CategoryItems({ mobile }: { mobile?: boolean }) {
-  const items = [
-    'Fashion & Apparel',
-    'Beauty & Personal Care',
-    'Home & Living',
-    'Jewelry & Watches',
-    'Electronics & Gadgets',
-    'Handmade & Artisanal',
-
-  ];
-
   const linkClass = `text-[14px] font-normal text-[#131313] hover:underline ${mobile ? 'block py-2' : ''}`;
   const wrapperClass = mobile
     ? 'flex flex-col gap-1'
@@ -495,8 +494,8 @@ function CategoryItems({ mobile }: { mobile?: boolean }) {
 
   return (
     <div className={wrapperClass} style={{ fontFamily: 'var(--font-poppins)', lineHeight: '100%' }}>
-      {items.map((label) => (
-        <Link key={label} href="#" className={linkClass}>
+      {CATEGORY_LINKS.map(({ label, href }) => (
+        <Link key={label} href={href} className={linkClass}>
           {label}
         </Link>
       ))}

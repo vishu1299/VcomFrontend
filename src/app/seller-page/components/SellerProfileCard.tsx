@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { BadgeCheck } from "lucide-react";
+import { REMOTE_IMG } from "@/lib/remoteAssets";
 
 const ELITE_STORE_GRADIENT = "linear-gradient(to right, #D4AF37 0%, #FFECAF 53%, #E9CE73 100%)";
 
@@ -46,11 +48,11 @@ function FlagIcon() {
 const SELLER_SHARE_URL = "https://www.tibilmall/seller/urbantech";
 
 const SOCIAL_ICONS = [
-  { name: "WhatsApp", src: "/images/share/whatsapp.png" },
-  { name: "Instagram", src: "/images/share/instagram.png" },
-  { name: "X", src: "/images/share/x.png" },
-  { name: "Facebook", src: "/images/share/facebook.png" },
-  { name: "Gmail", src: "/images/share/gmail.png" },
+  { name: "WhatsApp", bg: "#25D366", label: "W" },
+  { name: "Instagram", bg: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)", label: "IG" },
+  { name: "X", bg: "#000000", label: "X" },
+  { name: "Facebook", bg: "#1877F2", label: "f" },
+  { name: "Gmail", bg: "#EA4335", label: "M" },
 ];
 
 function ShareModal({ open, onClose, dropdown }: { open: boolean; onClose: () => void; dropdown?: boolean }) {
@@ -84,14 +86,15 @@ function ShareModal({ open, onClose, dropdown }: { open: boolean; onClose: () =>
 
         <h3 className="text-sm font-bold text-[#131313] mb-2">Share via</h3>
         <div className="flex gap-2 mb-4">
-          {SOCIAL_ICONS.map(({ name, src }) => (
+          {SOCIAL_ICONS.map(({ name, bg, label }) => (
             <button
               key={name}
               type="button"
-              className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center overflow-hidden hover:bg-gray-50 transition shrink-0 shadow-sm"
+              className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden hover:opacity-90 transition shrink-0 shadow-sm text-white text-xs font-bold"
+              style={{ background: bg }}
               aria-label={`Share on ${name}`}
             >
-              <img src={src} alt={name} className="w-5 h-5 object-contain" />
+              {label}
             </button>
           ))}
         </div>
@@ -267,7 +270,7 @@ export default function SellerProfileCard() {
             <div className="relative shrink-0">
               <div className="w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
                 <img
-                  src="/images/profileImage.png"
+                  src={REMOTE_IMG.avatar}
                   alt="UrbanTech"
                   className="w-full h-full object-cover"
                 />
@@ -280,7 +283,7 @@ export default function SellerProfileCard() {
               <div className="flex items-center gap-2 flex-wrap">
                 <div className="flex flex-wrap gap-2">
                   <h1 className="text-xl sm:text-2xl font-bold text-[#131313]">UrbanTech</h1>
-                  <img src="/images/verifiedBadge.png" alt="Verified" className="w-6 h-6" />
+                  <BadgeCheck className="w-7 h-7 shrink-0 text-[#1d4ed8]" aria-label="Verified" />
                 </div>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {SELLER_BADGES.map((b) => (
@@ -294,8 +297,11 @@ export default function SellerProfileCard() {
                   ))}
                 </div>
               </div>
-              <p className="text-sm  mt-1">Official Apple Premium Reseller</p>
-              <p className="text-sm mt-1">Products:<span className="font-semibold"> 120 </span> Followers:<span className="font-semibold"> 4.2 </span>Million</p>
+              <p className="text-sm text-[#131313] mt-1">Official Apple Premium Reseller</p>
+              <p className="text-sm text-[#131313] mt-1">
+                Products:<span className="font-semibold"> 120 </span> Followers:
+                <span className="font-semibold"> 4.2 </span>Million
+              </p>
               <div className="flex flex-wrap justify-between mt-4 gap-4">
                 <div className="flex gap-3">
                   <button

@@ -5,9 +5,9 @@
    ───────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Background & surface */
-  --background: #b2cad4;
-  --foreground: #b2cad4;
+  /* Background & surface — readable defaults (was #b2cad4 for both, broke text on Vercel) */
+  --background: #ffffff;
+  --foreground: #131313;
 
   /* Font sizes (design system) */
   --text-12: 12px;

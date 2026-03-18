@@ -1,19 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import { remoteGalleryImage } from "@/lib/remoteAssets";
 
-const PHOTOS = [
-  "/images/customerReviews/carasoul1.png",
-  "/images/customerReviews/carasoul2.png",
-  "/images/customerReviews/carasoul3.png",
-  "/images/customerReviews/carasoul4.png",
-  "/images/customerReviews/carasoul5.png",
-  "/images/customerReviews/carasoul6.png",
-  "/images/customerReviews/carasoul7.png",
-  "/images/customerReviews/carasoul8.png",
-  "/images/customerReviews/carasoul3.png",
-  "/images/customerReviews/carasoul4.png",
-];
+const PHOTOS = Array.from({ length: 10 }, (_, i) => remoteGalleryImage(i + 30, 700));
 
 function ChevronLeft() {
   return (

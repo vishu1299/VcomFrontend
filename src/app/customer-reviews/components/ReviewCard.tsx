@@ -43,7 +43,7 @@ function ReportReviewModal({
           </svg>
         </button>
         <h2 className="text-lg font-bold text-[#131313] pr-8">Report this review</h2>
-        <p className="text-sm text-gray-600 mt-1">Your report helps keep our marketplace safe.</p>
+        <p className="text-sm text-[#131313] mt-1">Your report helps keep our marketplace safe.</p>
         <hr className="my-4 border-gray-200 -ml-[1.5rem] -mr-[1.5rem]" />
         <p className="text-sm font-bold text-[#131313] mt-6 mb-3">Select Reason</p>
         <div className="grid grid-cols-2 gap-3 mb-4">
@@ -54,7 +54,7 @@ function ReportReviewModal({
             >
               <div>
                 <span className="text-sm font-medium text-[#131313] block">{r.label}</span>
-                <span className="text-xs text-gray-600">{r.description}</span>
+                <span className="text-xs text-[#131313]">{r.description}</span>
               </div>
               <input
                 type="radio"
@@ -68,7 +68,7 @@ function ReportReviewModal({
           ))}
         </div>
 
-        <p className="text-sm  mb-6">
+        <p className="text-sm text-[#131313] mb-6">
           Thank you for reporting. If this review doesn&apos;t match our guidelines, we&apos;ll remove it.
         </p>
 
@@ -135,21 +135,19 @@ export default function ReviewCard({ author, rating, date, text, photos }: Revie
     <article className="py-6 border-b border-gray-200">
       <div className="flex gap-4">
         <div className="shrink-0 w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-          <span className="text-sm font-medium text-gray-500">
-            {author.charAt(0)}
-          </span>
+          <span className="text-sm font-medium text-[#131313]">{author.charAt(0)}</span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
             <span className="font-semibold text-[#131313]">{author}</span>
-            <span className="text-sm text-gray-500 shrink-0">{date}</span>
+            <span className="text-sm text-[#131313] shrink-0">{date}</span>
           </div>
           <div className="flex items-center gap-1 mb-2">
             {Array.from({ length: 5 }).map((_, i) => (
               <StarIcon key={i} filled={i < rating} />
             ))}
           </div>
-          <p className="text-sm text-gray-700 leading-relaxed mb-3">{text}</p>
+          <p className="text-sm text-[#131313] leading-relaxed mb-3">{text}</p>
           {photos && photos.length > 0 && (
             <div className="flex gap-2 mb-3 flex-wrap">
               {photos.map((src, i) => (

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { REMOTE_IMG } from "@/lib/remoteAssets";
 
 function ChatIcon() {
   return (
@@ -20,16 +22,23 @@ export default function ProductDetailsCard() {
     <div className="mb-4">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         <div className="flex gap-4  rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-gray-100 shrink-0 shadow-sm">
-            <img src="/images/orangeIphone.png" alt="iPhone 17 Pro" className="w-full h-full object-cover" />
+          <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-gray-100 shrink-0 shadow-sm">
+            <Image
+              src={REMOTE_IMG.productPhone}
+              alt="iPhone 17 Pro"
+              fill
+              className="object-cover"
+              sizes="96px"
+              unoptimized
+            />
           </div>
           <div className="min-w-0">
             <h2 className="text-sm font-bold text-[#131313] line-clamp-2">
               iPhone 17 Pro 256 GB: 15.93 cm (6.3&quot;) Display
             </h2>
-            <p className="text-xs text-gray-600 mt-1">Color: Orange QTY: 1</p>
-            <p className="text-xs text-gray-600">Product Number: 43-4234324</p>
-            <p className="text-xs text-gray-600">Seller: Urbantech</p>
+            <p className="text-xs text-[#131313] mt-1">Color: Orange QTY: 1</p>
+            <p className="text-xs text-[#131313]">Product Number: 43-4234324</p>
+            <p className="text-xs text-[#131313]">Seller: Urbantech</p>
             <div className="flex flex-wrap gap-2 mt-3">
               <button
                 type="button"
@@ -51,7 +60,7 @@ export default function ProductDetailsCard() {
           <dl className="space-y-2 text-sm">
             {ORDER_SUMMARY.map(({ label, value }) => (
               <div key={label} className="flex justify-between gap-3">
-                <dt className="font-semibold shrink-0">{label}</dt>
+                <dt className="font-semibold shrink-0 text-[#131313]">{label}</dt>
                 <dd className="text-[#131313] text-right min-w-0 break-words">{value}</dd>
               </div>
             ))}

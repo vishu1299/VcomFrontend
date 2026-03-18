@@ -9,9 +9,15 @@ import type { SubCategoryItem } from '../data/subcategories';
 type SubCategoryScrollProps = {
   items: SubCategoryItem[];
   categorySlug: string;
+  /** `/category/[slug]` (men's & subcats) vs default `/product-categories/...?sub=` */
+  linkMode?: 'product-categories' | 'category';
 };
 
-export default function SubCategoryScroll({ items, categorySlug }: SubCategoryScrollProps) {
+export default function SubCategoryScroll({
+  items,
+  categorySlug,
+  linkMode = 'product-categories',
+}: SubCategoryScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: 'left' | 'right') => {
@@ -47,7 +53,11 @@ export default function SubCategoryScroll({ items, categorySlug }: SubCategorySc
         {items.map((item) => (
           <Link
             key={item.id}
-            href={`/product-categories/${categorySlug}?sub=${item.slug}`}
+            href={
+              linkMode === 'category'
+                ? `/category/${item.slug}`
+                : `/product-categories/${categorySlug}?sub=${item.slug}`
+            }
             className="shrink-0 w-[120px] sm:w-[140px] md:w-[160px] lg:w-[180px] xl:w-[200px] group"
           >
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-[#e5e7eb] h-full flex flex-col">

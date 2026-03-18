@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import { REMOTE_IMG } from "@/lib/remoteAssets";
+
 const RATING_BARS = [
   { stars: 5, percent: 54 ,color: "#eab308"},
   { stars: 4, percent: 20, color: "#D8F500"},
@@ -61,9 +64,7 @@ export default function ReviewSummarySection() {
         <div className="space-y-3">
           {RATING_BARS.map(({ stars, percent, color }) => (
             <div key={stars} className="flex items-center gap-3">
-              <span className="text-sm  w-14 shrink-0">
-                {stars} star
-              </span>
+              <span className="text-sm text-[#131313] w-14 shrink-0">{stars} star</span>
               <div className="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full rounded-r-none transition-all"
@@ -78,14 +79,17 @@ export default function ReviewSummarySection() {
         </div>
       </div>
       <div className="shrink-0 flex flex-col items-center">
-        <div className="relative w-48 h-56 sm:w-56">
-          <img
-            src="/images/customerReviews/product.png"
-            alt="Iphone 17 Pro"
-            className="w-full h-full object-cover"
+        <div className="relative w-48 h-56 sm:w-56 rounded-lg overflow-hidden bg-gray-100">
+          <Image
+            src={REMOTE_IMG.productPhone}
+            alt="iPhone 17 Pro"
+            fill
+            className="object-cover"
+            sizes="224px"
+            unoptimized
           />
         </div>
-        <p className="text-sm text-center">Iphone 17 Pro</p>
+        <p className="text-sm text-center text-[#131313] font-medium mt-2">iPhone 17 Pro</p>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import RelatedProductsCarousel from "@/app/customer-reviews/components/RelatedProductsCarousel";
+import { remoteGalleryImage } from "@/lib/remoteAssets";
 
 function MapPinIcon() {
     return (
@@ -59,10 +60,24 @@ const MORE_INFO = [
 ] as const;
 
 const SOCIAL_LINKS = [
-    { name: "Instagram", href: "https://www.instagram.com/@ubrantech", icon: "/images/share/instagram.png" },
-    { name: "Facebook", href: "https://www.facebook.com/@ubrantech", icon: "/images/share/facebook.png" },
-    { name: "Tiktok", href: "https://www.tiktok.com/@ubrantech", icon: null },
+    { name: "Instagram", href: "https://www.instagram.com/@ubrantech", brand: "ig" as const },
+    { name: "Facebook", href: "https://www.facebook.com/@ubrantech", brand: "fb" as const },
+    { name: "Tiktok", href: "https://www.tiktok.com/@ubrantech", brand: "tt" as const },
 ] as const;
+
+function SocialBrandIcon({ brand }: { brand: "ig" | "fb" | "tt" }) {
+    if (brand === "tt") return <TiktokIcon />;
+    if (brand === "fb")
+        return <span className="w-5 h-5 rounded-md bg-[#1877F2] flex items-center justify-center text-white text-[10px] font-bold">f</span>;
+    return (
+        <span
+            className="w-5 h-5 rounded-md shrink-0"
+            style={{
+                background: "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
+            }}
+        />
+    );
+}
 
 // Same colours as ReviewSummarySection for rating bars
 const RATING_BARS = [
@@ -123,26 +138,28 @@ export default function Profile() {
                 </div>
 
                 <div className="mt-6">
-                    <h2 className="text-base font-bold text-gray-800 mb-2">Description</h2>
-                    <p className="text-sm text-gray-700 leading-relaxed">{DESCRIPTION}</p>
+                    <h2 className="text-base font-bold text-[#131313] mb-2">Description</h2>
+                    <p className="text-sm text-[#131313] leading-relaxed">{DESCRIPTION}</p>
                 </div>
 
                 <div className="mt-8 flex flex-col md:flex-row gap-8 md:gap-12">
                     <div>
-                        <h2 className="text-base font-bold text-gray-800 mb-4">More Info</h2>
+                        <h2 className="text-base font-bold text-[#131313] mb-4">More Info</h2>
                         <ul className="space-y-4">
                             {MORE_INFO.map((item) => (
                                 <li key={item.label} className="flex gap-3">
                                     <span className="shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">
                                         {item.icon === "gmail" && (
-                                            <img src="/images/share/gmail.png" alt="" className="w-5 h-5 object-contain" />
+                                            <span className="w-5 h-5 rounded-md bg-[#EA4335] flex items-center justify-center text-white text-[10px] font-bold shrink-0">
+                                                M
+                                            </span>
                                         )}
                                         {item.icon === "map" && <MapPinIcon />}
                                         {item.icon === "info" && <InfoCircleIcon />}
                                     </span>
                                     <div className="min-w-0">
-                                        <p className="text-sm font-medium text-gray-800">{item.label}</p>
-                                        <p className="text-sm text-gray-600 mt-0.5">{item.value}</p>
+                                        <p className="text-sm font-medium text-[#131313]">{item.label}</p>
+                                        <p className="text-sm text-[#131313] mt-0.5">{item.value}</p>
                                     </div>
                                 </li>
                             ))}
@@ -150,19 +167,15 @@ export default function Profile() {
                     </div>
 
                     <div>
-                        <h2 className="text-base font-bold text-gray-800 mb-4">Social Links</h2>
+                        <h2 className="text-base font-bold text-[#131313] mb-4">Social Links</h2>
                         <ul className="space-y-4">
                             {SOCIAL_LINKS.map((item) => (
                                 <li key={item.name} className="flex gap-3">
                                     <span className="shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">
-                                        {item.icon ? (
-                                            <img src={item.icon} alt="" className="w-5 h-5 object-contain" />
-                                        ) : (
-                                            <TiktokIcon />
-                                        )}
+                                        <SocialBrandIcon brand={item.brand} />
                                     </span>
                                     <div className="min-w-0">
-                                        <p className="text-sm font-medium text-gray-800">{item.name}</p>
+                                        <p className="text-sm font-medium text-[#131313]">{item.name}</p>
                                         <a
                                             href={item.href}
                                             target="_blank"
@@ -181,7 +194,7 @@ export default function Profile() {
             {/* Ratings and Reviews - same bar colours as ReviewSummarySection */}
             <div className="mt-4 w-full p-4 bg-white rounded-xl border border-gray-200">
                 <h2 className="text-xl sm:text-2xl font-bold text-[#131313] mb-1">Ratings and Reviews</h2>
-                <p className="text-sm text-gray-600 mb-6">Customer reviews</p>
+                <p className="text-sm text-[#131313] mb-6">Customer reviews</p>
 
                 <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 mb-8">
                         <div className="flex flex-wrap items-baseline gap-2 mb-4">
@@ -195,7 +208,7 @@ export default function Profile() {
                             <span className="text-lg font-bold text-[#131313]">4 out of 5</span>
                         </div>
                     <div className="flex-1 w-full max-w-[400px]">
-                        <p className="text-sm text-gray-700 mb-4">(10,653 Ratings)</p>
+                        <p className="text-sm text-[#131313] mb-4 font-medium">(10,653 Ratings)</p>
                         <div className="space-y-3">
                             {RATING_BARS.map(({ stars, percent, color }) => (
                                 <div key={stars} className="flex items-center gap-3">
@@ -264,8 +277,8 @@ export default function Profile() {
                                     </svg>
                                 </div>
                                 <div className="flex w-full items-center justify-between gap-2">
-                                <span className="text-sm text-gray-700">Bought:</span>
-                                    <span className="text-xs text-gray-500 shrink-0">{review.date}</span>
+                                <span className="text-sm text-[#131313]">Bought:</span>
+                                    <span className="text-xs text-[#131313] shrink-0">{review.date}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-0.5 mb-2 ml-10">
@@ -279,15 +292,20 @@ export default function Profile() {
                                 <StarIconSmall  />
                                 </div>
                             </div>
-                            <p className="text-sm text-gray-700 mb-3 leading-relaxed">{review.text}</p>
+                            <p className="text-sm text-[#131313] mb-3 leading-relaxed">{review.text}</p>
                             <div className="flex gap-2 mb-3">
                                 {[1, 2, 3, 4].map((j) => (
-                                    <img key={j} src={`/images/customerReviews/review${j}.png`} alt="" className="w-14 h-14 rounded-lg border border-gray-200 bg-gray-100 shrink-0 overflow-hidden" />
+                                    <img
+                                        key={j}
+                                        src={remoteGalleryImage(j + 40, 200)}
+                                        alt=""
+                                        className="w-14 h-14 rounded-lg border border-gray-200 bg-gray-100 shrink-0 object-cover"
+                                    />
                                 ))}
                             </div>
                             <div className="flex gap-2">
-                                <button type="button" className="text-sm font-medium text-gray-700 border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition">Helpful</button>
-                                <button type="button" className="text-sm font-medium text-gray-700  px-3 py-1.5 hover:bg-gray-50 transition">Report</button>
+                                <button type="button" className="text-sm font-medium text-[#131313] border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition">Helpful</button>
+                                <button type="button" className="text-sm font-medium text-[#131313] px-3 py-1.5 hover:bg-gray-50 transition">Report</button>
                             </div>
                         </article>
                     ))}
