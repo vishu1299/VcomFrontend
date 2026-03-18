@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { DISCOVER_STREAM_PRODUCTS } from '../data/products';
-import type { DiscoverProduct } from '../data/products';
+import Image from "next/image";
+import { DISCOVER_STREAM_PRODUCTS } from "../data/products";
+import type { DiscoverProduct } from "../data/products";
 
 function ProductCard({ product }: { product: DiscoverProduct }) {
   const fullName = product.subtitle
@@ -30,9 +30,9 @@ function ProductCard({ product }: { product: DiscoverProduct }) {
             <span
               key={badge}
               className={`text-xs font-semibold px-3 py-1 rounded ${
-                badge === 'SALE'
-                  ? 'bg-yellow-400 text-black'
-                  : 'bg-blue-500 text-white'
+                badge === "SALE"
+                  ? "bg-yellow-400 text-black"
+                  : "bg-blue-500 text-white"
               }`}
             >
               {badge}

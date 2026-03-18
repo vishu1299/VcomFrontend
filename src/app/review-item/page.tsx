@@ -59,7 +59,7 @@ export default function ReviewItemPage() {
   }, [router]);
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="page-text-black min-h-screen bg-gray-50">
           <div className="mx-auto max-w-[1100px] py-6">
               <div className="bg-white rounded-xl shadow-md p-4 w-[75%]">
                   

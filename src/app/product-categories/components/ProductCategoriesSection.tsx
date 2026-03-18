@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import type { ProductCategory } from '../data/categories';
+import Image from "next/image";
+import Link from "next/link";
+import type { ProductCategory } from "../data/categories";
 
 /** Purple 2x2 grid icon: squares + circle (bottom-left) */
 function ProductCategoriesIcon({ className }: { className?: string }) {
@@ -28,7 +28,7 @@ type ProductCategoriesSectionProps = {
 function CategoryCard({ category }: { category: ProductCategory }) {
   return (
     <Link
-      href={category.slug ? `/product-categories/${category.slug}` : '#'}
+      href={category.slug ? `/product-categories/${category.slug}` : "#"}
       className="group block h-full flex flex-col"
     >
       <div className="bg-white rounded-lg sm:rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
@@ -45,12 +45,12 @@ function CategoryCard({ category }: { category: ProductCategory }) {
           <span
             className="text-xs sm:text-sm font-medium text-gray-800 bg-white p-2 rounded-lg inline-block w-full text-center leading-tight"
             style={{
-              display: '-webkit-box',
+              display: "-webkit-box",
               WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical' as const,
-              overflow: 'hidden',
+              WebkitBoxOrient: "vertical" as const,
+              overflow: "hidden",
               lineHeight: 1.25,
-              maxHeight: '2.5em',
+              maxHeight: "2.5em",
             }}
           >
             {category.name}
@@ -61,12 +61,14 @@ function CategoryCard({ category }: { category: ProductCategory }) {
   );
 }
 
-export default function ProductCategoriesSection({ categories }: ProductCategoriesSectionProps) {
+export default function ProductCategoriesSection({
+  categories,
+}: ProductCategoriesSectionProps) {
   return (
     <section
       className="px-4 sm:px-6 py-5 sm:py-6 lg:py-8"
       aria-label="Product categories"
-      style={{ fontFamily: 'var(--font-poppins)' }}
+      style={{ fontFamily: "var(--font-poppins)" }}
     >
       {/* Section title: purple grid icon + bold black text */}
       <div className="flex items-center gap-2 mb-5 sm:mb-6 lg:mb-8">

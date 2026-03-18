@@ -49,7 +49,7 @@ export default function RelatedProductCard({
         <img src={image} alt={name} className="w-50 h-50 object-cover m-auto" />
         <button
           type="button"
-          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-white transition"
+          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-[#131313] hover:bg-white transition"
           aria-label="Add to wishlist"
         >
           <HeartIcon />
@@ -85,7 +85,7 @@ export default function RelatedProductCard({
           </div>
           <button
             type="button"
-            className="flex items-center justify-center gap-1.5 text-xs font-medium text-gray-700 border border-gray-200 hover:bg-gray-50 rounded-lg py-2 px-3 transition w-full sm:w-auto shrink-0 whitespace-nowrap"
+            className="flex items-center justify-center gap-1.5 text-xs font-medium text-[#131313] border border-gray-200 hover:bg-gray-50 rounded-lg py-2 px-3 transition w-full sm:w-auto shrink-0 whitespace-nowrap"
           >
             <CartIcon />
             ADD TO CART

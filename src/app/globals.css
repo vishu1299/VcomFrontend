@@ -92,6 +92,17 @@ body {
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
 }
 
+/* Black headings & text only on pages that add .page-text-black to <main> */
+.page-text-black,
+.page-text-black h1,
+.page-text-black h2,
+.page-text-black h3,
+.page-text-black h4,
+.page-text-black h5,
+.page-text-black h6 {
+  color: var(--color-black) !important;
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    TYPOGRAPHY UTILITIES (Poppins, design sizes)
    ───────────────────────────────────────────────────────────────────────────── */
@@ -185,7 +196,9 @@ body {
   border: none;
   border-radius: var(--btn-cta-radius);
   cursor: pointer;
-  transition: opacity 0.2s, background-color 0.2s;
+  transition:
+    opacity 0.2s,
+    background-color 0.2s;
 }
 
 .btn-cta:hover:not(:disabled) {
@@ -213,7 +226,9 @@ body {
   border: var(--btn-outline-border);
   border-radius: var(--btn-outline-radius);
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 .btn-outline:hover:not(:disabled) {
@@ -241,7 +256,9 @@ body {
   border: 1px solid var(--color-border-input-alt);
   border-radius: var(--btn-cta-radius);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -288,7 +305,9 @@ body {
   border: 1px solid var(--color-border-input);
   border-radius: var(--btn-cta-radius);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .input-design::placeholder {

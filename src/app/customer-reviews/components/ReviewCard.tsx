@@ -4,8 +4,16 @@ import { useState } from "react";
 import type { Review } from "../data/reviews";
 
 const REPORT_REASONS = [
-  { value: "off-topic", label: "Off Topic", description: "Not about the product." },
-  { value: "inappropriate", label: "Inappropriate", description: "Disrespect, hateful, obsence." },
+  {
+    value: "off-topic",
+    label: "Off Topic",
+    description: "Not about the product.",
+  },
+  {
+    value: "inappropriate",
+    label: "Inappropriate",
+    description: "Disrespect, hateful, obsence.",
+  },
   { value: "fake", label: "Fake", description: "Paid for, inauthentic." },
   { value: "other", label: "Other", description: "Something else." },
 ] as const;
@@ -30,22 +38,39 @@ function ReportReviewModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} aria-hidden />
+      <div
+        className="absolute inset-0 bg-black/50"
+        onClick={onClose}
+        aria-hidden
+      />
       <div className="relative w-full max-w-3xl rounded-xl bg-white shadow-xl p-6">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition"
+          className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-[#131313] hover:bg-gray-100 transition"
           aria-label="Close"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
-        <h2 className="text-lg font-bold text-[#131313] pr-8">Report this review</h2>
-        <p className="text-sm text-[#131313] mt-1">Your report helps keep our marketplace safe.</p>
+        <h2 className="text-lg font-bold text-[#131313] pr-8">
+          Report this review
+        </h2>
+        <p className="text-sm text-[#131313] mt-1">
+          Your report helps keep our marketplace safe.
+        </p>
         <hr className="my-4 border-gray-200 -ml-[1.5rem] -mr-[1.5rem]" />
-        <p className="text-sm font-bold text-[#131313] mt-6 mb-3">Select Reason</p>
+        <p className="text-sm font-bold text-[#131313] mt-6 mb-3">
+          Select Reason
+        </p>
         <div className="grid grid-cols-2 gap-3 mb-4">
           {REPORT_REASONS.map((r) => (
             <label
@@ -53,7 +78,9 @@ function ReportReviewModal({
               className="flex items-center justify-between gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50/50 transition"
             >
               <div>
-                <span className="text-sm font-medium text-[#131313] block">{r.label}</span>
+                <span className="text-sm font-medium text-[#131313] block">
+                  {r.label}
+                </span>
                 <span className="text-xs text-[#131313]">{r.description}</span>
               </div>
               <input
@@ -69,14 +96,15 @@ function ReportReviewModal({
         </div>
 
         <p className="text-sm text-[#131313] mb-6">
-          Thank you for reporting. If this review doesn&apos;t match our guidelines, we&apos;ll remove it.
+          Thank you for reporting. If this review doesn&apos;t match our
+          guidelines, we&apos;ll remove it.
         </p>
 
         <div className="flex justify-end gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition"
+            className="px-4 py-2.5 rounded-lg border border-gray-200 bg-white text-[#131313] text-sm font-medium hover:bg-gray-50 transition"
           >
             Cancel
           </button>
@@ -111,7 +139,14 @@ function StarIcon({ filled }: { filled: boolean }) {
 
 function ThumbsUpIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
     </svg>
   );
@@ -119,7 +154,14 @@ function ThumbsUpIcon() {
 
 function FlagIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
       <line x1="4" y1="22" x2="4" y2="15" />
     </svg>
@@ -128,14 +170,22 @@ function FlagIcon() {
 
 type ReviewCardProps = Review;
 
-export default function ReviewCard({ author, rating, date, text, photos }: ReviewCardProps) {
+export default function ReviewCard({
+  author,
+  rating,
+  date,
+  text,
+  photos,
+}: ReviewCardProps) {
   const [reportModalOpen, setReportModalOpen] = useState(false);
 
   return (
     <article className="py-6 border-b border-gray-200">
       <div className="flex gap-4">
         <div className="shrink-0 w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-          <span className="text-sm font-medium text-[#131313]">{author.charAt(0)}</span>
+          <span className="text-sm font-medium text-[#131313]">
+            {author.charAt(0)}
+          </span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-start justify-between gap-2 mb-1">

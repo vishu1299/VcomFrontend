@@ -107,7 +107,7 @@ export default function OrderDetailsContent() {
                     </p>
                     <div className="flex items-baseline gap-2 mt-2">
                     <span className="text-lg font-bold text-[#1E3A8A]">$299.99</span>
-                      <span className="text-sm text-gray-400 line-through">$310.00</span>
+                      <span className="text-sm text-[#131313] line-through">$310.00</span>
                     </div>
                   </div>
                 </div>

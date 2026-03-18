@@ -9,7 +9,7 @@ import { MOCK_REVIEWS } from "./data/reviews";
 
 export default function CustomerReviewPage() {
   return (
-    <div className="min-h-screen bg-[#f3f7fa]">
+    <div className="page-text-black min-h-screen bg-[#f3f7fa]">
       <div className="mx-auto bg-white rounded-xl max-w-[1100px] px-4 sm:px-6 lg:px-8 py-8">
         <ReviewSummarySection />
         <PhotosCarousel />

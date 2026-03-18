@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import HorizontalScrollSection from './HorizontalScrollSection';
-import type { MensCategory } from '../data/mens-categories';
+import Image from "next/image";
+import Link from "next/link";
+import HorizontalScrollSection from "./HorizontalScrollSection";
+import type { MensCategory } from "../data/mens-categories";
 
 type MensCategoryScrollProps = {
   categories: MensCategory[];
@@ -12,7 +12,7 @@ type MensCategoryScrollProps = {
 function CategoryCard({ category }: { category: MensCategory }) {
   return (
     <Link
-      href={category.slug ? `/category/${category.slug}` : '#'}
+      href={category.slug ? `/category/${category.slug}` : "#"}
       className="group shrink-0 w-[140px] sm:w-[160px] md:w-[180px] flex flex-col"
     >
       <div className="bg-white rounded-lg sm:rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col flex-1">
@@ -35,9 +35,14 @@ function CategoryCard({ category }: { category: MensCategory }) {
   );
 }
 
-export default function MensCategoryScroll({ categories }: MensCategoryScrollProps) {
+export default function MensCategoryScroll({
+  categories,
+}: MensCategoryScrollProps) {
   return (
-    <HorizontalScrollSection title="Men's Clothing" ariaLabel="Men's clothing categories">
+    <HorizontalScrollSection
+      title="Men's Clothing"
+      ariaLabel="Men's clothing categories"
+    >
       {categories.map((category) => (
         <CategoryCard key={category.id} category={category} />
       ))}

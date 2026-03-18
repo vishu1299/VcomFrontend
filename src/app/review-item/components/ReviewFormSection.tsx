@@ -27,7 +27,7 @@ export default function ReviewFormSection({
           value={title}
           onChange={(e) => onTitleChange(e.target.value)}
           placeholder="Enter Title"
-          className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+          className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-[#131313] focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
         />
       </div>
       <div>
@@ -41,9 +41,9 @@ export default function ReviewFormSection({
             onChange={(e) => onReviewTextChange(e.target.value)}
             placeholder="What should other shoppers know?"
             rows={5}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none pr-32"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-[#131313] focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none pr-32"
           />
-          <span className="absolute bottom-3 right-3 text-xs text-gray-400">
+          <span className="absolute bottom-3 right-3 text-xs text-[#131313]">
             Min: {MIN_REVIEW_LENGTH} Characters
           </span>
         </div>

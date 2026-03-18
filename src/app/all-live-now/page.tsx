@@ -50,7 +50,7 @@ export default function AllLiveNowPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#f3f7fa]">
+        <main className="page-text-black min-h-screen bg-[#f3f7fa]">
             <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
                 <nav className="flex items-center gap-4 mb-4 sm:mb-6 text-[14px] sm:text-[16px] text-[#131313]">
                     <Link href="/" className="hover:underline">

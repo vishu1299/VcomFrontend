@@ -1,6 +1,16 @@
 function InfoIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-gray-500">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="shrink-0 text-[#131313]"
+    >
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="16" x2="12" y2="12" />
       <line x1="12" y1="8" x2="12.01" y2="8" />
@@ -15,8 +25,9 @@ export default function NoteSection() {
         <InfoIcon />
         <div>
           <span className="font-bold text-[#131313]">Note</span>
-          <p className="text-sm text-gray-600 mt-0.5">
-            Cancellation is allowed for 24 hours or until the order is shipped. After shipping, cancellation is not possible.
+          <p className="text-sm text-[#131313] mt-0.5">
+            Cancellation is allowed for 24 hours or until the order is shipped.
+            After shipping, cancellation is not possible.
           </p>
         </div>
       </div>

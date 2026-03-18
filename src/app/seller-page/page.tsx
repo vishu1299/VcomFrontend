@@ -34,7 +34,7 @@ export default function SellerPage() {
         }
     }
     return (
-        <main className=" bg-gray-100 ">
+        <main className="page-text-black bg-gray-100 ">
             <div className="mx-auto max-w-[1100px] px-4 sm:px-6 pb-4 sm:pb-6 overflow-x-hidden">
                 <HeaderBanner />
                 <SellerProfileCard />

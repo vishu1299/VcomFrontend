@@ -1,23 +1,24 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { Eye } from 'lucide-react';
-import { DISCOVER_STREAM_PRODUCTS } from '../data/products';
+import Image from "next/image";
+import { Eye } from "lucide-react";
+import { DISCOVER_STREAM_PRODUCTS } from "../data/products";
 
 const STORE = {
-  name: 'UrbanTech',
-  handle: '@urbantech00',
-  avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=96&q=80',
+  name: "UrbanTech",
+  handle: "@urbantech00",
+  avatar:
+    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=96&q=80",
 };
 
-const BG_IMAGE = 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80';
+const BG_IMAGE =
+  "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80";
 
 export default function StreamPanel() {
   const featured = DISCOVER_STREAM_PRODUCTS[0];
 
   return (
     <div className="relative w-full h-full min-h-[600px] rounded-3xl overflow-hidden text-white">
-
       {/* Background Image */}
       <Image
         src={BG_IMAGE}
@@ -33,7 +34,6 @@ export default function StreamPanel() {
 
       {/* Content */}
       <div className="relative flex flex-col justify-between h-full p-5">
-
         {/* ── TOP ── */}
         <div>
           {/* Profile row */}
@@ -49,7 +49,9 @@ export default function StreamPanel() {
                 />
               </div>
               <div>
-                <p className="font-semibold text-lg leading-tight">{STORE.name}</p>
+                <p className="font-semibold text-lg leading-tight">
+                  {STORE.name}
+                </p>
                 <p className="text-sm text-gray-300">{STORE.handle}</p>
               </div>
             </div>
@@ -93,8 +95,12 @@ export default function StreamPanel() {
 
             {/* Price */}
             <div className="flex items-center gap-3 mt-3">
-              <span className="text-3xl font-bold">${featured.price.toFixed(2)}</span>
-              <span className="line-through text-gray-300 text-lg">${featured.originalPrice.toFixed(2)}</span>
+              <span className="text-3xl font-bold">
+                ${featured.price.toFixed(2)}
+              </span>
+              <span className="line-through text-gray-300 text-lg">
+                ${featured.originalPrice.toFixed(2)}
+              </span>
             </div>
 
             {/* Shop Now */}

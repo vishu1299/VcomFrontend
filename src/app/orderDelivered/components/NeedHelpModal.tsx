@@ -57,7 +57,7 @@ function CloseIcon() {
 
 function CameraPlusIcon() {
   return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-gray-400 mx-auto">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-[#131313] mx-auto">
       <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
       <circle cx="12" cy="13" r="4" />
       <line x1="12" y1="10" x2="12" y2="10.01" strokeWidth="2" />
@@ -107,12 +107,12 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
               <h2 id="need-help-title" className="text-xl sm:text-2xl font-bold text-[#131313]">
                 Need Help?
               </h2>
-              <p className="text-sm text-gray-500 mt-1">Experiencing issues</p>
+              <p className="text-sm text-[#131313] mt-1">Experiencing issues</p>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg text-gray-500 hover:text-[#131313] hover:bg-gray-100 transition shrink-0"
+              className="p-2 rounded-lg text-[#131313] hover:text-[#131313] hover:bg-gray-100 transition shrink-0"
               aria-label="Close"
             >
               <CloseIcon />
@@ -127,7 +127,7 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
               <input
                 type="text"
                 placeholder="Search any question"
-                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 mb-4"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-[#131313] focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 mb-4"
               />
 
               <div className="flex gap-4 sm:gap-6 mb-4 overflow-x-auto  pb-2 -mx-1">
@@ -139,7 +139,7 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
                     className={`text-sm font-medium whitespace-nowrap transition shrink-0 pb-1 border-b-2 ${
                       activeTab === tab
                         ? "text-[#131313] border-[#131313]"
-                        : "text-gray-500 border-transparent hover:text-gray-700"
+                        : "text-[#131313] border-transparent hover:text-[#131313]"
                     }`}
                   >
                     {tab}
@@ -158,13 +158,13 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
                         className="w-full flex bg-gray-50 items-center justify-between gap-4 px-4 py-4 text-left hover:bg-gray-50/50 transition"
                       >
                         <span className="text-sm font-medium text-[#131313] flex-1 min-w-0">{item.question}</span>
-                        <span className="text-gray-500 shrink-0">
+                        <span className="text-[#131313] shrink-0">
                           {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                         </span>
                       </button>
                       {isOpen && (
                         <div className="px-4 pb-4 pt-0">
-                          <p className="text-sm text-gray-600 leading-relaxed">{item.answer}</p>
+                          <p className="text-sm text-[#131313] leading-relaxed">{item.answer}</p>
                         </div>
                       )}
                     </div>
@@ -188,12 +188,12 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
                     type="button"
                     id="issue-type"
                     onClick={() => setIssueTypeOpen(!issueTypeOpen)}
-                    className="w-full  flex items-center justify-between gap-2 px-4 py-3 rounded-lg border border-gray-200 bg-white text-left text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                    className="w-full  flex items-center justify-between gap-2 px-4 py-3 rounded-lg border border-gray-200 bg-white text-left text-sm text-[#131313] placeholder:text-[#131313] focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                   >
-                    <span className={issueType ? "text-[#131313]" : "text-gray-400"}>
+                    <span className={issueType ? "text-[#131313]" : "text-[#131313]"}>
                       {issueType ?? "Select Reason"}
                     </span>
-                    <ChevronDownIcon className={`shrink-0 text-gray-500 transition-transform ${issueTypeOpen ? "rotate-180" : ""}`} />
+                    <ChevronDownIcon className={`shrink-0 text-[#131313] transition-transform ${issueTypeOpen ? "rotate-180" : ""}`} />
                   </button>
                   {issueTypeOpen && (
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden z-20">
@@ -226,9 +226,9 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
                     onChange={(e) => setDescription(e.target.value.slice(0, MAX_DESCRIPTION_LENGTH))}
                     placeholder="Explain what happened. Include dates, order numbers, or screenshots if possible."
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none pr-16"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-[#131313] focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none pr-16"
                   />
-                  <span className="absolute bottom-3 right-3 text-xs text-gray-400">
+                  <span className="absolute bottom-3 right-3 text-xs text-[#131313]">
                     ({description.length}/{MAX_DESCRIPTION_LENGTH})
                   </span>
                 </div>
@@ -240,8 +240,8 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
                 </label>
                 <div className="border-2 border-dashed border-gray-200 rounded-lg bg-gray-50/50 p-6 sm:p-8 text-center">
                   <CameraPlusIcon />
-                  <p className="text-sm font-medium text-gray-600 mt-2">Choose a file or drag & drop it here</p>
-                  <p className="text-xs text-gray-400 mt-1">JPEG, PNG, PDG, and MP4 formats, up to 50 mb</p>
+                  <p className="text-sm font-medium text-[#131313] mt-2">Choose a file or drag & drop it here</p>
+                  <p className="text-xs text-[#131313] mt-1">JPEG, PNG, PDG, and MP4 formats, up to 50 mb</p>
                   <button
                     type="button"
                     className="mt-3 px-4 py-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-[#131313] hover:bg-gray-50 transition"

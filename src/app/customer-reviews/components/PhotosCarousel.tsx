@@ -3,11 +3,20 @@
 import { useRef } from "react";
 import { remoteGalleryImage } from "@/lib/remoteAssets";
 
-const PHOTOS = Array.from({ length: 10 }, (_, i) => remoteGalleryImage(i + 30, 700));
+const PHOTOS = Array.from({ length: 10 }, (_, i) =>
+  remoteGalleryImage(i + 30, 700),
+);
 
 function ChevronLeft() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M15 18l-6-6 6-6" />
     </svg>
   );
@@ -15,7 +24,14 @@ function ChevronLeft() {
 
 function ChevronRight() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M9 18l6-6-6-6" />
     </svg>
   );
@@ -27,7 +43,10 @@ export default function PhotosCarousel() {
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
     const amount = 160;
-    scrollRef.current.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+    scrollRef.current.scrollBy({
+      left: dir === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -37,7 +56,7 @@ export default function PhotosCarousel() {
         <button
           type="button"
           onClick={() => scroll("left")}
-          className="absolute -left-3 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-600 hover:bg-gray-50 transition"
+          className="absolute -left-3 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-[#131313] hover:bg-gray-50 transition"
           aria-label="Previous photos"
         >
           <ChevronLeft />
@@ -63,7 +82,7 @@ export default function PhotosCarousel() {
         <button
           type="button"
           onClick={() => scroll("right")}
-          className="absolute -right-3 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-600 hover:bg-gray-50 transition"
+          className="absolute -right-3 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-[#131313] hover:bg-gray-50 transition"
           aria-label="Next photos"
         >
           <ChevronRight />

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 type SortBarProps = {
   showingStart: number;
@@ -21,7 +21,7 @@ export default function SortBar({
 }: SortBarProps) {
   return (
     <div className="w-full py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
-      <p className="text-sm text-[#131313]">
+      <p className="text-sm text-gray-700">
         Showing {showingStart}-{showingEnd} of {totalCount} results
       </p>
       <div className="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -41,7 +41,7 @@ export default function SortBar({
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#131313]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-700"
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>
@@ -63,7 +63,7 @@ export default function SortBar({
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#131313]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-700"
           >
             <polyline points="6 9 12 15 18 9" />
           </svg>

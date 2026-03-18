@@ -28,7 +28,7 @@ export default function ProductsSection() {
                     <option key={opt}>{opt}</option>
                   ))}
                 </select>
-                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                <span className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#131313]">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M6 9l6 6 6-6" />
                   </svg>
