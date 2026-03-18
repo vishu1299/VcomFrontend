@@ -13,11 +13,14 @@ import {
   ShoppingCart,
   User,
   Share2,
-  Clock,
+  AlertOctagon,
   MessageCircle,
   Check,
 } from "lucide-react";
 import type { ProductDetail } from "../data/product-detail";
+import ShareProductModal from "@/components/product/ShareProductModal";
+import ReportProductModal from "@/components/product/ReportProductModal";
+import CheckDeliveryModal from "@/components/product/CheckDeliveryModal";
 
 const BADGE_STYLES: Record<string, string> = {
   sale: "bg-[#F9B400] text-white",
@@ -35,6 +38,11 @@ export default function ProductShowcase({
   const [selectedStorage, setSelectedStorage] = useState(0);
   const [quantity, setQuantity] = useState(3);
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
+  const [pincodeFieldOpen, setPincodeFieldOpen] = useState(false);
+  const [deliveryModalOpen, setDeliveryModalOpen] = useState(false);
+  const [pincode, setPincode] = useState("");
   const thumbRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -164,17 +172,19 @@ export default function ProductShowcase({
             <div className="flex items-center gap-1.5 shrink-0">
               <button
                 type="button"
-                className="w-8 h-8 rounded-full bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-300"
+                onClick={() => setShareModalOpen(true)}
+                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:bg-gray-50 shadow-sm"
                 aria-label="Share"
               >
-                <Share2 className="w-3.5 h-3.5" />
+                <Share2 className="w-4 h-4" strokeWidth={2} />
               </button>
               <button
                 type="button"
-                className="w-8 h-8 rounded-full bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-300"
-                aria-label="History"
+                onClick={() => setReportModalOpen(true)}
+                className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:bg-gray-50 shadow-sm"
+                aria-label="Report"
               >
-                <Clock className="w-3.5 h-3.5" />
+                <AlertOctagon className="w-4 h-4" strokeWidth={2} />
               </button>
             </div>
           </div>
@@ -314,18 +324,43 @@ export default function ProductShowcase({
           </div>
 
           <div className="space-y-2">
-            <div className="bg-white border border-gray-200 rounded-lg p-2.5 flex items-start gap-2">
-              <Truck className="w-4 h-4 text-black shrink-0 mt-0.5" />
-              <div className="min-w-0">
-                <p className="text-xs font-medium text-black">Free Delivery</p>
+            {!pincodeFieldOpen ? (
+              <div className="bg-white border border-gray-200 rounded-lg p-2.5 flex items-start gap-2">
+                <Truck className="w-4 h-4 text-black shrink-0 mt-0.5" />
+                <div className="min-w-0">
+                  <p className="text-xs font-medium text-black">Free Delivery</p>
+                  <button
+                    type="button"
+                    onClick={() => setPincodeFieldOpen(true)}
+                    className="text-xs text-[#2563eb] underline mt-0.5 text-left"
+                  >
+                    Enter your postal code for Delivery Availability
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div className="flex items-center flex-1 min-w-0 gap-2 border-b-2 border-gray-500 pb-1">
+                  <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-black shrink-0" strokeWidth={2} />
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="110056"
+                    maxLength={6}
+                    value={pincode}
+                    onChange={(e) => setPincode(e.target.value.replace(/\D/g, ""))}
+                    className="flex-1 min-w-0 py-0.5 bg-transparent text-sm font-medium text-black placeholder:text-gray-500 focus:outline-none"
+                  />
+                </div>
                 <button
                   type="button"
-                  className="text-xs text-[#2563eb] underline mt-0.5"
+                  onClick={() => setDeliveryModalOpen(true)}
+                  className="shrink-0 px-4 py-2 sm:px-5 sm:py-2.5 rounded-md bg-[#FFBF00] hover:bg-[#e5ac00] text-black text-sm font-semibold transition"
                 >
-                  Enter your postal code for Delivery Availability
+                  Check
                 </button>
               </div>
-            </div>
+            )}
             <div className="bg-white border border-gray-200 rounded-lg p-2.5 flex items-start gap-2">
               <RotateCcw className="w-4 h-4 text-black shrink-0 mt-0.5" />
               <div className="min-w-0">
@@ -346,6 +381,26 @@ export default function ProductShowcase({
           </div>
         </div>
       </div>
+
+      <ShareProductModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        productName={name}
+        productUrl={`https://tibilmall.com/product/${encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase())}`}
+      />
+      <ReportProductModal
+        isOpen={reportModalOpen}
+        onClose={() => setReportModalOpen(false)}
+        productName={name}
+      />
+      <CheckDeliveryModal
+        isOpen={deliveryModalOpen}
+        onClose={() => setDeliveryModalOpen(false)}
+        productName={name}
+        productImage={images[0] ?? product.image}
+        productSubtext={`${name} ${storageOptions[selectedStorage] ?? ""}`.trim()}
+        initialPincode={pincode}
+      />
     </div>
   );
 }

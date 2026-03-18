@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Star,
   ChevronDown,
@@ -129,15 +130,15 @@ export default function ProductDescriptionTabs({
       className="rounded-xl overflow-hidden mt-6"
       style={{ fontFamily: "var(--font-poppins)" }}
     >
-      {/* Tab navigation */}
-      <div className=" px-4 sm:px-5 pt-4">
-        <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+      {/* Tab navigation - single row on small screens with reduced size */}
+      <div className="px-3 sm:px-5 pt-3 sm:pt-4">
+        <div className="flex flex-nowrap items-center gap-1.5 sm:flex-wrap sm:gap-5 overflow-x-auto pb-0.5 sm:pb-0">
           {TABS.map((tab) => (
             <button
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`rounded-md px-4 py-2.5 text-sm font-semibold transition ${
+              className={`rounded-md px-2 py-1.5 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold transition whitespace-nowrap shrink-0 ${
                 activeTab === tab
                   ? "text-white"
                   : "text-[#4b5563] bg-transparent hover:text-gray-900"
@@ -221,12 +222,12 @@ export default function ProductDescriptionTabs({
               </div>
               <div className="flex-1">
                 <span className="text-sm text-gray-900">(10,653 Ratings)</span>
-                <button
-                  type="button"
+                <Link
+                  href={`/products/${product.id}/reviews`}
                   className="text-sm text-[#3F8CFF] font-medium ml-2 hover:underline"
                 >
                   View All
-                </button>
+                </Link>
                 <div className="mt-3 space-y-2">
                   {RATING_DISTRIBUTION.map((r) => (
                     <div key={r.stars} className="flex items-center gap-3">
