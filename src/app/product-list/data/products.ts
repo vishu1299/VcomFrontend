@@ -21,19 +21,11 @@ export const ALL_PRODUCTS: ProductCardProps[] = [
   },
   {
     id: '3',
-<<<<<<< HEAD
     name: "Men's Half Sleeve Solid Casual Regular Fit",
     price: 29,
     originalPrice: 58,
     image: '/images/product6.png',
     badges: ['5% OFF', 'SPONSORED'],
-=======
-    name: 'iPhone 17 Pro 15.93 cm (6.3") Display',
-    price: 299.99,
-    originalPrice: 349,
-    image: '/images/logo.png',
-    badges: ['SALE', 'NEW'],
->>>>>>> origin/JK
     hasVideo: true,
   },
   {

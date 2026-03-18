@@ -11,12 +11,14 @@ import {
   ChevronUp,
   Maximize2,
   Share2,
-  Info,
+  AlertOctagon,
   ShoppingCart,
   ArrowUpRight,
   Play,
 } from "lucide-react";
 import type { ExclusiveProduct, ExclusiveProductBadge } from "../data/products";
+import ShareProductModal from "@/components/product/ShareProductModal";
+import ReportProductModal from "@/components/product/ReportProductModal";
 
 /* Modal-specific badge colors to match design: SALE golden, NEW blue */
 const MODAL_BADGE_STYLES: Record<ExclusiveProductBadge, string> = {
@@ -65,6 +67,8 @@ export default function ProductDetailModal({
   const [quantity, setQuantity] = useState(1);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
   const thumbScrollRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -138,17 +142,19 @@ export default function ProductDetailModal({
         <div className="absolute top-2 right-10 lg:top-4 lg:right-14 z-20 flex items-center gap-1.5 lg:gap-2">
           <button
             type="button"
-            className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center hover:bg-gray-300 transition"
+            onClick={() => setShareModalOpen(true)}
+            className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:bg-gray-50 shadow-sm transition"
             aria-label="Share"
           >
-            <Share2 className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-gray-700" />
+            <Share2 className="w-3.5 h-3.5 lg:w-4 lg:h-4" strokeWidth={2} />
           </button>
           <button
             type="button"
-            className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center hover:bg-gray-300 transition"
-            aria-label="Info"
+            onClick={() => setReportModalOpen(true)}
+            className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:bg-gray-50 shadow-sm transition"
+            aria-label="Report"
           >
-            <Info className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-gray-700" />
+            <AlertOctagon className="w-3.5 h-3.5 lg:w-4 lg:h-4" strokeWidth={2} />
           </button>
         </div>
 
@@ -422,6 +428,18 @@ export default function ProductDetailModal({
           </div>
         </div>
       </div>
+
+      <ShareProductModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        productName={name}
+        productUrl={`https://tibilmall.com/product/${encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase())}`}
+      />
+      <ReportProductModal
+        isOpen={reportModalOpen}
+        onClose={() => setReportModalOpen(false)}
+        productName={name}
+      />
     </div>
   );
 }
