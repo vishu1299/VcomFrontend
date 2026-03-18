@@ -55,7 +55,6 @@ export default function ProductCard({
           sizes="280px"
         />
 
-<<<<<<< HEAD
         {/* BADGES (left) + WISHLIST (right) */}
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2 z-10">
           <div className="flex items-center gap-1 min-w-0 flex-wrap">
@@ -77,25 +76,6 @@ export default function ProductCard({
           <button type="button" onClick={(e) => e.stopPropagation()} className="w-[40px] h-[40px] shrink-0 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow" aria-label="Add to wishlist">
             <Heart className="w-4 h-4 text-black" />
           </button>
-=======
-        {/* BADGES */}
-        <div className="absolute top-2 left-2 flex gap-1">
-          {badges.includes('10% OFF') && (
-            <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313]">
-              10% OFF
-            </span>
-          )}
-          {badges.includes('SPONSORED') && (
-            <span
-              className="px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white"
-              style={{
-                background: "linear-gradient(to right, #628AFF 0%, #4164C7 60%, #1E3A8A 100%)",
-              }}
-            >
-              SPONSORED
-            </span>
-          )}
->>>>>>> origin/kush
         </div>
 
         {/* VIDEO */}
