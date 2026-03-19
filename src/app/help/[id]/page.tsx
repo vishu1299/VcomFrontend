@@ -9,6 +9,8 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 const inputClass =
   "w-full min-h-[40px] px-3 py-2 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)]";
 const labelClass = "block text-sm font-medium mb-1.5";
+/** Contact modal: placeholder #767676, input/textarea value black */
+const contactModalInputClass = `${inputClass} text-black placeholder:text-[#767676]`;
 
 const ARTICLE_TABS = [
   "General",
@@ -323,9 +325,10 @@ export default function HelpArticleDetailPage() {
             aria-labelledby="contact-modal-title"
           >
             <div
-              className="bg-white rounded-2xl shadow-xl w-full max-w-[800px] max-h-[90vh] overflow-y-auto"
+              className="contact-us-modal bg-white rounded-2xl shadow-xl w-full max-w-[800px] max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
+              <style dangerouslySetInnerHTML={{ __html: ".contact-us-modal input::placeholder, .contact-us-modal textarea::placeholder { color: #767676; }" }} />
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <div>
@@ -367,7 +370,7 @@ export default function HelpArticleDetailPage() {
                       type="text"
                       value={contactFirstName}
                       onChange={(e) => setContactFirstName(e.target.value)}
-                      className={inputClass}
+                      className={contactModalInputClass}
                       placeholder="Enter First Name"
                     />
                   </div>
@@ -379,7 +382,7 @@ export default function HelpArticleDetailPage() {
                       type="text"
                       value={contactLastName}
                       onChange={(e) => setContactLastName(e.target.value)}
-                      className={inputClass}
+                      className={contactModalInputClass}
                       placeholder="Enter Last Name"
                     />
                   </div>
@@ -407,7 +410,7 @@ export default function HelpArticleDetailPage() {
                         type="tel"
                         value={contactPhone}
                         onChange={(e) => setContactPhone(e.target.value)}
-                        className="flex-1 min-w-0 px-3 py-2 text-sm outline-none"
+                        className="flex-1 min-w-0 px-3 py-2 text-sm outline-none text-black placeholder:text-[#767676]"
                         placeholder="Phone number"
                       />
                     </div>
@@ -422,7 +425,7 @@ export default function HelpArticleDetailPage() {
                       type="text"
                       value={contactReason}
                       onChange={(e) => setContactReason(e.target.value)}
-                      className={inputClass}
+                      className={contactModalInputClass}
                       placeholder="Enter Reason"
                     />
                   </div>
@@ -435,7 +438,7 @@ export default function HelpArticleDetailPage() {
                     value={contactDescription}
                     onChange={(e) => setContactDescription(e.target.value)}
                     placeholder="Write your issue"
-                    className="w-full h-[100px] px-3 py-2 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] resize-none"
+                    className="w-full h-[100px] px-3 py-2 text-sm text-black placeholder:text-[#767676] border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] resize-none"
                   />
                   <p
                     className="text-xs text-right mt-1"

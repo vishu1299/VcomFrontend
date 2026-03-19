@@ -27,40 +27,40 @@ const TOP_PRODUCTS = [
 
 function TopProductCard({ product }: { product: (typeof TOP_PRODUCTS)[0] }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-white overflow-hidden shadow-sm shrink-0 w-[200px] sm:w-[220px]">
-      <div className="relative aspect-square bg-gray-100">
-        <Image src={product.image} alt={product.name} fill className="object-cover" />
-        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+    <div className="rounded-xl border border-[var(--color-border)] bg-white overflow-hidden shadow-sm shrink-0 w-[150px] sm:w-[220px]">
+      <div className="relative aspect-square bg-white-100">
+        <Image src={product.image} alt={product.name} fill className="object-contain" />
+        <div className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2 flex flex-wrap gap-1 sm:gap-1.5">
           {product.sale && (
-            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-black" style={{ backgroundColor: '#FFD93D' }}>
+            <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-black" style={{ backgroundColor: '#FFD93D' }}>
               SALE
             </span>
           )}
           {product.isNew && (
-            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-white" style={{ backgroundColor: '#60A5FA' }}>
+            <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-white" style={{ backgroundColor: '#60A5FA' }}>
               NEW
             </span>
           )}
         </div>
-        <button type="button" className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 border border-gray-200" aria-label="Save">
-          <Heart className="w-4 h-4 text-gray-400" strokeWidth={1.5} />
+        <button type="button" className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 p-1 sm:p-1.5 rounded-full bg-white/90 border border-gray-200" aria-label="Save">
+          <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" strokeWidth={1.5} />
         </button>
       </div>
-      <div className="p-3">
-        <p className="text-sm font-medium text-[var(--color-black-01)] line-clamp-2 mb-2">{product.name}</p>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div className="flex items-baseline gap-2">
-            <span className="text-base font-bold text-black">{product.price}</span>
+      <div className="p-2 sm:p-3">
+        <p className="text-xs sm:text-sm font-medium text-[var(--color-black-01)] line-clamp-2 mb-1 sm:mb-2">{product.name}</p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+          <div className="flex items-baseline gap-1 sm:gap-2">
+            <span className="text-xs sm:text-base font-bold text-black">{product.price}</span>
             {product.originalPrice && (
-              <span className="text-sm line-through" style={{ color: '#A6A6A6' }}>{product.originalPrice}</span>
+              <span className="text-[10px] sm:text-sm line-through" style={{ color: '#A6A6A6' }}>{product.originalPrice}</span>
             )}
           </div>
           <button
             type="button"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg text-xs font-medium border text-black hover:bg-gray-50"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-0.5 sm:gap-1 py-1 sm:py-1.5 px-1.5 sm:px-2 rounded-lg text-[10px] sm:text-xs font-medium border text-black hover:bg-gray-50"
             style={{ borderColor: '#D2D2D2' }}
           >
-            <CartIcon className="w-3.5 h-3.5" />
+            <CartIcon className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
             ADD TO CART
           </button>
         </div>

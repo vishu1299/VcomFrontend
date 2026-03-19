@@ -71,6 +71,8 @@ const DISCOUNTS = [
   { id: '60', label: '60% and above' },
 ];
 
+const MAX_PRICE = 20000;
+
 type FilterSidebarProps = {
   filters: FilterState;
   onFiltersChange: (filters: FilterState) => void;
@@ -355,15 +357,46 @@ export default function FilterSidebar({
             >
               Price
             </h4>
-            <div className="mb-2">
+            <div className="relative h-6 flex items-center mb-2">
+              <div
+                className="absolute top-1/2 left-0 right-0 h-2 -translate-y-1/2 rounded-full"
+                style={{ backgroundColor: FIGMA.border }}
+              />
+              <div
+                className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full pointer-events-none"
+                style={{
+                  left: `${(filters.priceMin / MAX_PRICE) * 100}%`,
+                  width: `${((filters.priceMax - filters.priceMin) / MAX_PRICE) * 100}%`,
+                  backgroundColor: FIGMA.blue,
+                }}
+              />
               <input
                 type="range"
                 min={0}
-                max={20000}
+                max={Math.max(filters.priceMax, 1)}
+                value={filters.priceMin}
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  setPriceRange(val, Math.max(val, filters.priceMax));
+                }}
+                className="price-range-input absolute top-1/2 left-0 h-2 -translate-y-1/2 w-full pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto rounded-full appearance-none cursor-pointer"
+                style={{ accentColor: FIGMA.blue, width: `${(filters.priceMax / MAX_PRICE) * 100}%` }}
+              />
+              <input
+                type="range"
+                min={filters.priceMin < MAX_PRICE ? filters.priceMin : MAX_PRICE - 1}
+                max={MAX_PRICE}
                 value={filters.priceMax}
-                onChange={(e) => setPriceRange(filters.priceMin, Number(e.target.value))}
-                className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{ accentColor: FIGMA.blue, backgroundColor: FIGMA.border }}
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  setPriceRange(Math.min(val, filters.priceMin), val);
+                }}
+                className="price-range-input absolute top-1/2 left-0 h-2 -translate-y-1/2 w-full pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto rounded-full appearance-none cursor-pointer"
+                style={{
+                  accentColor: FIGMA.blue,
+                  width: `${((MAX_PRICE - filters.priceMin) / MAX_PRICE) * 100}%`,
+                  left: `${(filters.priceMin / MAX_PRICE) * 100}%`,
+                }}
               />
             </div>
             <p style={{ fontSize: 14, color: FIGMA.black }}>
