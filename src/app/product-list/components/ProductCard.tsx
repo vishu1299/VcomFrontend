@@ -27,6 +27,8 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { addToCart } = useCart();
 
+  const topBadges = badges.filter((b) => b !== 'SPONSORED');
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     addToCart({ id, name, price, originalPrice, image });
@@ -55,22 +57,19 @@ export default function ProductCard({
           sizes="280px"
         />
 
-        {/* BADGES (left) + WISHLIST (right) */}
+        {/* BADGES (left) + WISHLIST (right) — top row never shows SPONSORED */}
         <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2 z-10">
           <div className="flex items-center gap-1 min-w-0 flex-wrap">
-            {badges.includes('SALE') && (
+            {topBadges.includes('SALE') && (
               <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313] shrink-0">SALE</span>
             )}
-            {badges.includes('NEW') && (
+            {topBadges.includes('NEW') && (
               <span className="bg-[#2563EB] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white shrink-0">NEW</span>
             )}
-            {badges.find((b) => typeof b === 'string' && (b as string).includes('% OFF')) && (
+            {topBadges.find((b) => typeof b === 'string' && (b as string).includes('% OFF')) && (
               <span className="bg-[#FACC15] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-[#131313] shrink-0">
-                {badges.find((b) => typeof b === 'string' && (b as string).includes('% OFF'))}
+                {topBadges.find((b) => typeof b === 'string' && (b as string).includes('% OFF'))}
               </span>
-            )}
-            {badges.includes('SPONSORED') && (
-              <span className="bg-[#2563EB] px-2 py-[2px] rounded-[4px] text-[10px] font-semibold text-white shrink-0">SPONSORED</span>
             )}
           </div>
           <button type="button" onClick={(e) => e.stopPropagation()} className="w-[40px] h-[40px] shrink-0 rounded-full bg-white shadow-md flex items-center justify-center hover:shadow-lg transition-shadow" aria-label="Add to wishlist">
