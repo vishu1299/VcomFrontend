@@ -95,10 +95,10 @@ function ReviewRow({
 }) {
   return (
     <div
-      className={`flex items-start justify-between gap-4 py-3 px-4 ${noTopBorder ? '' : 'border-t border-[#D2D2D2]'}`}
+      className={`flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1.5 sm:gap-4 py-3 px-4 ${noTopBorder ? '' : 'border-t border-[#D2D2D2]'}`}
     >
       <span className="text-sm font-medium text-[#131313] shrink-0">{label}</span>
-      <span className="text-sm text-[#131313] text-right min-w-0 whitespace-pre-wrap">{value}</span>
+      <span className="text-sm text-[#131313] text-left sm:text-right min-w-0 whitespace-pre-wrap break-words">{value}</span>
     </div>
   );
 }
@@ -566,9 +566,9 @@ export default function ReturnItemPage() {
                     />
                     <ReviewRow label="Return reason" value={reason} />
                     <ReviewRow label="Product current condition" value={condition} />
-                    <div className="flex items-start justify-between gap-4 py-3 px-4 border-t border-[#D2D2D2]">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1.5 sm:gap-4 py-3 px-4 border-t border-[#D2D2D2]">
                       <span className="text-sm font-medium text-[#131313] shrink-0">Uploaded Photo/Video</span>
-                      <div className="flex flex-wrap gap-2 justify-end min-w-0">
+                      <div className="flex flex-wrap gap-2 justify-start sm:justify-end min-w-0">
                         {previewUrls.length > 0 ? (
                           previewUrls.map((url, i) => (
                             <div key={`${url}-${i}`} className="w-14 h-14 shrink-0 rounded overflow-hidden border border-[#D2D2D2]">

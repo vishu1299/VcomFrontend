@@ -39,10 +39,10 @@ export default function AccountLayout({
 
   return (
     <div
-      className="bg-[#f5f5f5] min-h-screen"
+      className="bg-[#f5f5f5]"
       style={{ fontFamily: 'var(--font-poppins)' }}
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
 
           {/* ─── Header / Tabs Bar ────────────────────────────────────── */}
@@ -119,13 +119,13 @@ export default function AccountLayout({
           )}
 
           {/* Page content */}
-          <div className="px-5 sm:px-6 py-6">
+          <div className="px-5 sm:px-6 pt-6 pb-4">
             {children}
           </div>
         </div>
 
         {/* Footer links */}
-        <nav className="flex flex-wrap items-center justify-center gap-4 py-6 text-sm text-[var(--color-black-01)]">
+        <nav className="flex flex-wrap items-center justify-center gap-4 py-4 pb-2 text-sm text-[var(--color-black-01)]">
           <Link href="/" className="hover:underline">Home</Link>
           <span>|</span>
           <Link href="/account/orders" className="hover:underline">My Orders</Link>

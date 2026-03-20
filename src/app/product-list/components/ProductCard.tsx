@@ -12,6 +12,8 @@ export type ProductCardProps = {
   image: string;
   badges?: string[];
   hasVideo?: boolean;
+  /** If omitted but hasVideo is true, a sample clip is used for hover preview. */
+  videoUrl?: string;
   onQuickView?: () => void;
 };
 

@@ -276,9 +276,9 @@ export default function SubmitTicketPage() {
               </div>
 
               {/* Email option box - 300px wide, left-aligned with content, half in half outside outer box */}
-              <div className="pl-5 sm:pl-6 relative -mt-13 z-10">
+              <div className="pl-5 pr-5 sm:pl-6 sm:pr-0 relative -mt-13 z-10">
                 <label
-                  className="flex items-center justify-between gap-3 w-[300px] min-h-[48px] px-4 py-3 rounded-lg border bg-white cursor-pointer"
+                  className="flex items-center justify-between gap-3 w-full sm:w-[300px] min-h-[48px] px-4 py-3 rounded-lg border bg-white cursor-pointer"
                   style={{ borderColor: "#D2D2D2" }}
                 >
                   <span className="text-sm font-medium text-black">Email</span>

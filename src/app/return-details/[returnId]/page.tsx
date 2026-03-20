@@ -328,9 +328,9 @@ function Row({
   multiline?: boolean;
 }) {
   return (
-    <div className="flex items-start justify-between gap-2 text-[#000000]">
+    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2 text-[#000000]">
       <span className="font-medium shrink-0">{label}</span>
-      <span className={`text-right min-w-0 ${multiline ? 'whitespace-pre-wrap' : ''}`}>{value}</span>
+      <span className={`text-left sm:text-right min-w-0 break-words ${multiline ? 'whitespace-pre-wrap' : ''}`}>{value}</span>
     </div>
   );
 }

@@ -110,7 +110,7 @@ export default function ReturnSuccessPage() {
               >
                 Track Return
               </Link>
-              <div className="grid grid-cols-2 gap-3 lg:contents">
+              <div className="grid grid-cols-1 gap-3 lg:contents">
                 <Link
                   href="/account/orders"
                   className="min-h-[44px] w-full min-w-0 lg:w-[300px] rounded-[6px] text-sm font-medium border border-[#D2D2D2] bg-white text-[#131313] hover:bg-gray-50 flex items-center justify-center"

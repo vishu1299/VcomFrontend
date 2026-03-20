@@ -1,7 +1,9 @@
 'use client';
 
+import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ProductCard, { type ProductCardProps } from './ProductCard';
+import ProductListCarouselCard from './ProductListCarouselCard';
+import type { ProductCardProps } from './ProductCard';
 
 const carouselProducts: ProductCardProps[] = [
   {
@@ -10,7 +12,7 @@ const carouselProducts: ProductCardProps[] = [
     price: 29,
     originalPrice: 32,
     image: '/images/product1.png',
-    badges: ['10% OFF'],
+    badges: ['10% OFF','SPONSORED'],
     hasVideo: true,
   },
   {
@@ -28,7 +30,7 @@ const carouselProducts: ProductCardProps[] = [
     price: 29,
     originalPrice: 32,
     image: '/images/product3.png',
-    badges: ['10% OFF'],
+    badges: ['10% OFF','SPONSORED'],
     hasVideo: true,
   },
   {
@@ -46,7 +48,7 @@ const carouselProducts: ProductCardProps[] = [
     price: 29,
     originalPrice: 32,
     image: '/images/product2.png',
-    badges: ['10% OFF'],
+    badges: ['10% OFF','SPONSORED'],
     hasVideo: true,
   },
 ];
@@ -56,49 +58,116 @@ type TopProductsCarouselProps = {
 };
 
 export default function TopProductsCarousel({ onProductClick }: TopProductsCarouselProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const total = carouselProducts.length;
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const scrollDesktop = (dir: 'left' | 'right') => {
+    if (!scrollRef.current) return;
+    const amount = scrollRef.current.clientWidth * 0.8;
+    scrollRef.current.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' });
+  };
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollMobile = (dir: 'left' | 'right') => {
+    const next =
+      dir === 'left'
+        ? Math.max(0, currentIndex - 1)
+        : Math.min(total - 1, currentIndex + 1);
+    setCurrentIndex(next);
+    if (!scrollRef.current) return;
+    const card = scrollRef.current.children[next] as HTMLElement;
+    card?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
+  const handleLeft = () => (isMobile ? scrollMobile('left') : scrollDesktop('left'));
+  const handleRight = () => (isMobile ? scrollMobile('right') : scrollDesktop('right'));
+
   return (
     <section
-      className="py-4 md:px-4 px-6  mb-2 sm:mb-2"
+      className="mb-2 px-6 py-4 sm:mb-2 md:px-4"
       style={{ background: '#FFF3CF' }}
       aria-label="Top products"
     >
-      <div className="mb-4 sm:mb-5 flex flex-wrap items-baseline gap-2 sm:gap-3">
-        <h2 className="text-design-24 sm:text-design-28 lg:text-design-32 font-bold text-black">
+      <div className="mb-4 flex flex-wrap items-baseline gap-2 sm:mb-5 sm:gap-3">
+        <h2 className="text-design-24 font-bold text-black sm:text-design-28 lg:text-design-32">
           Top Products
         </h2>
-        <p className="text-design-12 sm:text-design-14 text-[#767676]">
+        <p className="text-design-16 text-[#767676] sm:text-design-14">
           Most selling across all categories - updated daily
         </p>
       </div>
 
       <div className="relative">
-        <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
+        <button
+          type="button"
+          onClick={handleLeft}
+          disabled={isMobile && currentIndex === 0}
+          className="absolute left-0 top-1/2 z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e7eb] bg-white shadow-md transition hover:bg-[#f3f4f6] disabled:cursor-not-allowed disabled:opacity-30 sm:h-9 sm:w-9"
+          aria-label="Previous products"
+        >
+          <ChevronLeft className="h-4 w-4 text-[#374151] sm:h-5 sm:w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={handleRight}
+          disabled={isMobile && currentIndex === total - 1}
+          className="absolute right-0 top-1/2 z-10 flex h-8 w-8 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e7eb] bg-white shadow-md transition hover:bg-[#f3f4f6] disabled:cursor-not-allowed disabled:opacity-30 sm:h-9 sm:w-9"
+          aria-label="Next products"
+        >
+          <ChevronRight className="h-4 w-4 text-[#374151] sm:h-5 sm:w-5" />
+        </button>
+
+        <div
+          ref={scrollRef}
+          className="-mx-4 flex gap-3 overflow-x-auto scroll-smooth px-4 pb-2 sm:mx-0 sm:gap-4 sm:px-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {carouselProducts.map((product) => (
             <div
               key={product.id}
-              className="min-w-[200px] sm:min-w-[210px] lg:min-w-[220px] snap-start shrink-0"
+              className="shrink-0"
+              style={{
+                /* Mobile: at least 160px so tiny phones don’t over-shrink; otherwise ~half viewport */
+                width: isMobile
+                  ? 'max(160px, calc((100vw - 3.5rem) / 2 - 0.375rem))'
+                  : 'clamp(180px, 22vw, 260px)',
+              }}
             >
-              <ProductCard
+              <ProductListCarouselCard
                 {...product}
                 onQuickView={onProductClick ? () => onProductClick(product) : undefined}
               />
             </div>
           ))}
         </div>
-        <button
-          type="button"
-          className="hidden lg:flex absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition z-10"
-          aria-label="Previous products"
-        >
-          <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
-        </button>
-        <button
-          type="button"
-          className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition z-10"
-          aria-label="Next products"
-        >
-          <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />
-        </button>
+
+        {isMobile && (
+          <div className="mt-3 flex justify-center gap-1.5">
+            {carouselProducts.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => {
+                  setCurrentIndex(i);
+                  const card = scrollRef.current?.children[i] as HTMLElement;
+                  card?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }}
+                className={`rounded-full transition-all ${
+                  i === currentIndex ? 'h-2.5 w-2.5 bg-[#131313]' : 'h-2 w-2 bg-[#d1d5db]'
+                }`}
+                aria-label={`Go to product ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

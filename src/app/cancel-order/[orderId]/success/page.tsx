@@ -223,11 +223,11 @@ export default function CancelOrderSuccessPage() {
             <ChevronRight className="w-5 h-5 text-gray-600" />
           </button>
         </div>
-      </div>
+    </div>
 
-        </div>
+      </div>
       {/* Footer links — outside the main box */}
-      <footer className="pt-6 border-t border-[#D2D2D2] text-center text-sm text-[#6b7280] mt-6">
+      <footer className="pt-0 text-center text-sm text-[#6b7280] mt-0">
         <Link href="/" className="hover:text-[#1e3a8a] hover:underline">Home</Link>
         <span className="mx-2">|</span>
         <Link href="/account/orders" className="hover:text-[#1e3a8a] hover:underline">My Orders</Link>

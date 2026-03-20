@@ -53,10 +53,23 @@ function StoreCardItem({ store }: { store: StoreCard }) {
       <p className="text-sm font-semibold text-[var(--color-black-01)] mb-1.5 line-clamp-2">
         {store.name}
       </p>
-      <div className="flex items-center justify-center flex-nowrap gap-0.5 sm:gap-1.5 mb-3">
-        <Image src="/Star.svg" alt="" width={16} height={15} className="shrink-0" />
-        <span className="text-xs font-medium text-[var(--color-black-01)] whitespace-nowrap shrink-0">{store.rating}</span>
-        <span className="text-xs whitespace-nowrap shrink-0" style={{ color: '#131313' }}>({store.reviewCount})</span>
+      <div className="mb-3">
+        {/* Very small: centered two rows (rating row, then review count row) */}
+        <div className="min-[381px]:hidden flex flex-col items-center gap-0.5">
+          <div className="flex items-center justify-center gap-0.5">
+            <Image src="/Star.svg" alt="" width={16} height={15} className="shrink-0" />
+            <span className="text-xs font-medium text-[var(--color-black-01)] whitespace-nowrap">{store.rating}</span>
+          </div>
+          <span className="text-xs whitespace-nowrap" style={{ color: '#131313' }}>
+            ({store.reviewCount})
+          </span>
+        </div>
+        {/* Default/mobile+web: single row */}
+        <div className="max-[380px]:hidden flex items-center justify-center flex-nowrap gap-0.5 sm:gap-1.5">
+          <Image src="/Star.svg" alt="" width={16} height={15} className="shrink-0" />
+          <span className="text-xs font-medium text-[var(--color-black-01)] whitespace-nowrap shrink-0">{store.rating}</span>
+          <span className="text-xs whitespace-nowrap shrink-0" style={{ color: '#131313' }}>({store.reviewCount})</span>
+        </div>
       </div>
       <button
         type="button"
@@ -77,7 +90,7 @@ export default function MyFollowingsPage() {
   const [stores] = useState<StoreCard[]>(MOCK_STORES);
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
       {/* Same row: left = title + subtext, right = search + Date */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
         <div>

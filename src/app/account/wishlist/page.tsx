@@ -110,7 +110,7 @@ function WishlistProductCard({ product, onRemove }: { product: WishlistProduct; 
             style={{ borderColor: '#D2D2D2' }}
           >
             <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="sm:hidden">Add</span>
+            <span className="min-[361px]:inline sm:hidden max-[360px]:hidden">Add</span>
             <span className="hidden sm:inline">Add to Cart</span>
           </button>
           <button
@@ -195,7 +195,7 @@ export default function WishlistPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
       {/* Header: title + search + filters - no white bg */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
         <div>

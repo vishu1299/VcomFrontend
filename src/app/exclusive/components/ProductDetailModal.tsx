@@ -55,12 +55,15 @@ type ProductDetailModalProps = {
   product: ExclusiveProduct;
   isOpen: boolean;
   onClose: () => void;
+  /** Override "Go to Product Page" URL (default: `/products/${id}`) */
+  productPageHref?: string;
 };
 
 export default function ProductDetailModal({
   product,
   isOpen,
   onClose,
+  productPageHref,
 }: ProductDetailModalProps) {
   const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState(0);
@@ -378,7 +381,7 @@ export default function ProductDetailModal({
             </p>
 
             <Link
-              href={`/products/${product.id}`}
+              href={productPageHref ?? `/products/${product.id}`}
               onClick={onClose}
               className="inline-flex items-center justify-center gap-1.5 lg:gap-2 w-full h-10 lg:h-14 rounded-lg border border-gray-300 bg-white text-[#1f2937] font-medium text-xs lg:text-sm mb-3 lg:mb-4 hover:bg-gray-50 transition"
             >

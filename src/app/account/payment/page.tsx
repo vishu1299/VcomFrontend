@@ -116,7 +116,8 @@ function PaymentCard({
           className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex-1 sm:flex-initial min-w-0 whitespace-nowrap"
         >
           <Pencil className="w-4 h-4 shrink-0" />
-          Edit Payment
+          <span className="max-[380px]:hidden">Edit Payment</span>
+          <span className="min-[381px]:hidden">Edit</span>
         </button>
         <button
           type="button"
@@ -396,7 +397,7 @@ export default function PaymentMethodPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-black-01)] mb-1">
