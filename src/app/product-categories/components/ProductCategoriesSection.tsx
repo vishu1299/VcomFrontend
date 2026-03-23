@@ -50,7 +50,7 @@ function CategoryCard({ category }: { category: ProductCategory }) {
               WebkitBoxOrient: "vertical" as const,
               overflow: "hidden",
               lineHeight: 1.25,
-              maxHeight: "2.5em",
+              maxHeight: "3.5em",
             }}
           >
             {category.name}
