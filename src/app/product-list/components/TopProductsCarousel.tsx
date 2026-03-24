@@ -127,19 +127,13 @@ export default function TopProductsCarousel({ onProductClick }: TopProductsCarou
 
         <div
           ref={scrollRef}
-          className="-mx-4 flex gap-3 overflow-x-auto scroll-smooth px-4 pb-2 sm:mx-0 sm:gap-4 sm:px-0"
+          className="flex gap-3 overflow-x-auto scroll-smooth pb-2 sm:gap-4"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {carouselProducts.map((product) => (
             <div
               key={product.id}
-              className="shrink-0"
-              style={{
-                /* Mobile: at least 160px so tiny phones don’t over-shrink; otherwise ~half viewport */
-                width: isMobile
-                  ? 'max(160px, calc((100vw - 3.5rem) / 2 - 0.375rem))'
-                  : 'clamp(180px, 22vw, 260px)',
-              }}
+              className="flex w-[200px] shrink-0 flex-col sm:w-[220px] md:w-[240px]"
             >
               <ProductListCarouselCard
                 {...product}

@@ -1,11 +1,26 @@
 "use client";
 
 import { useRef } from "react";
-import { remoteGalleryImage } from "@/lib/remoteAssets";
 
-const PHOTOS = Array.from({ length: 10 }, (_, i) =>
-  remoteGalleryImage(i + 30, 700),
-);
+const PHOTOS = [
+  "/images/customerReviews/carasoul1.png",
+  "/images/customerReviews/carasoul2.png",
+  "/images/customerReviews/carasoul3.png",
+  "/images/customerReviews/carasoul4.png",
+  "/images/customerReviews/carasoul5.png",
+  "/images/customerReviews/carasoul6.png",
+  "/images/customerReviews/carasoul7.png",
+  "/images/customerReviews/carasoul8.png",
+  "/images/customerReviews/product.png",
+  "/images/customerReviews/review1.png",
+  "/images/customerReviews/review2.png",
+  "/images/customerReviews/review3.png",
+  "/images/customerReviews/review4.png",
+  "/images/customerReviews/seller1.png",
+  "/images/customerReviews/seller2.png",
+  "/images/customerReviews/seller3.png",
+  "/images/customerReviews/seller4.png",
+];
 
 function ChevronLeft() {
   return (
@@ -51,12 +66,11 @@ export default function PhotosCarousel() {
 
   return (
     <div className="mb-8">
-      <h2 className="text-base font-medium text-[#131313] mb-3">Photos</h2>
-      <div className="relative flex items-center gap-2">
+      <div className="relative flex items-center gap-2 overflow-visible">
         <button
           type="button"
           onClick={() => scroll("left")}
-          className="absolute -left-3 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-[#131313] hover:bg-gray-50 transition"
+          className="absolute top-1/2 -left-5 z-10 -translate-y-1/2 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-[#131313] hover:bg-gray-50 transition"
           aria-label="Previous photos"
         >
           <ChevronLeft />
@@ -82,7 +96,7 @@ export default function PhotosCarousel() {
         <button
           type="button"
           onClick={() => scroll("right")}
-          className="absolute -right-3 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-[#131313] hover:bg-gray-50 transition"
+          className="absolute top-1/2 -right-5 z-10 -translate-y-1/2 shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-[#131313] hover:bg-gray-50 transition"
           aria-label="Next photos"
         >
           <ChevronRight />

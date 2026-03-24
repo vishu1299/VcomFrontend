@@ -3,7 +3,7 @@
 export default function HeroBanner() {
   return (
     <section
-      className="rounded-xl sm:rounded-2xl overflow-hidden mb-6 sm:mb-8 bg-white border border-[#e5e7eb]"
+      className="rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-4 bg-white border border-[#e5e7eb]"
       aria-label="Live Now banner"
     >
       <div className="relative flex flex-col lg:flex-row items-stretch min-h-[260px] sm:min-h-[300px] lg:min-h-[320px]">
@@ -24,17 +24,11 @@ export default function HeroBanner() {
             Shop exclusive items from verified sellers.
           </p>
           <div className="flex flex-wrap gap-3 mt-5 sm:mt-6">
-            <span className="inline-flex items-center gap-2 min-h-[40px] px-4 sm:px-5 rounded-lg text-[14px] font-medium bg-[#f3f4f6] text-[#374151]">
-              <span className="w-8 h-8 rounded flex items-center justify-center bg-[#7c3aed]/20 shrink-0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
-                </svg>
-              </span>
+            <span className="inline-flex items-center gap-2 min-h-[40px] px-4 sm:px-5 rounded-lg text-[14px] font-medium bg-[#E5E5E5] text-[#374151]">
+              
               20 PRODUCTS
             </span>
-            <span className="inline-flex items-center gap-2 min-h-[40px] px-4 sm:px-5 rounded-lg text-[14px] font-medium bg-[#f3f4f6] text-[#374151]">
+            <span className="inline-flex items-center gap-2 min-h-[40px] px-4 sm:px-5 rounded-lg text-[14px] font-medium bg-[#E5E5E5] text-[#374151]">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-[#374151]">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                 <circle cx="12" cy="12" r="3" />

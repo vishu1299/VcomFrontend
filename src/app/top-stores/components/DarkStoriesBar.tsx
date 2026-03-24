@@ -1,8 +1,14 @@
 'use client';
 
-export default function DarkStoriesBar() {
+type DarkStoriesBarProps = {
+  className?: string;
+};
+
+export default function DarkStoriesBar({ className = '' }: DarkStoriesBarProps) {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
+    <div
+      className={`px-4 sm:px-6 lg:px-1 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2 ${className}`}
+    >
       <div className="flex items-center gap-2 sm:gap-3">
         <span
           className="w-2 h-2 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0"

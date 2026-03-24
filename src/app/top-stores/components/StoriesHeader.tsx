@@ -1,36 +1,22 @@
 'use client';
 
 type StoriesHeaderProps = {
-  iconType?: 'yellow' | 'purple';
   title: string;
   subtitle?: string;
 };
 
-export default function StoriesHeader({
-  iconType = 'yellow',
-  title,
-  subtitle,
-}: StoriesHeaderProps) {
+export default function StoriesHeader({ title, subtitle }: StoriesHeaderProps) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 my-4 sm:my-6">
       <div className="flex items-center gap-2 sm:gap-3">
-        <span
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0"
-          style={{
-            backgroundColor: iconType === 'yellow' ? '#eab308' : '#7c3aed',
-          }}
+        <img
+          src="/store.svg"
+          alt=""
+          width={41}
+          height={41}
+          className="h-8 w-8 shrink-0 object-contain sm:h-9 sm:w-9"
           aria-hidden
-        >
-          {iconType === 'yellow' ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden>
-              <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z" />
-            </svg>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden>
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-          )}
-        </span>
+        />
         <div>
           <h2 className="text-[18px] sm:text-[20px] font-semibold text-[#131313]">
             {title}

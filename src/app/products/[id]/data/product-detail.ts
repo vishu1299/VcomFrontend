@@ -8,6 +8,8 @@ import {
 import { RECOMMENDED_PRODUCTS } from '@/app/product-categories/data/recommended-products';
 import { getSubCategoryProducts } from '@/app/product-categories/[slug]/data/products';
 import { MENS_RECOMMENDED_PRODUCTS } from '@/app/mens/data/recommended-products';
+import { ALL_DEAL_PRODUCTS } from '@/app/just-dropped/data/dealProducts';
+import { justDroppedCardToExclusive } from '@/app/just-dropped/lib/mapJustDroppedToExclusive';
 
 export interface ProductDetail extends ExclusiveProduct {
   productNumber: string;
@@ -59,6 +61,7 @@ const ALL_PRODUCTS: ExclusiveProduct[] = [
   ...SPONSORED_EXCLUSIVE_PRODUCTS,
   ...RECOMMENDED_PRODUCTS,
   ...MENS_RECOMMENDED_PRODUCTS,
+  ...ALL_DEAL_PRODUCTS.map((p) => justDroppedCardToExclusive(p)),
 ];
 
 let detailCache: Map<string, ProductDetail> | null = null;

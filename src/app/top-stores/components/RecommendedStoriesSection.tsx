@@ -10,7 +10,7 @@ export default function RecommendedStoriesSection() {
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div
           id="recommended-stories-heading"
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-6"
+          className="grid grid-cols-2 items-stretch gap-4 sm:grid-cols-3 sm:gap-5 md:grid-cols-4 lg:grid-cols-5 lg:gap-6"
         >
           {RECOMMENDED_STORES.map((store) => (
             <StoreCard key={store.id} {...store} />

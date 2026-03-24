@@ -1,26 +1,75 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-/** Intrinsic size of public/images/banner.png — keeps full image visible at any width (no crop, no letterboxing). */
+const AUTO_ADVANCE_MS = 5000;
+
+const BANNERS = [
+  { src: '/images/banner.png', alt: 'Banner 1' },
+  { src: '/images/banner2.png', alt: 'Banner 2' },
+  { src: '/images/banner3.png', alt: 'Banner 3' },
+] as const;
+
 const BANNER_WIDTH = 5952;
 const BANNER_HEIGHT = 1656;
 
-export default function ProductListBanner() {
+export default function HeroBanner() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % BANNERS.length);
+    }, AUTO_ADVANCE_MS);
+
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
     <section
       className="-mt-1 mb-4 overflow-hidden rounded-xl sm:mt-0 sm:mb-8 sm:rounded-2xl"
-      aria-label="Banner"
+      aria-label="Banner carousel"
     >
-      <Image
-        src="/images/banner.png"
-        alt="Banner"
-        width={BANNER_WIDTH}
-        height={BANNER_HEIGHT}
-        className="h-auto w-full object-contain"
-        priority
-        sizes="100vw"
-      />
+      {/* Slider Container */}
+      {/* ✅ Add rounded + overflow HERE */}
+      <div
+        className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl"
+        style={{ aspectRatio: `${BANNER_WIDTH} / ${BANNER_HEIGHT}` }}
+      >
+        {/* Sliding Track */}
+        <div
+          className="flex h-full transition-transform duration-700 ease-in-out"
+          style={{
+            transform: `translateX(-${index * 100}%)`,
+          }}
+        >
+          {BANNERS.map((banner) => (
+            <div key={banner.src} className="relative w-full flex-shrink-0">
+              <Image
+                src={banner.src}
+                alt={banner.alt}
+                fill
+                className="object-contain"
+                sizes="100vw"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Dots Pagination */}
+      <div className="mt-3 flex justify-center gap-2 sm:mt-4">
+        {BANNERS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`h-2 w-2 rounded-full transition-all duration-300 ${i === index
+                ? 'bg-[#1E3A8A]'   // active (only color change)
+                : 'bg-gray-400 hover:bg-gray-500'
+              }`}
+          />
+        ))}
+      </div>
     </section>
   );
 }
