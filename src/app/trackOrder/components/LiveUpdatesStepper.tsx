@@ -2,6 +2,7 @@
 
 const TRACKING_ID = "#432-9877-63";
 const STEP_ACTIVE_COLOR = "#1E3A8A";
+const STEP_DATE_COLOR = "#767676";
 
 const STEPS_BASE = [
   {
@@ -69,7 +70,7 @@ function CopyIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
-      className="shrink-0 cursor-pointer inline-block align-middle ml-1 hover:opacity-80"
+      className="ml-1 inline-block shrink-0 cursor-pointer align-middle hover:opacity-80"
       style={{ color: STEP_ACTIVE_COLOR }}
       aria-hidden
     >
@@ -89,18 +90,18 @@ function StepIcon({
   active: boolean;
 }) {
   const isFilled = completed || active;
-  const colorClass = isFilled ? "text-white" : "bg-gray-200 text-[#131313]";
-  const bgStyle = isFilled ? { backgroundColor: STEP_ACTIVE_COLOR } : undefined;
+  const colorClass = isFilled ? "text-white" : "text-[#131313]";
+  const bgStyle = isFilled ? { backgroundColor: STEP_ACTIVE_COLOR } : { backgroundColor: "#E5E7EB" };
 
   if (type === "check") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
         <svg
-          width="14"
-          height="14"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -116,12 +117,12 @@ function StepIcon({
   if (type === "loading") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
         <svg
-          width="14"
-          height="14"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -137,17 +138,10 @@ function StepIcon({
   if (type === "clock") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16 14" />
         </svg>
@@ -157,17 +151,10 @@ function StepIcon({
   if (type === "truck") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="1" y="3" width="15" height="13" />
           <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
           <circle cx="5.5" cy="18.5" r="2.5" />
@@ -179,17 +166,10 @@ function StepIcon({
   if (type === "pin") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
           <circle cx="12" cy="10" r="3" />
         </svg>
@@ -199,17 +179,10 @@ function StepIcon({
   if (type === "delivery") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2" />
           <path d="M5 18v2a2 2 0 0 0 2 2h2" />
           <path d="M19 18v2a2 2 0 0 1-2 2h-2" />
@@ -221,17 +194,10 @@ function StepIcon({
   if (type === "package") {
     return (
       <span
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${colorClass}`}
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${colorClass}`}
         style={bgStyle}
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
           <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
           <line x1="12" y1="22.08" x2="12" y2="12" />
@@ -261,54 +227,81 @@ export default function LiveUpdatesStepper({
 
   return (
     <div className="mb-8">
-      <h2 className="text-xl font-bold text-[#131313] mb-2">Live Updates</h2>
-      <p className="text-sm text-[#131313] mb-4">
+      <h2 className="mb-2 text-xl font-bold text-[#131313]">Live Updates</h2>
+      <p className="mb-4 text-sm text-[#131313]">
         Tracking ID: {TRACKING_ID}
-        <button
-          type="button"
-          onClick={handleCopyTracking}
-          className="p-0.5 align-middle"
-          aria-label="Copy tracking ID"
-        >
+        <button type="button" onClick={handleCopyTracking} className="p-0.5 align-middle" aria-label="Copy tracking ID">
           <CopyIcon />
         </button>
       </p>
 
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-4 sm:p-6 overflow-x-auto">
-        <div className="flex items-start">
+      {/* Match return-details: bordered card */}
+      <div className="overflow-x-auto rounded-lg border border-[#D2D2D2] bg-white p-4 sm:p-6">
+        {/* Mobile: vertical timeline (same pattern as return-details) */}
+        <div className="flex flex-col lg:hidden">
           {steps.map((step, index) => (
-            <div
-              key={step.id}
-              className="flex items-start flex-1 min-w-0 sm:min-w-[60px]"
-            >
-              <div className="flex flex-col items-center shrink-0">
-                <StepIcon
-                  type={step.icon}
-                  completed={step.completed}
-                  active={step.active}
-                />
-                <p className="text-[10px] sm:text-xs font-medium text-[#131313] mt-2 text-center max-w-[70px] sm:max-w-none">
-                  {step.label}
-                </p>
-                <p className="text-[9px] sm:text-[10px] text-[#131313] mt-0.5 text-center whitespace-nowrap">
+            <div key={step.id} className="flex items-start gap-3">
+              <div className="flex shrink-0 flex-col items-center">
+                <StepIcon type={step.icon} completed={step.completed} active={step.active} />
+                {index < steps.length - 1 && (
+                  <div
+                    className={`mt-1 min-h-[20px] w-0.5 ${step.completed ? "bg-[#1E3A8A]" : "bg-gray-200"}`}
+                    aria-hidden
+                  />
+                )}
+              </div>
+              <div className="min-w-0 pb-4 pt-1.5">
+                <p className="text-xs font-semibold text-[#131313]">{step.label}</p>
+                <p className="mt-0.5 text-xs" style={{ color: STEP_DATE_COLOR }}>
                   {step.date}
                 </p>
               </div>
-              {index < steps.length - 1 && (
-                <div
-                  className={`flex-1 min-w-[8px] sm:min-w-[16px] h-0.5 mt-4 self-center mx-0.5 ${
-                    step.completed ? "" : "bg-gray-200"
-                  }`}
-                  style={
-                    step.completed
-                      ? { backgroundColor: STEP_ACTIVE_COLOR }
-                      : undefined
-                  }
-                  aria-hidden
-                />
-              )}
             </div>
           ))}
+        </div>
+
+        {/* Desktop: per-step left/right half connectors touching circle edges */}
+        <div className="relative hidden min-w-0 lg:block">
+          <div className="flex w-full min-w-0 items-start">
+            {steps.map((step, index) => (
+              <div key={step.id} className="relative flex min-w-0 flex-1 flex-col items-center">
+                {index > 0 && (
+                  <div
+                    className={`absolute left-0 right-1/2 top-5 h-0.5 ${
+                      steps[index - 1]?.completed ? "" : "bg-gray-200"
+                    }`}
+                    style={
+                      steps[index - 1]?.completed
+                        ? { backgroundColor: STEP_ACTIVE_COLOR }
+                        : undefined
+                    }
+                    aria-hidden
+                  />
+                )}
+                {index < steps.length - 1 && (
+                  <div
+                    className={`absolute left-1/2 right-0 top-5 h-0.5 ${
+                      step.completed ? "" : "bg-gray-200"
+                    }`}
+                    style={step.completed ? { backgroundColor: STEP_ACTIVE_COLOR } : undefined}
+                    aria-hidden
+                  />
+                )}
+                <div className="relative z-10">
+                  <StepIcon type={step.icon} completed={step.completed} active={step.active} />
+                </div>
+                <p className="mt-2 max-w-[min(100%,7rem)] text-center text-[10px] font-semibold text-[#131313] sm:text-xs">
+                  {step.label}
+                </p>
+                <p
+                  className="mt-0.5 text-center text-[10px] sm:text-xs"
+                  style={{ color: STEP_DATE_COLOR }}
+                >
+                  {step.date}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

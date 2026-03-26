@@ -25,11 +25,26 @@ function img(i: number) {
   return IMGS[i % IMGS.length];
 }
 
+/** Local assets for Recently Added grid (seller page). */
+const RECENTLY_ADDED_CARD_IMAGES = [
+  "/images/sellerwatch.png",
+  "/images/sellerwatch%20(2).png",
+  "/images/product2.png",
+] as const;
+
+function recentlyAddedImg(i: number) {
+  return RECENTLY_ADDED_CARD_IMAGES[i % RECENTLY_ADDED_CARD_IMAGES.length];
+}
+
 export const RECENTLY_ADDED: SellerProduct[] = [
-  { id: "ra1", name: "NovaPulse Smartwatch", price: 29, originalPrice: 33, image: img(0), badges: ["SALE", "NEW"], hasVideo: true, sponsored: true },
-  { id: "ra2", name: "NovaPulse Smartwatch", price: 29, originalPrice: 33, image: img(1), badges: ["SALE"], hasVideo: true },
-  { id: "ra3", name: "NovaPulse Smartwatch", price: 29, originalPrice: 33, image: img(2), badges: ["NEW"], hasVideo: false, sponsored: true },
-  { id: "ra4", name: "NovaPulse Smartwatch", price: 29, originalPrice: 33, image: img(3), badges: ["SALE", "NEW"], hasVideo: true },
+  { id: "ra1", name: "NovaPulse Smartwatch", price: 29, originalPrice: 33, image: recentlyAddedImg(0), badges: ["SALE", "NEW"], hasVideo: true, sponsored: true },
+  { id: "ra2", name: "Urban Jacket", price: 89, originalPrice: 120, image: recentlyAddedImg(1), badges: ["SALE"], hasVideo: true },
+  { id: "ra3", name: "Classic Sneakers", price: 79, originalPrice: 99, image: recentlyAddedImg(2), badges: ["NEW"], hasVideo: false, sponsored: true },
+  { id: "ra4", name: "Leather Trainers", price: 65, originalPrice: 85, image: recentlyAddedImg(3), badges: ["SALE", "NEW"], hasVideo: true },
+  { id: "ra5", name: "Travel Bag", price: 49, originalPrice: 69, image: recentlyAddedImg(4), badges: ["SALE", "NEW"], hasVideo: true },
+  { id: "ra6", name: "Signature Scent", price: 59, originalPrice: 75, image: recentlyAddedImg(5), badges: ["NEW"], hasVideo: true, sponsored: true },
+  { id: "ra7", name: "Smart Band Pro", price: 39, originalPrice: 55, image: recentlyAddedImg(6), badges: ["SALE"], hasVideo: true },
+  { id: "ra8", name: "Leather Tote", price: 95, originalPrice: 120, image: recentlyAddedImg(7), badges: ["SALE", "NEW"], hasVideo: false },
 ];
 
 export const ALL_PRODUCTS: SellerProduct[] = [

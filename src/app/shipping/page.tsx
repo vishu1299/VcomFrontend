@@ -9,21 +9,20 @@ export default function ShippingPage() {
 
   return (
     <main className="min-h-screen bg-gray-100">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-          <section className="flex-1 min-w-0">
+      <div className="mx-auto max-w-[1440px] px-4 py-4 sm:px-6 sm:py-6 lg:px-8 xl:px-10 2xl:px-12">
+        {/* Same 8+4 column split as cart `OrderSummary` */}
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-12 lg:gap-[20px]">
+          <section className="min-w-0 lg:col-span-8">
             <ShippingForm />
           </section>
 
-          <aside className="lg:w-[360px] shrink-0">
-            <div className="lg:sticky lg:top-6">
-              <PriceDetails
-                price={price}
-                savings={savings}
-                deliveryCharges={deliveryCharges}
-                totalAmount={totalAmount}
-              />
-            </div>
+          <aside className="lg:col-span-4 lg:sticky lg:top-6">
+            <PriceDetails
+              price={price}
+              savings={savings}
+              deliveryCharges={deliveryCharges}
+              totalAmount={totalAmount}
+            />
           </aside>
         </div>
       </div>

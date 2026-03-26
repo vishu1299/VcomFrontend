@@ -1,62 +1,30 @@
 "use client";
 
+import Image from "next/image";
+
 const MAX_TAGS = 3;
 
 const TAGS: {
   id: string;
   label: string;
-  dotColor: string;
-  icon?: "star" | "plus";
+  iconSrc: string;
 }[] = [
-  { id: "fast", label: "Fast Delivery", dotColor: "#22c55e" },
-  { id: "packaged", label: "Well Packaged", dotColor: "#B77E46" },
-  { id: "exceeded", label: "Exceeded Expectations", dotColor: "#F5B700" },
-  { id: "helpful", label: "Helpful Seller", dotColor: "#ADADAD" },
-  { id: "late", label: "Late Delivery", dotColor: "#CB1414" },
-  { id: "poor", label: "Poor Quality", dotColor: "#CB1414" },
-  { id: "wrong", label: "Wrong Item Sent", dotColor: "#CB1414" },
-  { id: "livestream", label: "Bought via Livestream", dotColor: "#F2C231" },
-  { id: "repeat", label: "Repeat Buyer", dotColor: "#F2C231", icon: "star" },
-  { id: "custom", label: "Add My Own", dotColor: "#3581EA", icon: "plus" },
+  { id: "fast", label: "Fast Delivery", iconSrc: "/review/1.svg" },
+  { id: "packaged", label: "Well Packaged", iconSrc: "/review/3.svg" },
+  { id: "exceeded", label: "Exceeded Expectations", iconSrc: "/review/2.svg" },
+  { id: "helpful", label: "Helpful Seller", iconSrc: "/review/6.svg" },
+  { id: "late", label: "Late Delivery", iconSrc: "/review/5.svg" },
+  { id: "poor", label: "Poor Quality", iconSrc: "/review/2.svg" },
+  { id: "wrong", label: "Wrong Item Sent", iconSrc: "/review/9.svg" },
+  { id: "livestream", label: "Bought via Livestream", iconSrc: "/review/8.svg" },
+  { id: "repeat", label: "Repeat Buyer", iconSrc: "/review/7.svg" },
+  { id: "custom", label: "Add My Own", iconSrc: "/review/10.svg" },
 ];
 
 type QuickExperienceTagsProps = {
   selectedIds: Set<string>;
   onToggle: (id: string) => void;
 };
-
-function PlusIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      className="shrink-0"
-    >
-      <line x1="12" y1="5" x2="12" y2="19" />
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-  );
-}
-
-function StarSmallIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="#F2C231"
-      stroke="#F2C231"
-      strokeWidth="1.5"
-      className="shrink-0"
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
-  );
-}
 
 export default function QuickExperienceTags({
   selectedIds,
@@ -71,42 +39,27 @@ export default function QuickExperienceTags({
   };
 
   return (
-    <section className="mb-8">
+    <section className="mb-3">
       <h2 className="text-base font-bold text-[#131313]">
         Quick Experience Tags{" "}
         <span className="text-sm font-normal text-[#131313]">(Optional)</span>
       </h2>
-      <p className="text-sm text-[#131313] mt-0.5 mb-4">
+      <p className="mt-0.5 mb-4 text-sm text-[#767676]">
         Select up to 3 tags that describe your experience
       </p>
-      <div className="grid grid-cols-2 gap-2 w-[80%]">
+      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:w-[88%]">
         {TAGS.map((tag) => {
           const isSelected = selectedIds.has(tag.id);
           const isDisabled = !isSelected && selectedIds.size >= MAX_TAGS;
           return (
             <label
               key={tag.id}
-              className={`flex justify-between items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition shrink-0 ${
+              className={`flex shrink-0 items-center justify-between gap-2 rounded-lg border px-4 py-2.5 transition ${
                 isDisabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
               } ${isSelected ? "border-[#3581EA] bg-blue-50/30" : "border-gray-200 bg-white hover:border-gray-300"}`}
             >
               <div className="flex items-center gap-2">
-                {tag.icon === "star" ? (
-                  <StarSmallIcon />
-                ) : tag.icon === "plus" ? (
-                  <span
-                    className="text-[#3581EA]"
-                    style={{ color: tag.dotColor }}
-                  >
-                    <PlusIcon />
-                  </span>
-                ) : (
-                  <span
-                    className="w-2.5 h-2.5 rounded-full shrink-0"
-                    style={{ backgroundColor: tag.dotColor }}
-                    aria-hidden
-                  />
-                )}
+                <Image src={tag.iconSrc} alt="" width={16} height={16} className="h-4 w-4 shrink-0 object-contain" />
                 <span className="text-sm font-medium text-[#131313]">
                   {tag.label}
                 </span>

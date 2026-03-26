@@ -11,7 +11,7 @@ function ChevronDownIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
-      className="shrink-0 text-gray-600 pointer-events-none"
+      className="shrink-0 text-[#131313] pointer-events-none"
     >
       <path d="M6 9l6 6 6-6" />
     </svg>
@@ -25,8 +25,8 @@ export default function ShippingForm() {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
-      <h2 className="text-xl font-bold text-gray-600">Shipping</h2>
-      <p className="text-sm text-gray-600 mt-1 mb-6">
+      <h2 className="text-xl font-bold text-[#131313]">Shipping</h2>
+      <p className="mt-1 mb-6 text-sm text-[#131313]">
         Fill out your delivery details carefully to ensure smooth delivery
       </p>
 
@@ -35,7 +35,7 @@ export default function ShippingForm() {
           <div>
             <label
               htmlFor="firstName"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               First Name <span className="text-red-400">*</span>
             </label>
@@ -43,13 +43,13 @@ export default function ShippingForm() {
               type="text"
               id="firstName"
               defaultValue="david"
-              className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
           <div>
             <label
               htmlFor="lastName"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               Last Name <span className="text-red-400">*</span>
             </label>
@@ -57,7 +57,7 @@ export default function ShippingForm() {
               type="text"
               id="lastName"
               defaultValue="Josh"
-              className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function ShippingForm() {
         <div>
           <label
             htmlFor="phone"
-            className="block text-sm font-medium text-gray-600 mb-1.5"
+            className="mb-1.5 block text-sm font-medium text-[#131313]"
           >
             Phone Number <span className="text-red-400">*</span>
           </label>
@@ -73,7 +73,7 @@ export default function ShippingForm() {
             <div className="flex items-center shrink-0 border-r border-gray-200 bg-gray-50 pl-3 py-1">
               <select
                 id="phoneCode"
-                className="py-2 text-sm text-gray-600 bg-transparent border-0 appearance-none focus:outline-none cursor-pointer min-w-[1rem]"
+                className="min-w-[1rem] cursor-pointer appearance-none border-0 bg-transparent py-2 text-sm text-[#131313] focus:outline-none"
                 aria-label="Country code"
               >
                 <option value="+1">+1</option>
@@ -85,7 +85,7 @@ export default function ShippingForm() {
                 alt=""
                 className="w-5 h-4 object-contain  shrink-0"
               />
-              <span className="text-gray-600 pointer-events-none" aria-hidden>
+              <span className="pointer-events-none text-[#131313]" aria-hidden>
                 <ChevronDownIcon />
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function ShippingForm() {
               id="phone"
               defaultValue="87865453213"
               placeholder="Phone number"
-              className="flex-1 min-w-0 px-3 py-2.5 text-sm text-gray-600 focus:outline-none"
+              className="min-w-0 flex-1 px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:outline-none"
             />
           </div>
         </div>
@@ -102,7 +102,7 @@ export default function ShippingForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-600 mb-1.5"
+            className="mb-1.5 block text-sm font-medium text-[#131313]"
           >
             Email <span className="text-red-400">*</span>
           </label>
@@ -110,12 +110,12 @@ export default function ShippingForm() {
             type="email"
             id="email"
             defaultValue="davidjosh32@gmail.com"
-            className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
         </div>
 
         <div>
-          <span className="block text-sm font-medium text-gray-600 mb-2">
+          <span className="mb-2 block text-sm font-medium text-[#131313]">
             Address <span className="text-red-400">*</span>
           </span>
           <div className="flex flex-wrap gap-3">
@@ -130,7 +130,7 @@ export default function ShippingForm() {
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
-                  <span className="text-sm font-medium text-gray-600 capitalize">
+                  <span className="text-sm font-medium capitalize text-[#131313]">
                     {value}
                   </span>
                   <input
@@ -150,7 +150,7 @@ export default function ShippingForm() {
           <div>
             <label
               htmlFor="street1"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               Street Address line 1 <span className="text-red-400">*</span>
             </label>
@@ -158,14 +158,14 @@ export default function ShippingForm() {
               type="text"
               id="street1"
               placeholder="Example: 2451 Lake Ridge Dr."
-              className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
           <div>
             <label
               htmlFor="street2"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               Street Address Line 2 (Optional)
             </label>
@@ -173,7 +173,7 @@ export default function ShippingForm() {
               type="text"
               id="street2"
               placeholder="Example: Apt 302 or Suite B"
-              className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ export default function ShippingForm() {
           <div>
             <label
               htmlFor="city"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               City / Town <span className="text-red-400">*</span>
             </label>
@@ -189,13 +189,13 @@ export default function ShippingForm() {
               type="text"
               id="city"
               defaultValue="New Delhi"
-              className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
           <div>
             <label
               htmlFor="state"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               State
             </label>
@@ -204,7 +204,7 @@ export default function ShippingForm() {
                 type="text"
                 id="state"
                 defaultValue="Delhi"
-                className="w-full px-3 py-2.5 pr-9 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 pr-9 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
               <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
                 <ChevronDownIcon />
@@ -214,7 +214,7 @@ export default function ShippingForm() {
           <div>
             <label
               htmlFor="zip"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               Zip Code <span className="text-red-400">*</span>
             </label>
@@ -222,7 +222,7 @@ export default function ShippingForm() {
               type="text"
               id="zip"
               defaultValue="90210"
-              className="w-full px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function ShippingForm() {
           <div>
             <label
               htmlFor="country"
-              className="block text-sm font-medium text-gray-600 mb-1.5"
+              className="mb-1.5 block text-sm font-medium text-[#131313]"
             >
               Country <span className="text-red-400">*</span>
             </label>
@@ -240,7 +240,7 @@ export default function ShippingForm() {
                 type="text"
                 id="country"
                 defaultValue="India"
-                className="w-full px-3 py-2.5 pr-9 rounded-lg border border-gray-200 bg-white text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 pr-9 text-sm text-[#131313] placeholder:text-[#767676] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
               <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
                 <ChevronDownIcon />

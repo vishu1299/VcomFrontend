@@ -165,31 +165,31 @@ export default function ProductListExclusiveStyleCard({
       </div>
 
       <div className="flex min-h-0 shrink-0 flex-col p-3">
-        <p className="mb-1.5 line-clamp-2 min-h-[2.25rem] shrink-0 text-xs font-medium leading-snug text-[#131313] sm:mb-1 sm:min-h-0 sm:text-[14px]">
+        <p className="mb-1.5 line-clamp-2 min-h-[0.25rem] shrink-0 text-xs font-medium leading-snug text-[#131313] sm:mb-1 sm:min-h-0 sm:text-[14px]">
           {name}
         </p>
         {/*
-          Web (sm+): row1 = original only; row2 = sale price (left) + Add to cart (right).
-          Mobile: row1 = original + sale; row2 = full-width button.
+          Web (sm+): row1 = original only; row2 = sale price (left) + Add to cart (right). Tight gap between rows.
+          Mobile: row1 = sale price then original (strikethrough); row2 = full-width button.
           mt-auto only on mobile so equal-height grid rows don’t leave a gap above prices on web.
         */}
-        <div className="mt-auto flex w-full flex-col gap-2 sm:mt-0 sm:gap-1">
+        <div className="mt-auto flex w-full flex-col gap-2 sm:mt-0 sm:gap-0">
           {originalPrice != null && (
-            <span className="hidden text-[11px] leading-none text-[#9ca3af] line-through sm:block md:text-[12px]">
+            <span className="hidden text-[11px] leading-none text-[#9ca3af] line-through sm:mb-0 sm:block md:text-[12px]">
               ${originalPrice.toFixed(0)}
             </span>
           )}
 
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-            <div className="flex w-full flex-row flex-nowrap items-baseline gap-1 sm:w-auto sm:flex-none">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-0">
+            <div className="flex w-full flex-row flex-nowrap items-baseline gap-1 sm:w-auto sm:flex-none sm:gap-1.5">
+              <span className="order-1 text-xs font-bold leading-none text-[#131313] sm:order-none sm:text-[16px] md:text-[17px]">
+                ${price.toFixed(2)}
+              </span>
               {originalPrice != null && (
-                <span className="shrink-0 text-[9px] leading-none text-[#9ca3af] line-through sm:hidden">
+                <span className="order-2 shrink-0 text-[9px] leading-none text-[#9ca3af] line-through sm:hidden sm:order-none">
                   ${originalPrice.toFixed(0)}
                 </span>
               )}
-              <span className="text-xs font-bold leading-none text-[#131313] sm:text-[16px] md:text-[17px]">
-                ${price.toFixed(2)}
-              </span>
             </div>
 
             <button

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Share2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { CartItemCard } from './components/CartItemCard';
 import { OrderSummary } from './components/OrderSummary';
@@ -42,7 +41,7 @@ export default function CartPage() {
         style={{ backgroundColor: 'var(--color-cart-bg)' }}
       >
         <div
-          className="mx-auto w-full max-w-[1920px] px-4 pt-5 pb-10 sm:px-6 md:px-12 lg:px-[108px] xl:px-[216px]"
+          className="mx-auto w-full max-w-[1440px] px-4 py-4 sm:px-6 sm:py-6 lg:px-8 xl:px-10 2xl:px-12"
           style={{ fontFamily: 'var(--font-poppins)' }}
         >
           <h1
@@ -80,57 +79,53 @@ export default function CartPage() {
       style={{ backgroundColor: 'var(--color-cart-bg)' }}
     >
       <div
-        className="mx-auto w-full max-w-[1920px] pt-5 pb-10 px-4 sm:px-6 md:px-12 lg:px-[108px] xl:px-[216px] flex flex-col gap-5"
+        className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 py-4 sm:px-6 sm:py-6 lg:px-8 xl:px-10 2xl:px-12"
         style={{ fontFamily: 'var(--font-poppins)' }}
       >
-        {/* Top: Cart items + Order Summary (2-col on desktop) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-[20px]">
-          {/* Left: Cart items list — Figma card 868×213 Hug */}
-          <div className="lg:col-span-8 flex flex-col gap-5">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <div>
-                <h1
-                  className="text-[24px] sm:text-[28px] lg:text-[32px] font-semibold"
-                  style={{ color: '#1F1D2B' }}
-                >
-                  Cart ({cartItems.length})
-                </h1>
-                <p
-                  className="text-[12px] sm:text-[14px] mt-1"
-                  style={{ color: 'var(--color-muted-alt-2)' }}
-                >
-                  Review your items before checkout
-                </p>
-              </div>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 text-[14px] font-medium self-start sm:self-center px-4 py-2 rounded-[8px] border transition hover:bg-white/80 touch-manipulation"
-                style={{
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-muted-alt-2)',
-                  backgroundColor: '#fff',
-                }}
-                aria-label="Share cart"
-              >
-                <Share2 className="w-4 h-4" strokeWidth={2} />
-                Share Cart
-              </button>
-            </div>
+        {/* Full-width: title + Share aligned to page right (not only above cart column) */}
+        <div className="flex flex-row items-start justify-between gap-4">
+          <div className="min-w-0">
+            <h1
+              className="text-[24px] font-semibold sm:text-[28px] lg:text-[22px]"
+              style={{ color: '#1F1D2B' }}
+            >
+              Cart ({cartItems.length})
+            </h1>
+            <p
+              className="text-[12px] sm:text-[14px]"
+              style={{ color: 'var(--color-muted-alt-2)' }}
+            >
+              Review your items before checkout
+            </p>
+          </div>
+          <button
+            type="button"
+            className="inline-flex shrink-0 items-center gap-2 rounded-[8px] border px-4 py-2 text-[14px] font-medium text-black transition hover:bg-white/80 touch-manipulation"
+            style={{
+              borderColor: 'var(--color-border)',
+              backgroundColor: '#fff',
+            }}
+            aria-label="Share cart"
+          >
+            <img src="/share1.svg" alt="" width={18} height={18} className="h-[18px] w-[18px] shrink-0 object-contain" />
+            Share Cart
+          </button>
+        </div>
 
-            <div className="flex flex-col gap-5 overflow-y-auto">
-              {cartItems.map((item) => (
-                <CartItemCard
-                  key={item.id}
-                  item={item}
-                  onUpdateQuantity={handleUpdateQuantity}
-                  onRemove={removeItem}
-                />
-              ))}
-            </div>
+        {/* Cart items + Order Summary — same top alignment */}
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-12 lg:gap-[20px]">
+          <div className="flex flex-col gap-5 overflow-y-auto lg:col-span-8">
+            {cartItems.map((item) => (
+              <CartItemCard
+                key={item.id}
+                item={item}
+                onUpdateQuantity={handleUpdateQuantity}
+                onRemove={removeItem}
+              />
+            ))}
           </div>
 
-          {/* Right: Order Summary — Figma 480 Fill x 156 Hug on mobile */}
-          <div className="lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
+          <div className="lg:col-span-4 lg:sticky lg:top-6">
             <OrderSummary
               price={price}
               savings={savings}

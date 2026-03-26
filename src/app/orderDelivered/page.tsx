@@ -23,7 +23,7 @@ export default function OrderDeliveredPage() {
 
         <OrderDetailsDeliveredCard />
         <LiveUpdatesStepper delivered />
-        <ShipmentDetails />
+        <ShipmentDetails delivered />
         </div>
       </div>
       <NeedHelpModal open={needHelpOpen} onClose={() => setNeedHelpOpen(false)} />

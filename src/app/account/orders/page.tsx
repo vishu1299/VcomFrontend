@@ -120,7 +120,7 @@ function OrderCardActions({ order }: { order: OrderItem }) {
         </button>
         <div className="flex gap-1 w-full">
           <Link
-            href={`/return-item/${order.id}`}
+            href={`/trackOrder`}
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center whitespace-nowrap`}
           >
             <span className="max-[480px]:hidden">View Order Details</span>
@@ -154,13 +154,13 @@ function OrderCardActions({ order }: { order: OrderItem }) {
             <span className="max-[480px]:hidden">View Order Details</span>
             <span className="min-[481px]:hidden">View Order</span>
           </Link>
-          <button
-            type="button"
+          <Link
+            href="/review-item"
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 inline-flex items-center justify-center gap-1`}
           >
             <Image src="/review.svg" alt="" width={16} height={16} />
             Write review
-          </button>
+          </Link>
         </div>
       </div>
     );
@@ -182,13 +182,13 @@ function OrderCardActions({ order }: { order: OrderItem }) {
           <span className="max-[480px]:hidden">View Order Details</span>
           <span className="min-[481px]:hidden">View Order</span>
         </Link>
-        <button
-          type="button"
+        <Link
+          href="/review-item"
           className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 inline-flex items-center justify-center gap-1`}
         >
           <Image src="/review.svg" alt="" width={16} height={16} />
           Write review
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
 import RelatedProductsCarousel from "../customer-reviews/components/RelatedProductsCarousel";
-import { REMOTE_IMG } from "@/lib/remoteAssets";
+import type { ProductCardProps } from "../product-list/components/ProductCard";
+import QuickViewModal from "../product-list/components/QuickViewModal";
+import { getProductDetail } from "../product-list/data/productDetails";
 
 const STAR_FILLED = "#F5B700";
 const STAR_EMPTY = "#ADADAD";
@@ -21,23 +23,22 @@ function StarIcon({ filled }: { filled: boolean }) {
 
 export default function SubmitReviewPage() {
   const rating = 4;
+  const [quickViewProduct, setQuickViewProduct] = useState<ProductCardProps | null>(null);
 
   return (
-    <main className="page-text-black min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-[1100px]">
-        <div className="bg-white rounded-xl shadow-lg p-6">
-        <div className="flex items-center gap-3 flex-wrap">
+    <main className="page-text-black min-h-screen bg-gray-50">
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-4 sm:px-6 sm:py-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="w-full rounded-xl bg-white p-4 shadow-lg sm:p-6">
+        <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-xl sm:text-2xl font-bold text-[#131313]">
             Review Submitted Successfully
           </h1>
-          <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[#16a34a]" aria-hidden>
-            <CheckCircle2 className="w-9 h-9" strokeWidth={2} />
-          </span>
+          <Image src="/success-tick.svg" alt="" width={36} height={36} className="h-9 w-9 shrink-0" />
         </div>
-        <p className="text-sm text-[#131313] mt-3">
+        <p className="text-sm text-[#131313] mt-1">
           Thank you for sharing your feedback. Your review helps other shoppers
         </p>
-        <div className="flex items-center gap-2 flex-wrap mt-6">
+        <div className="mt-2 flex flex-wrap items-center gap-2">
           <span className="text-sm text-[#131313]">Your Ratings:</span>
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4, 5].map((i) => (
@@ -46,29 +47,38 @@ export default function SubmitReviewPage() {
           </div>
           <Link
             href="/customer-reviews"
-            className="text-sm font-medium text-[#131313] underline hover:no-underline ml-3 shrink-0"
+            className="ml-0 shrink-0 text-sm font-medium text-[#131313] underline hover:no-underline sm:ml-3"
           >
             See review
           </Link>
         </div>
-        <div className="mt-8">
-          <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
+        <div className="mt-6 sm:mt-8">
+          <div className="relative h-24 w-24 overflow-hidden rounded-lg">
             <Image
-              src={REMOTE_IMG.productPhone}
+              src="/images/phone.png"
               alt="iPhone 17 Pro"
               fill
-              className="object-cover"
-              sizes="80px"
-              unoptimized
+              className="object-contain"
+              sizes="96px"
             />
           </div>
-          <p className="text-sm font-medium text-[#131313] mt-2">iPhone 17 Pro</p>
+          <p className="mt-2 text-sm font-medium text-[#131313]">iPhone 17 Pro</p>
           </div>
         </div>
-        <div className="w-full overflow-hidden">
-          <RelatedProductsCarousel title="Recently Browsed" />
+        <div className="-mx-2 mt-3 w-[calc(100%+1rem)] min-w-0 overflow-visible sm:mx-0 sm:mt-4 sm:w-full">
+          <RelatedProductsCarousel
+            title="Recently Browsed"
+            onProductClick={setQuickViewProduct}
+          />
         </div>  
       </div>
+      {quickViewProduct && (
+        <QuickViewModal
+          product={getProductDetail(quickViewProduct)}
+          onClose={() => setQuickViewProduct(null)}
+          onGoToProduct={() => setQuickViewProduct(null)}
+        />
+      )}
     </main>
   );
 }

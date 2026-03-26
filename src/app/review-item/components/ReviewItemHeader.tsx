@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { REMOTE_IMG } from "@/lib/remoteAssets";
 
 const STAR_COLOR_FILLED = "#F5B700";
-const STAR_COLOR_EMPTY = "#ADADAD";
+const STAR_COLOR_EMPTY = "#D9D9D9";
 
 function StarIcon({ filled }: { filled: boolean }) {
   return (
@@ -21,23 +20,22 @@ type ReviewItemHeaderProps = {
 
 export default function ReviewItemHeader({ overallRating, onOverallRatingChange }: ReviewItemHeaderProps) {
   return (
-    <div className="mb-8">
+    <div className="mb-3">
       <h1 className="text-xl sm:text-2xl font-bold text-[#131313]">Review Item</h1>
-      <p className="text-sm text-[#131313] mt-1">Share your experience with this product.</p>
+      <p className="mt-1 text-md text-[#767676]">Share your experience with this product.</p>
       <div className="flex flex-col gap-2 mt-6">
-        <div className="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-gray-100">
+        <div className="relative h-32 w-32 rounded-lg overflow-hidden shrink-0">
           <Image
-            src={REMOTE_IMG.productPhone}
+            src="/images/phone.png"
             alt="iPhone 17 Pro"
             fill
-            className="object-cover"
-            sizes="96px"
-            unoptimized
+            className="object-contain"
+            sizes="128px"
           />
         </div>
           <p className="text-sm font-medium text-[#131313] ml-5">iPhone 17 Pro</p>
 
-          <p className="text-sm text-[#131313] ">How would you rate your experience with this product?</p>
+          <p className="mt-5 text-sm font-semibold text-[#131313]">How would you rate your experience with this product?</p>
           <div className="flex items-center gap-1" role="group" aria-label="Overall rating">
             {[1, 2, 3, 4, 5].map((value) => (
               <button

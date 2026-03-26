@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 type ChatMessage = { id: string; text: string; isUser: boolean; time: string };
@@ -54,14 +54,6 @@ function ExternalLinkIcon() {
   );
 }
 
-function BookmarkIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-    </svg>
-  );
-}
-
 function PaperclipIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -106,9 +98,40 @@ function SendIcon() {
   );
 }
 
+function ChevronLeftIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  );
+}
+
 export default function ChatPage() {
+  const [selectedChatId, setSelectedChatId] = useState<string>(CHAT_LIST[0].id);
+  /** Mobile: list first; tap chat opens conversation; back returns to list. Desktop ignores this (both columns always visible). */
+  const [mobileShowConversation, setMobileShowConversation] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
   const [showProductAndQuickQuestions, setShowProductAndQuickQuestions] = useState(true);
+  /** Very narrow mobile: header uses ⋮ menu for View Store + Report */
+  const [chatHeaderMenuOpen, setChatHeaderMenuOpen] = useState(false);
+  const chatHeaderMenuRef = useRef<HTMLDivElement>(null);
+
+  const activeChat = CHAT_LIST.find((c) => c.id === selectedChatId) ?? CHAT_LIST[0];
+
+  useEffect(() => {
+    if (!chatHeaderMenuOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (chatHeaderMenuRef.current?.contains(e.target as Node)) return;
+      setChatHeaderMenuOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [chatHeaderMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileShowConversation) setChatHeaderMenuOpen(false);
+  }, [mobileShowConversation]);
 
   // When user sends a message, hide product card and quick questions; messages stay the same 3
   const handleSend = () => {
@@ -125,48 +148,75 @@ export default function ChatPage() {
   };
 
   return (
-    <main className=" bg-gray-100 ">
-      <div className="mx-auto min-h-screen max-w-[1100px] py-4 sm:py-6 overflow-x-hidden flex gap-4">
-        {/* Left: Chat list ~30% */}
-        <aside className="w-full md:w-[30%] lg:max-w-[360px] border-r border-gray-200 flex flex-col bg-white rounded-lg">
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+    <main className="bg-gray-100">
+      <div className="mx-auto flex min-h-[100dvh] max-w-[1100px] gap-4 overflow-x-hidden py-4 sm:min-h-screen sm:py-6">
+        {/* Left: Chat list ~30% — full width on mobile until a chat is opened */}
+        <aside
+          className={`min-h-0 w-full min-w-0 flex-col rounded-lg border-r border-gray-200 bg-white md:w-[30%] lg:max-w-[360px] ${
+            mobileShowConversation ? "hidden md:flex" : "flex"
+          }`}
+        >
+          <div className="flex items-center justify-between border-b border-gray-200 p-4">
             <h1 className="text-lg font-bold text-[#131313]">Chat</h1>
             <div className="flex items-center gap-2">
-              <button type="button" className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition" aria-label="Search">
+              <button type="button" className="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100" aria-label="Search">
                 <SearchIcon />
               </button>
-              <button type="button" className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition" aria-label="Menu">
+              <button type="button" className="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100" aria-label="Menu">
                 <MoreVerticalIcon />
               </button>
             </div>
           </div>
-          <div className="flex-1 overflow-y-auto">
+          <div className="min-h-0 flex-1 overflow-y-auto">
             {CHAT_LIST.map((chat) => (
               <div
                 key={chat.id}
-                className={`flex items-start gap-3 px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition ${chat.id === "urbantech" ? "bg-blue-50/50" : ""}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  setSelectedChatId(chat.id);
+                  setMobileShowConversation(true);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedChatId(chat.id);
+                    setMobileShowConversation(true);
+                  }
+                }}
+                className={`flex w-full cursor-pointer items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition hover:bg-gray-50 ${
+                  chat.id === selectedChatId ? "bg-blue-50/50" : ""
+                }`}
               >
-                <div className="w-10 h-10 rounded-full shrink-0 overflow-hidden bg-gray-200 flex items-center justify-center">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-200">
                   {chat.id === "urbantech" ? (
-                    <img src="/images/profileImage.png" alt={chat.name} className="w-full h-full object-cover" />
+                    <img src="/images/profileImage.png" alt={chat.name} className="h-full w-full object-cover" />
                   ) : (
-                    <span className={`w-full h-full flex items-center justify-center text-white text-sm font-bold ${chat.avatar === "pink" ? "bg-pink-500" : "bg-gray-400"
-                      }`}>
+                    <span
+                      className={`flex h-full w-full items-center justify-center text-sm font-bold text-white ${
+                        chat.avatar === "pink" ? "bg-pink-500" : "bg-gray-400"
+                      }`}
+                    >
                       {chat.name.charAt(0)}
                     </span>
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-semibold text-[#131313] truncate">{chat.name}</span>
-                    <span className="text-xs text-gray-500 shrink-0">{chat.time}</span>
+                    <span className="truncate text-sm font-semibold text-[#131313]">{chat.name}</span>
+                    <span className="shrink-0 text-xs text-gray-500">{chat.time}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    {chat.hasNew && <InfoCircleIcon />}
-                    <p className="text-xs text-gray-600 truncate">{chat.lastMessage}</p>
+                  <div className="mt-0.5 flex items-center gap-1.5">
+                    {/* {chat.hasNew && <InfoCircleIcon />} */}
+                    <p className="truncate text-xs text-gray-600">{chat.lastMessage}</p>
                   </div>
                 </div>
-                <button type="button" className="p-1.5 text-gray-400 hover:text-gray-600 shrink-0" aria-label="Options">
+                <button
+                  type="button"
+                  className="shrink-0 p-1.5 text-gray-400 hover:text-gray-600"
+                  aria-label="Options"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <MoreVerticalIcon />
                 </button>
               </div>
@@ -174,118 +224,181 @@ export default function ChatPage() {
           </div>
         </aside>
 
-        {/* Right: Active chat ~70% */}
-        <div className="flex-1 flex flex-col min-w-0 bg-white rounded-lg">
-          {/* Seller header */}
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 shrink-0">
-                <img src="/images/profileImage.png" alt="Urban Tech" className="w-full h-full object-cover" />
+        {/* Right: Active chat ~70% — hidden on mobile until a chat is selected */}
+        <div
+          className={`min-h-0 min-w-0 flex-1 flex-col rounded-lg bg-white ${
+            mobileShowConversation ? "flex" : "hidden md:flex"
+          }`}
+        >
+          {/* Seller header — compact ⋮ menu on very narrow mobile (max-[420px]) */}
+          <div className="flex items-center justify-between gap-2 border-b border-gray-200 p-3 max-[420px]:max-md:p-2 sm:p-4">
+            <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => setMobileShowConversation(false)}
+                className="-ml-1 shrink-0 rounded-lg p-2 text-[#131313] hover:bg-gray-100 md:hidden"
+                aria-label="Back to chat list"
+              >
+                <ChevronLeftIcon />
+              </button>
+              <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-gray-200 sm:h-10 sm:w-10">
+                {activeChat.id === "urbantech" ? (
+                  <img src="/images/profileImage.png" alt={activeChat.name} className="h-full w-full object-cover" />
+                ) : (
+                  <span
+                    className={`flex h-full w-full items-center justify-center text-sm font-bold text-white ${
+                      activeChat.avatar === "pink" ? "bg-pink-500" : "bg-gray-400"
+                    }`}
+                  >
+                    {activeChat.name.charAt(0)}
+                  </span>
+                )}
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-[#131313]">Urban Tech</span>
-                  <img src="/images/verifiedBadge.png" alt="Verified" className="w-6 h-6" />
+              <div className="min-w-0 flex-1">
+                <div className="flex min-w-0 items-center gap-1.5">
+                  <span className="truncate text-sm font-bold text-[#131313]">{activeChat.name}</span>
+                  {activeChat.id === "urbantech" && (
+                    <img
+                      src="/images/verifiedBadge.png"
+                      alt="Verified"
+                      className="h-5 w-5 shrink-0 max-[420px]:max-md:hidden sm:h-6 sm:w-6"
+                    />
+                  )}
                 </div>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-green-500" aria-hidden />
-                  <span className="text-xs text-gray-600">Online</span>
+                <div className="mt-0.5 flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-green-500 sm:h-2 sm:w-2" aria-hidden />
+                  <span className="text-[11px] text-gray-600 sm:text-xs">Online</span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+
+            {/* Full actions: wider mobile + desktop */}
+            <div className="hidden min-w-0 shrink-0 items-center gap-1 sm:gap-2 min-[421px]:max-md:flex md:flex">
               <Link
                 href="/seller-page"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#131313] border border-gray-200 px-3 py-2 rounded-lg hover:bg-gray-50 transition"
+                className="inline-flex max-w-[140px] items-center gap-1 truncate rounded-lg border border-gray-200 px-2 py-2 text-xs font-medium text-[#131313] transition hover:bg-gray-50 sm:max-w-none sm:gap-1.5 sm:px-3 sm:text-sm"
               >
                 View Store
                 <ExternalLinkIcon />
               </Link>
-              <button type="button" className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition" aria-label="Save">
-                <BookmarkIcon />
+              <button type="button" className="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100" aria-label="Report">
+                <img src="/report.svg" alt="" width={20} height={20} className="h-5 w-5 object-contain" />
               </button>
             </div>
-          </div>
 
-          {/* Chat content */}
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="flex items-center gap-4 my-4">
-              <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs text-gray-500">2:00 AM</span>
-              <div className="flex-1 h-px bg-gray-200" />
-            </div>
-
-          </div>
-            {/* Messages – static three only */}
-                    <div className="p-4">
-            {!showProductAndQuickQuestions &&
-
-              <div className="space-y-3 mt-4">
-                {INITIAL_MESSAGES.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
+            {/* Very narrow mobile: ⋮ opens View Store + Report */}
+            <div
+              ref={chatHeaderMenuRef}
+              className="relative hidden shrink-0 max-[420px]:flex md:hidden"
+            >
+              <button
+                type="button"
+                onClick={() => setChatHeaderMenuOpen((o) => !o)}
+                className="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100"
+                aria-label="Chat actions"
+                aria-expanded={chatHeaderMenuOpen}
+              >
+                <MoreVerticalIcon />
+              </button>
+              {chatHeaderMenuOpen && (
+                <div
+                  className="absolute right-0 top-full z-30 mt-1 min-w-[180px] overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-lg"
+                  role="menu"
+                >
+                  <Link
+                    href="/seller-page"
+                    role="menuitem"
+                    className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-[#131313] transition hover:bg-gray-50"
+                    onClick={() => setChatHeaderMenuOpen(false)}
                   >
-                    <div
-                      className={`max-w-[85%] sm:max-w-[75%] rounded-xl px-4 py-2.5 ${msg.isUser
-                          ? "bg-gray-200 text-[#131313] rounded-br-md"
-                          : "bg-gray-200 text-[#131313] rounded-bl-md"
+                    <ExternalLinkIcon />
+                    View Store
+                  </Link>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="flex w-full items-center gap-2 px-4 py-3 text-left text-sm font-medium text-[#131313] transition hover:bg-gray-50"
+                    onClick={() => setChatHeaderMenuOpen(false)}
+                  >
+                    <img src="/report.svg" alt="" width={20} height={20} className="h-5 w-5 object-contain" />
+                    Report
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Chat content — scroll region; product + quick questions pinned to bottom when shown */}
+          <div className="min-h-0 flex-1 overflow-y-auto p-4">
+            <div className="flex min-h-full flex-col">
+              <div className="my-4 flex shrink-0 items-center gap-4">
+                <div className="h-px flex-1 bg-gray-200" />
+                <span className="text-xs text-gray-500">2:00 AM</span>
+                <div className="h-px flex-1 bg-gray-200" />
+              </div>
+
+              {!showProductAndQuickQuestions && (
+                <div className="space-y-3">
+                  {INITIAL_MESSAGES.map((msg) => (
+                    <div key={msg.id} className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}>
+                      <div
+                        className={`max-w-[85%] rounded-xl px-4 py-2.5 sm:max-w-[75%] ${
+                          msg.isUser ? "rounded-br-md bg-gray-200 text-[#131313]" : "rounded-bl-md bg-gray-200 text-[#131313]"
                         }`}
-                    >
-                      <p className="text-sm">{msg.text}</p>
-                      <div className={`flex items-center gap-1 mt-1 ${msg.isUser ? "justify-end" : "justify-start"}`}>
-                        {msg.isUser && <CheckIcon />}
-                        <span className="text-xs text-gray-500">{msg.time}</span>
+                      >
+                        <p className="text-sm">{msg.text}</p>
+                        <div className={`mt-1 flex items-center gap-1 ${msg.isUser ? "justify-end" : "justify-start"}`}>
+                          {msg.isUser && <CheckIcon />}
+                          <span className="text-xs text-gray-500">{msg.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {showProductAndQuickQuestions && (
+                <div className="mt-auto flex w-full max-w-md flex-col gap-6 pb-1 pt-2">
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
+                    <div className="mb-3 flex items-start justify-between gap-2">
+                      <span className="text-xs text-gray-600">Ordered: 12-Nov-2025</span>
+                      <button type="button" className="text-gray-500 hover:text-gray-700" aria-label="View product">
+                        <ExternalLinkIcon />
+                      </button>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-orange-200">
+                        <img src="/images/customerReviews/product.png" alt="iPhone" className="h-full w-full object-cover" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="line-clamp-2 text-sm font-medium text-[#131313]">iPhone 17 Pro 256 GB: 15.93 cm (6.3&quot;) Display</p>
+                        <p className="mt-0.5 text-sm font-bold text-[#131313]">$299.00</p>
+                        <p className="mt-1 text-xs text-gray-600">Color: Orange · QTY: 1 · Size: 256GB</p>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            }
 
-            {/* Product card & Quick questions – hidden after user sends a message */}
-            {showProductAndQuickQuestions && (
-              <>
-              
-                <div className="max-w-md rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm mt-6">
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <span className="text-xs text-gray-600">Ordered: 12-Nov-2025</span>
-                    <button type="button" className="text-gray-500 hover:text-gray-700" aria-label="View product">
-                      <ExternalLinkIcon />
-                    </button>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-16 h-16 rounded-lg bg-orange-200 shrink-0 overflow-hidden">
-                      <img src="/images/customerReviews/product.png" alt="iPhone" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[#131313] line-clamp-2">iPhone 17 Pro 256 GB: 15.93 cm (6.3&quot;) Display</p>
-                      <p className="text-sm font-bold text-[#131313] mt-0.5">$299.00</p>
-                      <p className="text-xs text-gray-600 mt-1">Color: Orange · QTY: 1 · Size: 256GB</p>
+                  <div>
+                    <p className="mb-3 text-sm font-semibold text-[#131313]">Quick Questions</p>
+                    <div className="flex flex-wrap gap-2">
+                      {QUICK_QUESTIONS.map((q) => (
+                        <button
+                          key={q}
+                          type="button"
+                          className="rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-200"
+                        >
+                          {q}
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </div>
-
-                <div className="mt-6">
-                  <p className="text-sm font-semibold text-[#131313] mb-3">Quick Questions</p>
-                  <div className="flex flex-wrap gap-2">
-                    {QUICK_QUESTIONS.map((q) => (
-                      <button
-                        key={q}
-                        type="button"
-                        className="text-sm font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-200 transition"
-                      >
-                        {q}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
+              )}
             </div>
+          </div>
 
           {/* Message input */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="border-t border-gray-200 p-4">
             <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
               <button type="button" className="p-2 text-gray-500 hover:text-gray-700 rounded-lg transition" aria-label="Attach">
                 <PaperclipIcon />
