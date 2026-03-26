@@ -65,7 +65,7 @@ function MobileFooter() {
           <FooterSection title="Quick links">
             <li><Link href="#" className="text-white hover:underline">Home</Link></li>
             <li><Link href="#" className="text-white hover:underline">About Us</Link></li>
-            <li><Link href="#" className="text-white hover:underline">Blog</Link></li>
+            <li><Link href="/blogs" className="text-white hover:underline">Blog</Link></li>
             <li><Link href="#" className="text-white hover:underline">Contact Us</Link></li>
             <li><Link href="#" className="text-white hover:underline">Support</Link></li>
           </FooterSection>
@@ -157,7 +157,7 @@ function DesktopFooter() {
         <FooterColumn title="Quick links">
           <li><Link href="#" className="text-white hover:underline">Home</Link></li>
           <li><Link href="#" className="text-white hover:underline">About Us</Link></li>
-          <li><Link href="#" className="text-white hover:underline">Blog</Link></li>
+          <li><Link href="/blogs" className="text-white hover:underline">Blog</Link></li>
           <li><Link href="#" className="text-white hover:underline">Contact Us</Link></li>
           <li><Link href="#" className="text-white hover:underline">Support</Link></li>
         </FooterColumn>

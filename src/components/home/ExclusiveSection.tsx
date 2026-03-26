@@ -22,37 +22,24 @@ const products = [
 
 export default function ExclusiveSection() {
   return (
-    <section className="w-full bg-[#F6F9FC] py-10 md:py-12">
+    <section className="w-full min-w-0 rounded-2xl bg-[#F6F9FC] px-3 py-10 sm:px-4 md:py-12">
       {/* HEADER */}
-      <div
-        className="
-          max-w-[1920px] mx-auto
-          
-          flex items-center justify-between mb-6
-        "
-      >
-        <h2 className="flex items-center gap-2 text-[16px] sm:text-[18px] font-semibold text-[#131313]">
-          <span className="text-[#F5B700]">⚡</span>
-          Exclusive on TibilMall
+      <div className="mb-6 flex min-w-0 items-center justify-between gap-3">
+        <h2 className="flex min-w-0 items-center gap-2 text-[16px] font-semibold text-[#131313] sm:text-[18px]">
+          <span className="shrink-0 text-[#F5B700]">⚡</span>
+          <span className="truncate">Exclusive on TibilMall</span>
         </h2>
 
         <a
           href="#"
-          className="text-[13px] sm:text-[14px] text-[#6B7280] hover:underline"
+          className="shrink-0 text-[13px] text-[#6B7280] hover:underline sm:text-[14px]"
         >
           View All →
         </a>
       </div>
 
       {/* GRID */}
-      <div
-        className="
-          max-w-[1920px] mx-auto
-          
-          grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
-          gap-4 sm:gap-6
-        "
-      >
+      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
         {products.map((product, i) => (
           <article
             key={i}

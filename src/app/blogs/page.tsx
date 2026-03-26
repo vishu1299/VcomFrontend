@@ -2,14 +2,16 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Search, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import ExclusiveHeroBanner from '@/app/exclusive/components/ExclusiveHeroBanner';
 
-// Sample blog posts data
 const blogPosts = [
   {
     id: 1,
     category: 'BEAUTY',
     categoryBg: 'bg-amber-300',
+    categoryText: 'text-black',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -19,6 +21,7 @@ const blogPosts = [
     id: 2,
     category: 'ORGANIC',
     categoryBg: 'bg-lime-500',
+    categoryText: 'text-white',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -27,7 +30,8 @@ const blogPosts = [
   {
     id: 3,
     category: 'COSMETIC',
-    categoryBg: 'bg-violet-400',
+    categoryBg: 'bg-violet-600',
+    categoryText: 'text-white',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -37,6 +41,7 @@ const blogPosts = [
     id: 4,
     category: 'ORGANIC',
     categoryBg: 'bg-lime-500',
+    categoryText: 'text-white',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -46,6 +51,7 @@ const blogPosts = [
     id: 5,
     category: 'BEAUTY',
     categoryBg: 'bg-amber-300',
+    categoryText: 'text-black',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -54,7 +60,8 @@ const blogPosts = [
   {
     id: 6,
     category: 'COSMETIC',
-    categoryBg: 'bg-violet-400',
+    categoryBg: 'bg-violet-600',
+    categoryText: 'text-white',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -64,6 +71,7 @@ const blogPosts = [
     id: 7,
     category: 'BEAUTY',
     categoryBg: 'bg-amber-300',
+    categoryText: 'text-black',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -72,7 +80,8 @@ const blogPosts = [
   {
     id: 8,
     category: 'COSMETIC',
-    categoryBg: 'bg-violet-400',
+    categoryBg: 'bg-violet-600',
+    categoryText: 'text-white',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -82,6 +91,7 @@ const blogPosts = [
     id: 9,
     category: 'ORGANIC',
     categoryBg: 'bg-lime-500',
+    categoryText: 'text-white',
     title: 'How to Create a Sustainable Home with Organic Products',
     author: 'UrbanTech',
     date: 'Oct 12, 2023',
@@ -103,7 +113,6 @@ export default function BlogsPage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle search logic here
   };
 
   const handlePageChange = (page: number) => {
@@ -112,231 +121,178 @@ export default function BlogsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Banner Section */}
-      <section className="w-full py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-[126px]">
-          <div className="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
-            <Image
-              src="/images/blogs.png"
-              alt="Autumn/Winter Sale"
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 1920px) 100vw, 1920px"
-            />
-            {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-            
-            {/* Content Overlay */}
-            <div className="absolute inset-0 flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-[126px]">
-              <div className="max-w-[600px] text-white">
-                  <p className="text-design-14 sm:text-design-16 font-medium mb-2">AUTUMN/WINTER &apos;25</p>
-                  <h1 className="text-design-32 sm:text-design-32 lg:text-[64px] font-bold mb-2 leading-tight">
-                    SALE
-                  </h1>
-                  <p className="text-design-16 sm:text-design-18 font-medium mb-1">UP TO</p>
-                  <h2 className="text-design-32 sm:text-design-32 lg:text-[64px] font-bold mb-4 leading-tight">
-                    20% OFF
-                  </h2>
-                  <div className="mb-6">
-                    <span className="inline-block bg-[#dc2626] text-white text-design-12 sm:text-design-14 font-medium px-4 py-2 rounded">
-                      FIRST TIME ON DISCOUNT
-                    </span>
-                  </div>
-                  <button className="text-design-16 sm:text-design-18 font-medium text-white underline hover:no-underline transition">
-                    Shop Now
-                  </button>
-              </div>
-            </div>
-            
-            {/* Carousel Dots */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2">
-              {[1, 2, 3, 4, 5].map((dot) => (
-                <button
-                  key={dot}
-                  className={`w-2 h-2 rounded-full transition ${
-                    dot === 1 ? 'bg-[#1e3a8a]' : 'bg-white/50'
-                  }`}
-                  aria-label={`Slide ${dot}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-[#f5f5f5]" style={{ fontFamily: 'var(--font-poppins)' }}>
+      {/* Banner from Exclusive (same component as exclusive page) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+        <ExclusiveHeroBanner />
+      </div>
 
-      {/* Blog Insights Section */}
-      <section className="py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-[126px]">
-          {/* Section Title */}
-          <h2 className="text-design-32 sm:text-design-32 lg:text-[48px] font-semibold text-[var(--color-black)] mb-6 sm:mb-8">
+      <section className="pb-10 sm:pb-12 lg:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-[var(--color-black)] mb-6 sm:mb-8">
             Blog Insights
           </h2>
 
-          {/* Search and Filter Bar */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12">
-            {/* Search Input */}
-            <form onSubmit={handleSearch} className="flex-1 flex gap-2">
-              <div className="relative flex-1">
+          {/* Search + filters — stack on xs, row on larger screens */}
+          <div className="flex flex-col xl:flex-row xl:items-end gap-4 mb-8 sm:mb-10">
+            <form onSubmit={handleSearch} className="flex-1 flex flex-col sm:flex-row gap-2 min-w-0">
+              <div className="relative flex-1 min-w-0">
                 <input
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search Blogs"
-                  className="w-full h-12 sm:h-14 px-4 pr-12 bg-white border border-[var(--color-border-input)] rounded-lg text-[var(--color-black)] placeholder:text-[var(--color-muted-alt-2)] focus:outline-none focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent"
+                  className="w-full h-11 sm:h-12 px-4 pr-11 bg-white border border-[var(--color-border-input)] rounded-lg text-[var(--color-black)] placeholder:text-[var(--color-muted-alt-2)] focus:outline-none focus:ring-2 focus:ring-[#1e3a8a] focus:border-transparent text-sm"
                 />
-                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[var(--color-muted-alt-2)]" />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-muted-alt-2)] pointer-events-none" />
               </div>
               <button
                 type="submit"
-                className="h-12 sm:h-14 px-6 sm:px-8 bg-[#1e3a8a] text-white text-design-14 sm:text-design-16 font-medium rounded-lg hover:opacity-95 transition"
+                className="h-11 sm:h-12 shrink-0 px-6 sm:px-8 bg-[#1e3a8a] text-white text-sm font-medium rounded-lg hover:opacity-95 transition"
               >
                 Search
               </button>
             </form>
 
-            {/* Category Dropdown */}
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsCategoryOpen(!isCategoryOpen);
-                  setIsSortOpen(false);
-                }}
-                className="h-12 sm:h-14 px-4 sm:px-6 bg-white border border-[var(--color-border-input)] rounded-lg text-[var(--color-black)] text-design-14 sm:text-design-16 font-medium flex items-center gap-2 min-w-[140px] sm:min-w-[160px] justify-between hover:border-[#1e3a8a] transition"
-              >
-                <span>{selectedCategory}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isCategoryOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-10"
-                    onClick={() => setIsCategoryOpen(false)}
-                  />
-                  <div className="absolute top-full mt-2 left-0 z-20 w-full bg-white border border-[var(--color-border-input)] rounded-lg overflow-hidden shadow-lg">
-                    {categories.map((category) => (
-                      <button
-                        key={category}
-                        type="button"
-                        onClick={() => {
-                          setSelectedCategory(category);
-                          setIsCategoryOpen(false);
-                        }}
-                        className={`w-full px-4 py-3 text-left text-design-14 text-[var(--color-black)] hover:bg-[#1e3a8a] hover:text-white transition ${
-                          selectedCategory === category ? 'bg-[#1e3a8a] text-white' : ''
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 xl:shrink-0">
+              <div className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold text-[var(--color-black)]">Category</span>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCategoryOpen(!isCategoryOpen);
+                      setIsSortOpen(false);
+                    }}
+                    className="h-11 sm:h-12 w-full sm:min-w-[160px] px-4 bg-white border border-[var(--color-border-input)] rounded-lg text-[var(--color-black)] text-sm font-medium flex items-center justify-between gap-2 hover:border-[#1e3a8a] transition"
+                  >
+                    <span>{selectedCategory}</span>
+                    <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isCategoryOpen && (
+                    <>
+                      <div className="fixed inset-0 z-10" onClick={() => setIsCategoryOpen(false)} />
+                      <div className="absolute top-full mt-2 left-0 z-20 w-full bg-white border border-[var(--color-border-input)] rounded-lg overflow-hidden shadow-lg">
+                        {categories.map((category) => (
+                          <button
+                            key={category}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCategory(category);
+                              setIsCategoryOpen(false);
+                            }}
+                            className={`w-full px-4 py-3 text-left text-sm text-[var(--color-black)] hover:bg-[#1e3a8a] hover:text-white transition ${
+                              selectedCategory === category ? 'bg-[#1e3a8a] text-white' : ''
+                            }`}
+                          >
+                            {category}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
 
-            {/* Sort Dropdown */}
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsSortOpen(!isSortOpen);
-                  setIsCategoryOpen(false);
-                }}
-                className="h-12 sm:h-14 px-4 sm:px-6 bg-white border border-[var(--color-border-input)] rounded-lg text-[var(--color-black)] text-design-14 sm:text-design-16 font-medium flex items-center gap-2 min-w-[140px] sm:min-w-[180px] justify-between hover:border-[#1e3a8a] transition"
-              >
-                <span>Sort by</span>
-                <span className="text-[var(--color-muted-alt-2)]">{selectedSort}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isSortOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-10"
-                    onClick={() => setIsSortOpen(false)}
-                  />
-                  <div className="absolute top-full mt-2 left-0 z-20 w-full bg-white border border-[var(--color-border-input)] rounded-lg overflow-hidden shadow-lg">
-                    {sortOptions.map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => {
-                          setSelectedSort(option);
-                          setIsSortOpen(false);
-                        }}
-                        className={`w-full px-4 py-3 text-left text-design-14 text-[var(--color-black)] hover:bg-[#1e3a8a] hover:text-white transition ${
-                          selectedSort === option ? 'bg-[#1e3a8a] text-white' : ''
-                        }`}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
+              <div className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold text-[var(--color-black)]">Sort by</span>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSortOpen(!isSortOpen);
+                      setIsCategoryOpen(false);
+                    }}
+                    className="h-11 sm:h-12 w-full sm:min-w-[200px] px-4 bg-white border border-[var(--color-border-input)] rounded-lg text-[var(--color-black)] text-sm font-medium flex items-center justify-between gap-2 hover:border-[#1e3a8a] transition"
+                  >
+                    <span className="truncate">{selectedSort}</span>
+                    <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isSortOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isSortOpen && (
+                    <>
+                      <div className="fixed inset-0 z-10" onClick={() => setIsSortOpen(false)} />
+                      <div className="absolute top-full mt-2 left-0 z-20 w-full bg-white border border-[var(--color-border-input)] rounded-lg overflow-hidden shadow-lg">
+                        {sortOptions.map((option) => (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => {
+                              setSelectedSort(option);
+                              setIsSortOpen(false);
+                            }}
+                            className={`w-full px-4 py-3 text-left text-sm text-[var(--color-black)] hover:bg-[#1e3a8a] hover:text-white transition ${
+                              selectedSort === option ? 'bg-[#1e3a8a] text-white' : ''
+                            }`}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+          {/* 2 columns on small screens, 3 on large — matches design */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-6 mb-10">
             {blogPosts.map((post) => (
-              <article
-                key={post.id}
-                className="bg-white rounded-xl overflow-hidden transition flex flex-col  hover:shadow"
-              >
-                <div className="relative w-full h-[150px] sm:h-[180px] bg-[var(--color-border)]">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="p-4 sm:p-6 flex flex-col flex-1">
-                  <span
-                    className={`inline-block text-design-12 sm:text-design-14 font-medium ${post.categoryBg} text-white px-2 py-1 rounded w-fit mb-3`}
-                  >
-                    {post.category}
-                  </span>
-                  <h3 className="text-design-16 sm:text-design-18 font-semibold text-[var(--color-black)] line-clamp-3 mb-3 flex-1">
-                    {post.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-design-14 text-[var(--color-muted-alt-2)]">
+              <Link key={post.id} href={`/blogs/${post.id}`} className="group block h-full min-w-0">
+                <article className="bg-white rounded-xl overflow-hidden border border-gray-200/80 shadow-sm transition flex flex-col h-full hover:shadow-md">
+                  <div className="relative w-full aspect-[4/3] bg-gray-100">
                     <Image
-                      src="/images/circle.png"
-                      alt={post.author}
-                      width={24}
-                      height={24}
-                      className="w-6 h-6 rounded-full shrink-0 object-cover"
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover rounded-t-xl"
+                      sizes="(max-width: 1024px) 50vw, 33vw"
+                      unoptimized
                     />
-                    <span>{post.author}</span>
-                    <span>•</span>
-                    <span>{post.date}</span>
                   </div>
-                </div>
-              </article>
+                  <div className="p-3 sm:p-4 flex flex-col flex-1 min-w-0">
+                    <span
+                      className={`inline-block text-[10px] sm:text-xs font-semibold ${post.categoryBg} ${post.categoryText} px-2 py-0.5 rounded-md w-fit mb-2`}
+                    >
+                      {post.category}
+                    </span>
+                    <h3 className="text-xs sm:text-sm font-semibold text-[var(--color-black)] line-clamp-3 mb-3 flex-1 leading-snug">
+                      {post.title}
+                    </h3>
+                    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-[var(--color-muted-alt-2)] mt-auto">
+                      <Image
+                        src="/images/circle.png"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="w-5 h-5 rounded-full shrink-0 object-cover"
+                      />
+                      <span className="truncate">{post.author}</span>
+                      <span className="shrink-0">•</span>
+                      <span className="shrink-0">{post.date}</span>
+                    </div>
+                  </div>
+                </article>
+              </Link>
             ))}
           </div>
 
-          {/* Pagination */}
           <nav
-            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 sm:pt-8 border-t border-[var(--color-border)]"
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4 pt-6 border-t border-[var(--color-border)]"
             aria-label="Pagination"
           >
-            <p className="text-design-14 text-[var(--color-muted-alt-2)]">
+            <p className="text-sm text-[var(--color-muted-alt-2)] sm:mr-auto sm:order-first">
               Page {currentPage} of {totalPages}
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-end gap-2 flex-wrap">
               <button
                 type="button"
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 disabled={currentPage <= 1}
-                className="min-h-[40px] px-4 rounded-lg bg-white border border-[var(--color-border-input)] text-design-14 font-medium text-[var(--color-black)] hover:bg-[var(--color-border)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
+                className="min-h-10 px-3 rounded-lg bg-white border border-[var(--color-border-input)] text-sm font-medium text-[var(--color-black)] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
               >
                 <ChevronLeft className="w-4 h-4" />
-                <span>Prev</span>
+                Prev
               </button>
               <div className="flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((page) => (
@@ -344,10 +300,10 @@ export default function BlogsPage() {
                     key={page}
                     type="button"
                     onClick={() => handlePageChange(page)}
-                    className={`min-w-[40px] h-10 rounded-lg text-design-14 font-medium transition ${
+                    className={`min-w-9 h-9 rounded-lg text-sm font-medium transition ${
                       page === currentPage
                         ? 'bg-[#1e3a8a] text-white'
-                        : 'bg-white border border-[var(--color-border-input)] text-[var(--color-black)] hover:bg-[var(--color-border)]'
+                        : 'bg-white border border-[var(--color-border-input)] text-[var(--color-black)] hover:bg-gray-50'
                     }`}
                   >
                     {page}
@@ -358,9 +314,9 @@ export default function BlogsPage() {
                 type="button"
                 onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage >= totalPages}
-                className="min-h-[40px] px-4 rounded-lg bg-[#1e3a8a] text-white text-design-14 font-medium hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
+                className="min-h-10 px-3 rounded-lg bg-[#1e3a8a] text-white text-sm font-medium hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
               >
-                <span>Next</span>
+                Next
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

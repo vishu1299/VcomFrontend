@@ -259,7 +259,7 @@ export default function TopProductsSection() {
 
   return (
     <section
-      className="mt-6 sm:mt-8 lg:mt-10 xl:mt-12 py-4 sm:py-6 lg:py-8 px-3 sm:px-4 md:px-6 lg:px-8"
+      className="w-full min-w-0 overflow-hidden rounded-2xl py-4 sm:py-6 lg:py-8 px-3 sm:px-4 md:px-5 lg:px-6"
       style={{
         backgroundColor: FIGMA.sectionBg,
         fontFamily: 'var(--font-poppins)',
@@ -318,7 +318,7 @@ export default function TopProductsSection() {
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
         {/* Category sidebar — dark #1F1D2B, vertical on desktop */}
         <aside
-          className=" w-[200px] lg:w-[264px] shrink-0 rounded-[8px] p-2"
+          className="w-full max-w-full shrink-0 rounded-[8px] p-2 lg:w-[264px] lg:max-w-none"
           style={{ backgroundColor: FIGMA.sidebarBg }}
         >
           <nav

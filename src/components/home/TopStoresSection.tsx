@@ -16,11 +16,11 @@ const stores = [
 
 export default function TopStoresSection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12" aria-label="Top stores">
+    <section className="w-full min-w-0" aria-label="Top stores">
       <SectionHeader title="Top Stores" viewAllHref="#" viewAllLabel="View All" icon={<Trophy className="w-5 h-5 text-amber-500" />} />
 
       <div className="relative">
-        <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 scrollbar-hide sm:gap-6 -mx-4 px-4 sm:mx-0 sm:px-0">
           {stores.map((store, i) => (
             <div
               key={i}

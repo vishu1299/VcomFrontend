@@ -15,7 +15,7 @@ const items = [
 
 export default function RelatedItemsSection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12" aria-label="Related to items you've viewed">
+    <section className="w-full min-w-0" aria-label="Related to items you've viewed">
       <SectionHeader
         title="Related to items you've viewed"
         viewAllHref="#"

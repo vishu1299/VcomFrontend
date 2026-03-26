@@ -14,15 +14,14 @@ const reviewers = [
 export default function CustomerReviewsSection() {
   return (
     <section
-      className="w-full bg-[#FFF9E7] flex flex-col items-center"
+      className="flex w-full min-w-0 flex-col items-center overflow-hidden rounded-2xl bg-[#FFF9E7]"
       aria-label="Customer reviews"
     >
-      {/* Title */}
-      <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-semibold text-[var(--color-black)] text-center mt-8 sm:mt-10 px-4">
+      <h2 className="px-4 pt-8 text-center text-[24px] font-semibold text-[var(--color-black)] sm:pt-10 sm:text-[28px] lg:text-[32px]">
         Customer Reviews
       </h2>
 
-      <div className="max-w-[920px] w-full flex flex-col items-center gap-6 sm:gap-8 lg:gap-10 py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
+      <div className="flex w-full max-w-3xl flex-col items-center gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-10 lg:gap-10 lg:px-8">
         {/* Review Text */}
         <div className="relative max-w-[820px] text-center px-6 sm:px-8">
           <span className="absolute left-0 sm:-left-2 -top-1 sm:-top-2 text-[32px] sm:text-[40px] lg:text-[48px] text-[#F5B700] font-serif leading-none">

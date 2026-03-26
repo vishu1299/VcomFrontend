@@ -4,71 +4,73 @@ import Link from 'next/link';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import BlogDetailClient from './BlogDetailClient';
 
-// Mock blog data
-const getBlog = (id: string) => {
-  const blogs = {
-    '1': {
-      id: '1',
-      category: 'BEAUTY',
-      categoryBg: 'bg-amber-300',
-      title: 'How to Create a Sustainable Home with Organic Products',
-      author: 'Tony Nguyen',
-      authorImage: '/images/circle.png',
-      date: 'Oct 12, 2023',
-      content: {
-        intro: 'Refined oils are everywhere—in your kitchen, your skincare, and your hair products. But here\'s the thing: they\'re processed, stripped of nutrients, and often loaded with chemicals. Enter organic cold-pressed coconut oil—the game-changer you\'ve been waiting for.',
-        sections: [
+// Mock blog data — same content for all IDs so list cards always open a valid detail page
+const BLOG_DETAIL_TEMPLATE = {
+  category: 'BEAUTY',
+  categoryBg: 'bg-amber-300',
+  title: 'How to Create a Sustainable Home with Organic Products',
+  author: 'Tony Nguyen',
+  authorImage: '/images/circle.png',
+  date: 'Oct 12, 2023',
+  content: {
+    intro: 'Refined oils are everywhere—in your kitchen, your skincare, and your hair products. But here\'s the thing: they\'re processed, stripped of nutrients, and often loaded with chemicals. Enter organic cold-pressed coconut oil—the game-changer you\'ve been waiting for.',
+    sections: [
+      {
+        heading: 'Zero Chemicals. Zero Heat. Maximum Nutrition.',
+        text: 'Cold-pressed extraction means we press the coconut meat at low temperatures, preserving every drop of goodness. No heat means no nutrient loss. No chemicals means pure, unadulterated oil. What you get:',
+        points: [
+          'Lauric acid (50% of the oil)',
+          'Vitamin E',
+          'Natural antioxidants',
+          'Essential fatty acids',
+        ],
+      },
+      {
+        heading: '2. The Only Oil That\'s Good for Both Eating & Applying.',
+        text: 'Most oils are either for cooking OR skincare. Not this one. Organic cold-pressed coconut oil is versatile enough to:',
+        points: [
+          'Moisturize your skin',
+          'Nourish your hair',
+          'Fry your favorite foods',
+          'Enhance your coffee',
+          'Bake healthier treats',
+        ],
+        details: [
           {
-            heading: 'Zero Chemicals. Zero Heat. Maximum Nutrition.',
-            text: 'Cold-pressed extraction means we press the coconut meat at low temperatures, preserving every drop of goodness. No heat means no nutrient loss. No chemicals means pure, unadulterated oil. What you get:',
-            points: [
-              'Lauric acid (50% of the oil)',
-              'Vitamin E',
-              'Natural antioxidants',
-              'Essential fatty acids',
-            ],
+            title: 'For Cooking:',
+            text: 'High smoke point (350°F) means it won\'t break down during frying. Non-oxidizing properties keep your food healthy. Plus, it supports fat metabolism—your body actually uses it for energy instead of storing it.',
           },
           {
-            heading: '2. The Only Oil That\'s Good for Both Eating & Applying.',
-            text: 'Most oils are either for cooking OR skincare. Not this one. Organic cold-pressed coconut oil is versatile enough to:',
-            points: [
-              'Moisturize your skin',
-              'Nourish your hair',
-              'Fry your favorite foods',
-              'Enhance your coffee',
-              'Bake healthier treats',
-            ],
-            details: [
-              {
-                title: 'For Cooking:',
-                text: 'High smoke point (350°F) means it won\'t break down during frying. Non-oxidizing properties keep your food healthy. Plus, it supports fat metabolism—your body actually uses it for energy instead of storing it.',
-              },
-              {
-                title: 'For Skin:',
-                text: 'The molecular structure matches your skin\'s natural lipids, so it absorbs quickly without feeling greasy. Perfect for dry patches, cuticles, and even as a natural makeup remover.',
-              },
-              {
-                title: 'For Hair:',
-                text: 'Lauric acid penetrates deep into the hair shaft, providing moisture from within. Say goodbye to frizz, split ends, and dullness.',
-              },
-            ],
+            title: 'For Skin:',
+            text: 'The molecular structure matches your skin\'s natural lipids, so it absorbs quickly without feeling greasy. Perfect for dry patches, cuticles, and even as a natural makeup remover.',
+          },
+          {
+            title: 'For Hair:',
+            text: 'Lauric acid penetrates deep into the hair shaft, providing moisture from within. Say goodbye to frizz, split ends, and dullness.',
           },
         ],
       },
-      productImages: {
-        hero: 'https://picsum.photos/seed/blog-hero/800/600',
-        grid: [
-          'https://picsum.photos/seed/blog-grid1/400/400',
-          'https://picsum.photos/seed/blog-grid2/400/400',
-          'https://picsum.photos/seed/blog-grid3/400/400',
-          'https://picsum.photos/seed/blog-grid4/400/400',
-        ],
-      },
-    },
-  };
-
-  return blogs[id as keyof typeof blogs] || null;
+    ],
+  },
+  productImages: {
+    hero: 'https://picsum.photos/seed/blog-hero/800/600',
+    grid: [
+      'https://picsum.photos/seed/blog-grid1/400/400',
+      'https://picsum.photos/seed/blog-grid2/400/400',
+      'https://picsum.photos/seed/blog-grid3/400/400',
+      'https://picsum.photos/seed/blog-grid4/400/400',
+    ],
+  },
 };
+
+function getBlog(id: string) {
+  const n = Number.parseInt(id, 10);
+  if (Number.isNaN(n) || n < 1) return null;
+  return {
+    id: String(n),
+    ...BLOG_DETAIL_TEMPLATE,
+  };
+}
 
 // Related blogs data
 const relatedBlogs = [

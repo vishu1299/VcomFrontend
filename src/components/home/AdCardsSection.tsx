@@ -26,11 +26,8 @@ const cards = [
 
 export default function AdCardsSection() {
   return (
-    <section
-      className="mt-6 sm:mt-8 lg:mt-10 px-4 sm:px-6 lg:px-8"
-      aria-label="Advertisement cards"
-    >
-      <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+    <section className="w-full" aria-label="Advertisement cards">
+      <div className="grid w-full grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:gap-8">
         {cards.map((card, i) => (
           <article
             key={i}

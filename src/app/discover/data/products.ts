@@ -6,6 +6,10 @@ export type DiscoverProduct = {
   originalPrice: number;
   image: string;
   badges?: string[];
+  /** Shorts-style stats (display only) */
+  views?: string;
+  likes?: string;
+  shares?: string;
 };
 
 export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
@@ -17,6 +21,9 @@ export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
     originalPrice: 349,
     image: 'https://images.unsplash.com/photo-1695048133142-1a20484429e0?w=400&q=80',
     badges: ['SALE', 'NEW'],
+    views: '2.5K',
+    likes: '13.4k',
+    shares: '4k',
   },
   {
     id: '2',
@@ -26,6 +33,9 @@ export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
     originalPrice: 429,
     image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&q=80',
     badges: ['SALE', 'NEW'],
+    views: '1.8K',
+    likes: '9.2k',
+    shares: '2.1k',
   },
   {
     id: '3',
@@ -35,6 +45,9 @@ export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
     originalPrice: 249,
     image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80',
     badges: ['SALE', 'NEW'],
+    views: '3.1K',
+    likes: '11k',
+    shares: '3.5k',
   },
   {
     id: '4',
@@ -44,6 +57,9 @@ export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
     originalPrice: 199,
     image: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&q=80',
     badges: ['SALE', 'NEW'],
+    views: '890',
+    likes: '4.2k',
+    shares: '900',
   },
   {
     id: '5',
@@ -53,6 +69,9 @@ export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
     originalPrice: 329,
     image: 'https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=400&q=80',
     badges: ['SALE', 'NEW'],
+    views: '4.2K',
+    likes: '18k',
+    shares: '5k',
   },
   {
     id: '6',
@@ -62,5 +81,8 @@ export const DISCOVER_STREAM_PRODUCTS: DiscoverProduct[] = [
     originalPrice: 399,
     image: 'https://images.unsplash.com/photo-1666919643134-d97687c1826c?w=400&q=80',
     badges: ['SALE', 'NEW'],
+    views: '2.1K',
+    likes: '7.8k',
+    shares: '1.2k',
   },
 ];
