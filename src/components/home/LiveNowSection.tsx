@@ -38,7 +38,7 @@ const products = [
 export default function LiveNowSection() {
   return (
     <section
-      className=" p-7 mt-8 sm:mt-10 lg:mt-12 py-6 sm:py-8 lg:py-10"
+      className="w-full min-w-0 overflow-hidden rounded-2xl px-4 py-6 sm:px-5 sm:py-8 lg:px-6 lg:py-10"
       style={{ background: '#FAE5F1' }}
       aria-label="LIVE NOW products"
     >
@@ -52,7 +52,7 @@ export default function LiveNowSection() {
       </div>
 
       <div className="relative">
-        <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 scrollbar-hide sm:gap-6 -mx-4 px-4 sm:mx-0 sm:px-0">
           {products.map((product, i) => (
             <article
               key={i}

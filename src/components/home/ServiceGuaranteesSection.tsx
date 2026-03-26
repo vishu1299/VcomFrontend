@@ -33,9 +33,9 @@ export default function ServiceGuaranteesSection() {
   return (
     <section
       aria-label="Service guarantees"
-      className="w-full flex justify-center mt-8 sm:mt-10 lg:mt-12 px-4 sm:px-6 lg:px-8"
+      className="flex w-full min-w-0 justify-center"
     >
-      <div className="w-full max-w-[1488px] bg-white rounded-[12px] sm:rounded-[16px] p-6 sm:p-8 lg:p-10 xl:p-[40px]">
+      <div className="w-full rounded-[12px] bg-white p-6 sm:rounded-[16px] sm:p-8 lg:p-10 xl:p-[40px]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6 lg:gap-8 xl:gap-10">
           {services.map((service, i) => (
             <div

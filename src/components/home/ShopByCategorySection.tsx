@@ -19,7 +19,7 @@ const categories = [
 
 export default function ShopByCategorySection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12" aria-label="Shop by category">
+    <section className="w-full min-w-0" aria-label="Shop by category">
       <SectionHeader
         title="Shop by Category"
         viewAllHref="#"

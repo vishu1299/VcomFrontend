@@ -33,7 +33,7 @@ const posts = [
 
 export default function BlogInsightsSection() {
   return (
-    <section className="mt-8 sm:mt-10 lg:mt-12 py-8 sm:py-10" aria-label="Blog insights">
+    <section className="w-full min-w-0 py-2 sm:py-4" aria-label="Blog insights">
       <div className="text-center mb-6 sm:mb-8">
         <span className="inline-block text-design-14 font-medium bg-[var(--color-main-blue)] text-white px-4 py-2 rounded-md mb-3">
           LATEST NEWS

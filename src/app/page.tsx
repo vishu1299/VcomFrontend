@@ -17,8 +17,8 @@ import {
 
 export default function HomePage() {
   return (
-    <main className="bg-[#f5f5f5] min-h-screen">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
+    <main className="min-h-screen bg-[#f5f5f5]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-10 flex flex-col gap-8 sm:gap-10 lg:gap-12 pt-4 sm:pt-6 pb-12 sm:pb-16">
         <HeroCarousel />
         <AdCardsSection />
         <TopStoresSection />

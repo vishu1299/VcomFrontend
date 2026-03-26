@@ -17,9 +17,9 @@ export default function PromoBannersSection() {
   return (
     <section
       aria-label="Promotional banners"
-      className="w-full flex justify-center mt-8 sm:mt-10 lg:mt-12 overflow-hidden px-4 sm:px-6 lg:px-8"
+      className="flex w-full min-w-0 justify-center overflow-hidden"
     >
-      <div className="w-full max-w-[1920px] grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 xl:gap-10">
+      <div className="grid w-full grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:gap-8 xl:gap-10">
         {banners.map((banner, index) => (
           <article
             key={index}
