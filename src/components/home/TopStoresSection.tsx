@@ -41,7 +41,7 @@ export default function TopStoresSection() {
               key={i}
               className="min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] flex flex-col items-center text-center snap-start shrink-0 bg-white rounded-xl p-4"
             >
-              <div className="relative">
+              <div className="relative pt-2">
                 <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-[var(--color-error)] bg-white">
                   <Image
                     src={store.image}
@@ -51,7 +51,7 @@ export default function TopStoresSection() {
                     sizes="112px"
                   />
                 </div>
-                <span className="absolute -top-0.5 left-6 border-b border-red-500 bg-[var(--color-error)] text-white text-[10px] sm:text-design-12 font-medium px-1.5 py-0.5 rounded">
+                <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 whitespace-nowrap rounded bg-[var(--color-error)] px-2 py-0.5 text-[10px] font-medium leading-none text-white shadow-sm sm:text-design-12">
                   LIVE NOW
                 </span>
               </div>

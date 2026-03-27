@@ -30,31 +30,33 @@ export default function ShopByCategorySection() {
       />
 
       <div className="relative">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-4">
           {categories.map((cat, i) => (
             <article
               key={i}
-              className="flex aspect-[4/5] flex-col overflow-hidden rounded-2xl shadow-sm transition hover:shadow-md"
+              className="flex aspect-[4/5] min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl shadow-sm transition hover:shadow-md"
               style={{ backgroundColor: CATEGORY_CARD_BG }}
             >
-              <a href="#" className="group flex min-h-0 flex-1 flex-col">
-                {/* Image: centered on card gray, bottom fades into card bg — no inner white frame, no badge overlays */}
-                <div className="relative flex min-h-0 flex-1 flex-col px-3 pb-1 pt-3 sm:px-4 sm:pt-4">
-                  <div className="relative min-h-[160px] w-full flex-1 overflow-hidden rounded-xl sm:min-h-[180px]">
+              <a
+                href="#"
+                className="group flex h-full min-h-0 min-w-0 flex-col outline-none"
+              >
+                {/* fill image needs a box with real height: flex-1 + min-h avoids collapse on mobile */}
+                <div className="relative min-h-0 flex-1 px-2 pb-0.5 pt-2 sm:px-4 sm:pb-1 sm:pt-4">
+                  <div className="relative h-full min-h-[112px] w-full overflow-hidden rounded-lg sm:min-h-[140px] sm:rounded-xl">
                     <Image
                       src={cat.image}
                       alt={cat.name}
                       fill
-                      className="object-contain object-center transition duration-300 group-hover:scale-[1.03] p-2"
-                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                      sizes="(max-width: 640px) 46vw, (max-width: 768px) 31vw, (max-width: 1024px) 23vw, 18vw"
+                      className="object-contain object-center p-1.5 transition duration-300 group-hover:scale-[1.03] sm:p-2"
                     />
-                    
                   </div>
                 </div>
                 {/* Pill label — matches reference white bar at bottom */}
-                <div className="flex shrink-0 flex-col justify-end px-3 pb-3 pt-1 sm:px-4 sm:pb-4">
-                  <div className="flex min-h-[44px] items-center justify-center rounded-lg bg-white px-4 py-2.5 shadow-sm sm:min-h-[48px] sm:px-5 sm:py-3">
-                    <span className="text-center text-design-14 font-semibold text-[var(--color-black)] sm:text-design-16">
+                <div className="flex shrink-0 flex-col justify-end px-2 pb-2 pt-0.5 sm:px-4 sm:pb-4 sm:pt-1">
+                  <div className="flex min-h-[40px] items-center justify-center rounded-lg bg-white px-2 py-2 shadow-sm sm:min-h-[48px] sm:px-5 sm:py-3">
+                    <span className="line-clamp-2 text-center text-[11px] font-semibold leading-tight text-[var(--color-black)] sm:text-design-14 sm:leading-normal md:text-design-16">
                       {cat.name}
                     </span>
                   </div>
