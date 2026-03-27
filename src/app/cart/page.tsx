@@ -84,7 +84,7 @@ export default function CartPage() {
         style={{ fontFamily: 'var(--font-poppins)' }}
       >
         {/* Top: Cart items + Order Summary (2-col on desktop) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-[20px]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-[20px]">
           {/* Left: Cart items list — Figma card 868×213 Hug */}
           <div className="lg:col-span-8 flex flex-col gap-5">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">

@@ -6,10 +6,12 @@ import SoldBySellerCarousel from './components/SoldBySellerCarousel';
 
 interface PageProps {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ tab?: string }>;
 }
 
-export default async function ProductDetailPage({ params }: PageProps) {
+export default async function ProductDetailPage({ params, searchParams }: PageProps) {
   const { id } = await params;
+  const sp = (await searchParams) ?? {};
   const product = getProductDetail(id);
 
   if (!product) {
@@ -17,12 +19,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
   }
 
   const recommended = getSellerRecommendedProducts(id);
+  const initialTab =
+    sp.tab === 'questions' ? ('Questions' as const) : undefined;
 
   return (
     <main className="min-h-screen bg-white" style={{ fontFamily: 'var(--font-poppins)' }}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         <ProductShowcase product={product} />
-        <ProductDescriptionTabs product={product} />
+        <ProductDescriptionTabs product={product} initialTab={initialTab} />
         {recommended.length > 0 && <SoldBySellerCarousel products={recommended} />}
       </div>
     </main>

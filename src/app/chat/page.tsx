@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Flag } from "lucide-react";
 
 type ChatMessage = { id: string; text: string; isUser: boolean; time: string };
 
@@ -10,6 +11,8 @@ const CHAT_LIST = [
   { id: "fusion", name: "Fusion Fashion", lastMessage: "Does this product have a consoles?", time: "12:40 PM", hasNew: false, avatar: "gray" },
   { id: "luxestore", name: "Luxestore", lastMessage: "When will my order ship?", time: "12:40 PM", hasNew: true, avatar: "pink" },
 ];
+
+const SOLAR_ARROW_UP_OUTLINE = "/images/solar_arrow-up-outline.png";
 
 const QUICK_QUESTIONS = [
   "Ask about delivery",
@@ -40,24 +43,6 @@ function MoreVerticalIcon() {
       <circle cx="12" cy="12" r="1" />
       <circle cx="12" cy="5" r="1" />
       <circle cx="12" cy="19" r="1" />
-    </svg>
-  );
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-  );
-}
-
-function BookmarkIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
     </svg>
   );
 }
@@ -126,7 +111,7 @@ export default function ChatPage() {
 
   return (
     <main className=" bg-gray-100 ">
-      <div className="mx-auto min-h-screen max-w-[1100px] py-4 sm:py-6 overflow-x-hidden flex gap-4">
+      <div className="mx-auto flex min-h-screen max-w-[1100px] flex-col gap-4 overflow-x-hidden py-4 sm:py-6 md:flex-row">
         {/* Left: Chat list ~30% */}
         <aside className="w-full md:w-[30%] lg:max-w-[360px] border-r border-gray-200 flex flex-col bg-white rounded-lg">
           <div className="p-4 border-b border-gray-200 flex items-center justify-between">
@@ -175,141 +160,161 @@ export default function ChatPage() {
         </aside>
 
         {/* Right: Active chat ~70% */}
-        <div className="flex-1 flex flex-col min-w-0 bg-white rounded-lg">
+        <div className="flex min-h-[70vh] flex-1 flex-col min-w-0 overflow-hidden bg-white rounded-lg">
           {/* Seller header */}
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 shrink-0">
-                <img src="/images/profileImage.png" alt="Urban Tech" className="w-full h-full object-cover" />
+          <div className="flex shrink-0 items-center justify-between gap-3 border-b border-gray-200 p-4">
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200">
+                <img src="/images/profileImage.png" alt="Urban Tech" className="h-full w-full object-cover" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-[#131313]">Urban Tech</span>
-                  <img src="/images/verifiedBadge.png" alt="Verified" className="w-6 h-6" />
+                  <span className="truncate text-sm font-bold text-[#131313]">Urban Tech</span>
+                  <img src="/images/verifiedBadge.png" alt="Verified" className="h-6 w-6 shrink-0" />
                 </div>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-green-500" aria-hidden />
+                <div className="mt-0.5 flex items-center gap-1.5">
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-green-500" aria-hidden />
                   <span className="text-xs text-gray-600">Online</span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex shrink-0 items-center gap-2">
               <Link
                 href="/seller-page"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#131313] border border-gray-200 px-3 py-2 rounded-lg hover:bg-gray-50 transition"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#454545] transition hover:text-[#131313]"
               >
+                <span className="inline-flex h-4 w-4 shrink-0" aria-hidden>
+                  <img
+                    src={SOLAR_ARROW_UP_OUTLINE}
+                    alt=""
+                    className="h-full w-full object-contain"
+                  />
+                </span>
                 View Store
-                <ExternalLinkIcon />
               </Link>
-              <button type="button" className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition" aria-label="Save">
-                <BookmarkIcon />
+              <button
+                type="button"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-600 transition hover:bg-gray-50"
+                aria-label="Report or flag conversation"
+              >
+                <Flag className="h-4 w-4" strokeWidth={2} />
               </button>
             </div>
           </div>
 
-          {/* Chat content */}
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="flex items-center gap-4 my-4">
-              <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs text-gray-500">2:00 AM</span>
-              <div className="flex-1 h-px bg-gray-200" />
+          {/* Thread + bottom product strip + message input (gap-5 above input) */}
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1 overflow-y-auto p-4">
+              <div className="my-4 flex items-center gap-4">
+                <div className="h-px flex-1 bg-gray-200" />
+                <span className="text-xs text-gray-500">2:00 AM</span>
+                <div className="h-px flex-1 bg-gray-200" />
+              </div>
+
+              {!showProductAndQuickQuestions && (
+                <div className="space-y-3">
+                  {INITIAL_MESSAGES.map((msg) => (
+                    <div
+                      key={msg.id}
+                      className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
+                    >
+                      <div
+                        className={`max-w-[85%] rounded-xl px-4 py-2.5 sm:max-w-[75%] ${msg.isUser
+                          ? "rounded-br-md bg-gray-200 text-[#131313]"
+                          : "rounded-bl-md bg-gray-200 text-[#131313]"
+                          }`}
+                      >
+                        <p className="text-sm">{msg.text}</p>
+                        <div
+                          className={`mt-1 flex items-center gap-1 ${msg.isUser ? "justify-end" : "justify-start"}`}
+                        >
+                          {msg.isUser && <CheckIcon />}
+                          <span className="text-xs text-gray-500">{msg.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-          </div>
-            {/* Messages – static three only */}
-                    <div className="p-4">
-            {!showProductAndQuickQuestions &&
-
-              <div className="space-y-3 mt-4">
-                {INITIAL_MESSAGES.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[85%] sm:max-w-[75%] rounded-xl px-4 py-2.5 ${msg.isUser
-                          ? "bg-gray-200 text-[#131313] rounded-br-md"
-                          : "bg-gray-200 text-[#131313] rounded-bl-md"
-                        }`}
-                    >
-                      <p className="text-sm">{msg.text}</p>
-                      <div className={`flex items-center gap-1 mt-1 ${msg.isUser ? "justify-end" : "justify-start"}`}>
-                        {msg.isUser && <CheckIcon />}
-                        <span className="text-xs text-gray-500">{msg.time}</span>
+            <div className="flex shrink-0 flex-col gap-5 border-t border-gray-200 px-4 pb-4 pt-4">
+              {showProductAndQuickQuestions && (
+                <div className="space-y-6">
+                  <div className="max-w-md rounded-xl border border-gray-200  p-4 shadow-sm">
+                    <div className="mb-3 flex items-start justify-between gap-2">
+                      <span className="text-xs text-gray-600">Ordered: 12-Nov-2025</span>
+                      <button
+                        type="button"
+                        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
+                        aria-label="View product"
+                      >
+                        <img
+                          src={SOLAR_ARROW_UP_OUTLINE}
+                          alt=""
+                          className="h-4 w-4 object-contain"
+                        />
+                      </button>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-orange-200">
+                        <img src="/images/customerReviews/product.png" alt="iPhone" className="h-full w-full object-cover" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="line-clamp-2 text-sm font-medium text-[#131313]">
+                          iPhone 17 Pro 256 GB: 15.93 cm (6.3&quot;) Display
+                        </p>
+                        <p className="mt-0.5 text-sm font-bold text-[#131313]">$299.00</p>
+                        <p className="mt-1 text-xs text-gray-600">Color: Orange · QTY: 1 · Size: 256GB</p>
                       </div>
                     </div>
                   </div>
-                ))}
+
+                  <div>
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                      Quick questions
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {QUICK_QUESTIONS.map((q) => (
+                        <button
+                          key={q}
+                          type="button"
+                          className="rounded-md border border-gray-200 bg-white px-2.5 py-1 text-xs font-medium text-[#131313] transition hover:bg-gray-50"
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Message input (search) — gap-5 from product/quick block when shown */}
+              <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
+                <button type="button" className="p-2 text-gray-500 hover:text-gray-700 rounded-lg transition" aria-label="Attach">
+                  <PaperclipIcon />
+                </button>
+                <button type="button" className="p-2 text-gray-500 hover:text-gray-700 rounded-lg transition" aria-label="Camera">
+                  <CameraIcon />
+                </button>
+                <input
+                  type="text"
+                  placeholder="Type your message"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="flex-1 min-w-0 bg-transparent text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none py-1"
+                />
+                <button
+                  type="button"
+                  onClick={handleSend}
+                  disabled={!inputValue.trim()}
+                  className="p-2 text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed rounded-lg transition"
+                  aria-label="Send"
+                >
+                  <SendIcon />
+                </button>
               </div>
-            }
-
-            {/* Product card & Quick questions – hidden after user sends a message */}
-            {showProductAndQuickQuestions && (
-              <>
-              
-                <div className="max-w-md rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm mt-6">
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <span className="text-xs text-gray-600">Ordered: 12-Nov-2025</span>
-                    <button type="button" className="text-gray-500 hover:text-gray-700" aria-label="View product">
-                      <ExternalLinkIcon />
-                    </button>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-16 h-16 rounded-lg bg-orange-200 shrink-0 overflow-hidden">
-                      <img src="/images/customerReviews/product.png" alt="iPhone" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[#131313] line-clamp-2">iPhone 17 Pro 256 GB: 15.93 cm (6.3&quot;) Display</p>
-                      <p className="text-sm font-bold text-[#131313] mt-0.5">$299.00</p>
-                      <p className="text-xs text-gray-600 mt-1">Color: Orange · QTY: 1 · Size: 256GB</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <p className="text-sm font-semibold text-[#131313] mb-3">Quick Questions</p>
-                  <div className="flex flex-wrap gap-2">
-                    {QUICK_QUESTIONS.map((q) => (
-                      <button
-                        key={q}
-                        type="button"
-                        className="text-sm font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-200 transition"
-                      >
-                        {q}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
-            </div>
-
-          {/* Message input */}
-          <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2">
-              <button type="button" className="p-2 text-gray-500 hover:text-gray-700 rounded-lg transition" aria-label="Attach">
-                <PaperclipIcon />
-              </button>
-              <button type="button" className="p-2 text-gray-500 hover:text-gray-700 rounded-lg transition" aria-label="Camera">
-                <CameraIcon />
-              </button>
-              <input
-                type="text"
-                placeholder="Type your message"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="flex-1 min-w-0 bg-transparent text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none py-1"
-              />
-              <button
-                type="button"
-                onClick={handleSend}
-                disabled={!inputValue.trim()}
-                className="p-2 text-blue-600 hover:text-blue-700 disabled:text-gray-300 disabled:cursor-not-allowed rounded-lg transition"
-                aria-label="Send"
-              >
-                <SendIcon />
-              </button>
             </div>
           </div>
         </div>

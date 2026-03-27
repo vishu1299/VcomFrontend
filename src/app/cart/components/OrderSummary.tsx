@@ -91,14 +91,14 @@ export function OrderSummary({ price, savings, delivery, total }: OrderSummaryPr
 
       <div className="flex flex-col gap-3">
         <Link
-          href="/checkout"
+          href="/shipping"
           className="w-full min-h-[48px] flex items-center justify-center rounded-[6px] font-medium text-[16px] transition hover:opacity-95"
           style={{
             backgroundColor: 'var(--color-cart-continue)',
             color: '#1F1D2B',
           }}
         >
-          Continue
+          Continue to shipping
         </Link>
         <Link
           href="/product-list"
