@@ -4,25 +4,25 @@ import Image from 'next/image';
 
 const services = [
   {
-    icon: '/images/signin.png',
+    icon: '/images/service.png',
     title: '24/7 Customer Service',
     description:
       "We're here to help you with any questions or concerns you have, 24/7.",
   },
   {
-    icon: '/images/forgot.png',
+    icon: '/images/money.png',
     title: '14-Day Money Back',
     description:
       "If you're not satisfied with your purchase, simply return it within 14 days for a refund.",
   },
   {
-    icon: '/images/logo.png',
+    icon: '/images/our.png',
     title: 'Our Guarantee',
     description:
       'We stand behind our products and services and guarantee your satisfaction.',
   },
   {
-    icon: '/images/otp.png',
+    icon: '/images/truck.png',
     title: 'Shipping worldwide',
     description:
       'We ship our products worldwide, making them accessible to customers everywhere.',

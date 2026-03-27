@@ -47,14 +47,14 @@ export default function BlogInsightsSection() {
         {posts.map((post, i) => (
           <article
             key={i}
-            className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-sm hover:shadow transition flex flex-col"
+            className=" overflow-hidden flex flex-col"
           >
-            <div className="relative aspect-[5/3] bg-[var(--color-border)]">
+            <div className="relative aspect-[5/3] bg-[var(--color-border)] ">
               <Image
                 src={post.image}
                 alt=""
                 fill
-                className="object-cover"
+                className="object-cover rounded-l-xl rounded-lb-xl"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
@@ -68,8 +68,13 @@ export default function BlogInsightsSection() {
                 {post.title}
               </h3>
               <div className="flex items-center gap-2 text-design-14 text-[var(--color-muted-alt-2)]">
-                <span className="w-6 h-6 rounded-full bg-[var(--color-main-blue)] shrink-0" />
-                <span>VBCOntact</span>
+                <Image
+                  src="/images/urban.png"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 shrink-0 rounded-full object-cover"
+                />                <span>VBCOntact</span>
                 <span>By {post.author}</span>
                 <span>{post.date}</span>
               </div>

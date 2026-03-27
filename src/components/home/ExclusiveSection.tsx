@@ -10,19 +10,19 @@ import {
 } from 'lucide-react';
 
 const products = [
-  { name: 'NovaPulse Smartwatch', price: 229, image: '/images/signin.png' },
-  { name: 'Velloré Classic Bomber Jacket', price: 115, image: '/images/create.png' },
-  { name: 'SonicEdge Pro Headphones', price: 150, image: '/images/logo.png' },
-  { name: 'DriftStep Sneakers', price: 84, image: '/images/forgot.png' },
-  { name: 'Zenith Polarized Sunglasses', price: 64, image: '/images/otp.png' },
-  { name: 'Elara Gold Perfume', price: 60, image: '/images/success.png' },
-  { name: 'Astrid Mini Tote Bag', price: 108, image: '/images/signin.png' },
-  { name: 'Eclipse Chrono Watch', price: 360, image: '/images/create.png' },
+  { name: 'NovaPulse Smartwatch', price: 229, image: '/images/sellerwatch.png' },
+  { name: 'Velloré Classic Bomber Jacket', price: 115, image: '/images/jacket.png' },
+  { name: 'SonicEdge Pro Headphones', price: 150, image: '/images/customerReviews/seller2.png' },
+  { name: 'DriftStep Sneakers', price: 84, image: '/images/shoes.png' },
+  { name: 'Zenith Polarized Sunglasses', price: 64, image: '/images/customerReviews/seller1.png' },
+  { name: 'Elara Gold Perfume', price: 60, image: '/images/perfume.png' },
+  { name: 'Astrid Mini Tote Bag', price: 108, image: '/images/bag.png' },
+  { name: 'Eclipse Chrono Watch', price: 360, image: '/images/sellerwatch (2).png' },
 ];
 
 export default function ExclusiveSection() {
   return (
-    <section className="w-full min-w-0 rounded-2xl bg-[#F6F9FC] px-3 py-10 sm:px-4 md:py-12">
+    <section className="w-full min-w-0 rounded-2xl px-3 py-10 sm:px-4 md:py-12">
       {/* HEADER */}
       <div className="mb-6 flex min-w-0 items-center justify-between gap-3">
         <h2 className="flex min-w-0 items-center gap-2 text-[16px] font-semibold text-[#131313] sm:text-[18px]">
@@ -44,23 +44,23 @@ export default function ExclusiveSection() {
           <article
             key={i}
             className="
-              bg-white rounded-[20px] p-4
+              bg-white rounded-[20px] pt-4
               shadow-[0_8px_24px_rgba(0,0,0,0.06)]
             "
           >
             {/* IMAGE */}
-            <div className="relative w-full h-[220px] sm:h-[240px] md:h-[251.67px] rounded-[14px] bg-[#F5F5F5] overflow-hidden">
+            <div className="relative w-full h-[220px] sm:h-[240px] md:h-[251.67px] overflow-hidden rounded-[14px] bg-white">
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-contain"
+                className="object-contain bg-white py-5"
               />
 
               {/* EXCLUSIVE TAG */}
               <span
                 className="
-                  absolute top-3 left-3
+                  absolute top-1 left-3
                   inline-flex items-center justify-center
                   h-[30px] px-[10px]
                   text-white text-[11px] font-medium
@@ -79,7 +79,7 @@ export default function ExclusiveSection() {
               <button
                 type="button"
                 className="
-                  absolute top-3 right-3
+                  absolute top-1 right-3
                   w-[34px] h-[34px] sm:w-[36px] sm:h-[36px]
                   rounded-full bg-white
                   shadow-[0_4px_12px_rgba(0,0,0,0.12)]
@@ -90,7 +90,7 @@ export default function ExclusiveSection() {
               </button>
 
               {/* PLAY */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div
                   className="
                     w-[46px] h-[46px] sm:w-[52px] sm:h-[52px]
@@ -108,7 +108,7 @@ export default function ExclusiveSection() {
             </div>
 
             {/* CONTENT */}
-            <div className="pt-4">
+            <div className="p-4">
               <p className="text-[15px] sm:text-[16px] font-medium text-[#131313] mb-2 leading-[22px] sm:leading-[24px]">
                 {product.name}
               </p>
@@ -130,7 +130,7 @@ export default function ExclusiveSection() {
                   "
                 >
                   <ShoppingCart className="w-4 h-4" />
-                  ADD
+                  ADD TO CART
                 </button>
               </div>
             </div>

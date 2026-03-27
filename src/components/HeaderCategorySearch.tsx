@@ -29,6 +29,38 @@ const MOCK_PRODUCTS: { brand: string; name: string; image: string }[] = [
   { brand: 'Nike', name: 'air jordan 1', image: '/images/otp.png' },
 ];
 
+type RecentSearchItem = {
+  id: string;
+  name: string;
+  sku: string;
+  seller: string;
+  image: string;
+};
+
+const INITIAL_RECENT_SEARCHES: RecentSearchItem[] = [
+  {
+    id: '1',
+    name: 'Apple Watch Series 5 MWV62VN/A',
+    sku: 'SKU43243ML',
+    seller: 'Urbantech',
+    image: '/images/signin.png',
+  },
+  {
+    id: '2',
+    name: 'iPhone 13 Pro 256GB',
+    sku: 'SKU88234XL',
+    seller: 'Urbantech',
+    image: '/images/create.png',
+  },
+  {
+    id: '3',
+    name: 'AirPods Pro (2nd Gen)',
+    sku: 'SKU11002AP',
+    seller: 'Urbantech',
+    image: '/images/logo.png',
+  },
+];
+
 function matchesNikeQuery(q: string) {
   const s = q.trim().toLowerCase();
   return s.length >= 2 && (s.includes('nik') || s.includes('nike'));
@@ -67,7 +99,7 @@ function CategorySearchPanelBody({
               role="radio"
               aria-checked={active}
               onClick={() => setSearchMode(id)}
-              className={`grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-0.5 rounded-full border px-4 py-2.5 text-left text-[12px] font-medium transition sm:min-w-[160px] sm:flex-1 md:min-w-[180px] md:text-[13px] ${
+              className={`grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-0.5 rounded-lg border px-4 py-2.5 text-left text-[12px] font-medium transition sm:min-w-[160px] sm:flex-1 md:min-w-[180px] md:text-[13px] ${
                 active
                   ? 'border-[#1E3A8A] bg-[#eff6ff]/60 text-[#131313]'
                   : 'border-[#e5e7eb] bg-white text-[#131313] hover:border-[#d1d5db]'
@@ -176,15 +208,91 @@ function CategorySearchPanelBody({
   );
 }
 
+function RecentlySearchedPanel({
+  items,
+  onRemove,
+}: {
+  items: RecentSearchItem[];
+  onRemove: (id: string) => void;
+}) {
+  return (
+    <div
+      className="overflow-hidden rounded-lg border border-[#e0e0e0] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.12)]"
+      style={{ fontFamily: 'var(--font-poppins)' }}
+    >
+      <div className="px-4 pb-1 pt-3 sm:px-5 sm:pt-4">
+        <p className="text-[13px] font-medium leading-none text-[#333333]">
+          Recently Searched
+        </p>
+      </div>
+      <ul className="px-2 pb-2 sm:px-3 sm:pb-3">
+        {items.length === 0 ? (
+          <li className="px-2 py-6 text-center text-[13px] text-[#757575]">
+            No recent searches
+          </li>
+        ) : (
+          items.map((item) => (
+            <li
+              key={item.id}
+              className="flex items-start gap-3 border-b border-[#e0e0e0] px-2 py-3 last:border-b-0 sm:gap-3.5 sm:px-3 sm:py-3.5"
+            >
+              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-[#F5F5F7]">
+                <Image
+                  src={item.image}
+                  alt=""
+                  fill
+                  className="object-contain p-1"
+                  sizes="48px"
+                />
+              </div>
+              <div className="min-w-0 flex-1 pt-0.5">
+                <p className="text-[13px] font-semibold leading-snug text-[#333333] sm:text-[14px]">
+                  {item.name}
+                </p>
+                <p className="mt-1 text-[11px] leading-none text-[#757575] sm:text-[12px]">
+                  {item.sku}
+                </p>
+                <p className="mt-1.5 text-[12px] leading-snug text-[#333333] sm:text-[13px]">
+                  <span className="font-normal">Seller: </span>
+                  <span className="font-semibold">{item.seller}</span>
+                </p>
+              </div>
+              <button
+                type="button"
+                className="mt-0.5 shrink-0 rounded p-1.5 text-[#666666] transition hover:bg-[#f3f4f6] hover:text-[#131313]"
+                aria-label={`Remove ${item.name} from recent searches`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onRemove(item.id);
+                }}
+              >
+                <X className="h-4 w-4" strokeWidth={2} />
+              </button>
+            </li>
+          ))
+        )}
+      </ul>
+    </div>
+  );
+}
+
 /** Desktop: All Categories + main search + dropdown aligned to full bar width */
 export function DesktopCategorySearchBar() {
   const [open, setOpen] = useState(false);
+  const [recentOpen, setRecentOpen] = useState(false);
+  const [mainQuery, setMainQuery] = useState('');
+  const [recentItems, setRecentItems] =
+    useState<RecentSearchItem[]>(INITIAL_RECENT_SEARCHES);
   const [searchMode, setSearchMode] = useState<SearchMode>('brand');
   const [innerQuery, setInnerQuery] = useState('');
   const [mounted, setMounted] = useState(false);
   const [panelPos, setPanelPos] = useState({ top: 0, left: 0, width: 0 });
+  const [recentPos, setRecentPos] = useState({ top: 0, left: 0, width: 0 });
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const recentPanelRef = useRef<HTMLDivElement>(null);
+  const inputShellRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -195,12 +303,20 @@ export function DesktopCategorySearchBar() {
   }, []);
 
   useLayoutEffect(() => {
-    if (!open || !rootRef.current) return;
+    if (!open && !recentOpen) return;
     const update = () => {
-      const el = rootRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      setPanelPos({ top: r.bottom + 4, left: r.left, width: r.width });
+      if (open && rootRef.current) {
+        const r = rootRef.current.getBoundingClientRect();
+        setPanelPos({ top: r.bottom + 4, left: r.left, width: r.width });
+      }
+      if (recentOpen && inputShellRef.current) {
+        const r = inputShellRef.current.getBoundingClientRect();
+        setRecentPos({
+          top: r.bottom + 4,
+          left: r.left,
+          width: r.width,
+        });
+      }
     };
     update();
     window.addEventListener('resize', update);
@@ -209,22 +325,27 @@ export function DesktopCategorySearchBar() {
       window.removeEventListener('resize', update);
       window.removeEventListener('scroll', update, true);
     };
-  }, [open]);
+  }, [open, recentOpen]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open && !recentOpen) return;
     const onDoc = (e: MouseEvent) => {
       const t = e.target as Node;
       if (
         rootRef.current?.contains(t) ||
-        panelRef.current?.contains(t)
+        panelRef.current?.contains(t) ||
+        recentPanelRef.current?.contains(t)
       ) {
         return;
       }
-      close();
+      setOpen(false);
+      setRecentOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape') {
+        setOpen(false);
+        setRecentOpen(false);
+      }
     };
     document.addEventListener('mousedown', onDoc);
     document.addEventListener('keydown', onKey);
@@ -232,14 +353,17 @@ export function DesktopCategorySearchBar() {
       document.removeEventListener('mousedown', onDoc);
       document.removeEventListener('keydown', onKey);
     };
-  }, [open, close]);
+  }, [open, recentOpen]);
 
   return (
     <div ref={rootRef} className="relative w-full min-w-0 lg:py-1">
       <div className="flex w-full min-w-0 overflow-visible rounded-lg border border-[#d1d5db] bg-white focus-within:border-[#1E3A8A] focus-within:ring-1 focus-within:ring-[#1E3A8A]">
         <button
           type="button"
-          onClick={() => setOpen((o) => !o)}
+          onClick={() => {
+            setOpen((o) => !o);
+            setRecentOpen(false);
+          }}
           aria-expanded={open}
           aria-haspopup="dialog"
           className="flex h-10 shrink-0 items-center gap-1.5 rounded-none border-r border-[#1E3A8A]/30 px-3 text-[12px] font-medium text-white lg:gap-2 lg:px-4 lg:text-[14px]"
@@ -250,11 +374,27 @@ export function DesktopCategorySearchBar() {
             className={`h-3.5 w-3.5 shrink-0 transition-transform lg:h-4 lg:w-4 ${open ? 'rotate-180' : ''}`}
           />
         </button>
-        <input
-          type="search"
-          className="h-10 min-w-0 flex-1 border-0 bg-white px-3 text-[12px] text-[#131313] placeholder:text-[#767676] focus:outline-none focus:ring-0 lg:px-4 lg:text-[14px]"
-          placeholder="Search for products..."
-        />
+        <div ref={inputShellRef} className="relative min-w-0 flex-1">
+          <input
+            type="search"
+            value={mainQuery}
+            onChange={(e) => setMainQuery(e.target.value)}
+            onFocus={() => {
+              setRecentOpen(true);
+              setOpen(false);
+            }}
+            onClick={() => {
+              setRecentOpen(true);
+              setOpen(false);
+            }}
+            autoComplete="off"
+            className="h-10 w-full min-w-0 border-0 bg-white px-3 text-[12px] text-[#131313] placeholder:text-[#767676] focus:outline-none focus:ring-0 lg:px-4 lg:text-[14px]"
+            placeholder="Search for products..."
+            aria-expanded={recentOpen}
+            aria-haspopup="dialog"
+            aria-controls={recentOpen ? 'recently-searched-panel' : undefined}
+          />
+        </div>
         <button
           type="button"
           className="h-10 shrink-0 border-l border-[#1E3A8A]/30 px-4 text-[12px] font-medium text-white lg:px-5 lg:text-[14px]"
@@ -284,6 +424,32 @@ export function DesktopCategorySearchBar() {
               setSearchMode={setSearchMode}
               innerQuery={innerQuery}
               setInnerQuery={setInnerQuery}
+            />
+          </div>,
+          document.body
+        )}
+
+      {recentOpen &&
+        mounted &&
+        createPortal(
+          <div
+            ref={recentPanelRef}
+            id="recently-searched-panel"
+            role="region"
+            aria-label="Recently searched products"
+            className="fixed z-[210] max-h-[min(70vh,440px)] overflow-y-auto scrollbar-hide"
+            style={{
+              top: recentPos.top,
+              left: recentPos.left,
+              width: Math.max(recentPos.width, 300),
+              scrollbarWidth: 'none',
+            }}
+          >
+            <RecentlySearchedPanel
+              items={recentItems}
+              onRemove={(id) =>
+                setRecentItems((prev) => prev.filter((x) => x.id !== id))
+              }
             />
           </div>,
           document.body

@@ -3,40 +3,55 @@
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionHeader from './SectionHeader';
-import { Star, Trophy } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 const stores = [
-  { name: 'ActiveLifestyle Hub', rating: 4.7, reviews: '1.8K', image: '/images/logo.png' },
-  { name: 'Sporty Essentials', rating: 4.8, reviews: '2.1K', image: '/images/logo.png' },
-  { name: 'UrbanTech Store', rating: 4.6, reviews: '1.5K', image: '/images/logo.png' },
-  { name: 'Style & Co', rating: 4.9, reviews: '3.2K', image: '/images/logo.png' },
-  { name: 'Trendy Finds', rating: 4.5, reviews: '980', image: '/images/logo.png' },
-  { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/logo.png' },
+  { name: 'ActiveLifestyle Hub', rating: 4.7, reviews: '1.8K', image: '/images/1.png' },
+  { name: 'Sporty Essentials', rating: 4.8, reviews: '2.1K', image: '/images/2.png' },
+  { name: 'UrbanTech Store', rating: 4.6, reviews: '1.5K', image: '/images/3.png' },
+  { name: 'Style & Co', rating: 4.9, reviews: '3.2K', image: '/images/4.png' },
+  { name: 'Trendy Finds', rating: 4.5, reviews: '980', image: '/images/5.png' },
+  { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/6.png' },
+  { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/6.png' },
+  { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/6.png' },
 ];
 
 export default function TopStoresSection() {
   return (
     <section className="w-full min-w-0" aria-label="Top stores">
-      <SectionHeader title="Top Stores" viewAllHref="#" viewAllLabel="View All" icon={<Trophy className="w-5 h-5 text-amber-500" />} />
+      <SectionHeader
+        title="Top Stores"
+        viewAllHref="#"
+        viewAllLabel="View All"
+        icon={
+          <Image
+            src="/images/awardIcon.png"
+            alt="Top stores"
+            width={20}
+            height={20}
+            className="h-5 w-5 object-contain"
+          />
+        }
+      />
 
       <div className="relative">
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 scrollbar-hide sm:gap-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto pb-2 scrollbar-hide sm:gap-2 -mx-4 px-4 sm:mx-0 sm:px-0">
           {stores.map((store, i) => (
             <div
               key={i}
-              className="min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] flex flex-col items-center text-center snap-start shrink-0"
+              className="min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] flex flex-col items-center text-center snap-start shrink-0 bg-white rounded-xl p-4"
             >
               <div className="relative">
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-[var(--color-error)] bg-[var(--color-border)]">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-[var(--color-error)] bg-white">
                   <Image
                     src={store.image}
                     alt={store.name}
                     fill
-                    className="object-cover"
+                    className="object-cover p-1"
                     sizes="112px"
                   />
                 </div>
-                <span className="absolute -top-0.5 left-0 border-b border-red-500 bg-[var(--color-error)] text-white text-[10px] sm:text-design-12 font-medium px-1.5 py-0.5 rounded">
+                <span className="absolute -top-0.5 left-6 border-b border-red-500 bg-[var(--color-error)] text-white text-[10px] sm:text-design-12 font-medium px-1.5 py-0.5 rounded">
                   LIVE NOW
                 </span>
               </div>

@@ -3,15 +3,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+} from 'react';
+import { createPortal } from 'react-dom';
 import {
   Menu,
   ChevronDown,
+  ChevronUp,
   MessageCircle,
   Heart,
   ShoppingBag,
   Truck,
   X,
+  Trash2,
 } from 'lucide-react';
 import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter, FaPinterestP } from 'react-icons/fa';
 import { useCart } from '@/context/CartContext';
@@ -47,7 +56,7 @@ export default function Header() {
       </div>
 
       <div className="hidden lg:block">
-        <DesktopHeader cartCount={cartCount} />
+        <DesktopHeader />
       </div>
 
       {isMobileMenuOpen && (
@@ -235,9 +244,290 @@ function MobileHeader({
   );
 }
 
+/* ───────────────────────── CART HOVER — static pixel-perfect mini-cart (design ref) ───────────────────────── */
+
+const STATIC_MINI_CART_ROWS = [
+  {
+    key: 'glasses-1',
+    title: 'Fashion Glasses Sunny Premium',
+    image: '/images/signin.png',
+    seller: 'Urbantech',
+    color: 'Black',
+    size: 'M',
+    sku: 'IP17-256-ORG',
+    model: 'A3102',
+    lineTotal: 57.5,
+    qty: 1,
+  },
+  {
+    key: 'glasses-2',
+    title: 'Fashion Glasses Sunny Premium',
+    image: '/images/create.png',
+    seller: 'Urbantech',
+    color: 'Black',
+    size: 'M',
+    sku: 'IP17-256-ORG',
+    model: 'A3102',
+    lineTotal: 57.5,
+    qty: 1,
+  },
+] as const;
+
+const STATIC_MINI_CART_SUBTOTAL = 115.0;
+
+function CartHoverDropdown({ cartCount }: { cartCount: number }) {
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [panelStyle, setPanelStyle] = useState({
+    top: 0,
+    left: 0,
+    width: 360,
+    maxHeight: 480,
+  });
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+
+  const openPanel = useCallback(() => {
+    clearCloseTimer();
+    setOpen(true);
+  }, [clearCloseTimer]);
+
+  const scheduleClose = useCallback(() => {
+    clearCloseTimer();
+    closeTimerRef.current = setTimeout(() => setOpen(false), 280);
+  }, [clearCloseTimer]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current) return;
+    const update = () => {
+      const el = triggerRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const w = Math.min(380, Math.max(280, vw * 0.32));
+      let left = r.right - w;
+      left = Math.max(16, Math.min(left, vw - w - 16));
+      const maxH = Math.max(260, vh - r.bottom - 16);
+      setPanelStyle({ top: r.bottom + 8, left, width: w, maxHeight: maxH });
+    };
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('scroll', update, true);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', update, true);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (triggerRef.current?.contains(t) || panelRef.current?.contains(t)) return;
+      setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', onDoc);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDoc);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const panelContent = (
+    <div
+      className="flex max-h-full min-h-0 flex-col overflow-hidden rounded-xl border border-[#E5E7EB] bg-white shadow-[0_12px_48px_rgba(0,0,0,0.16)]"
+      style={{
+        fontFamily: 'var(--font-poppins)',
+        maxHeight: panelStyle.maxHeight,
+      }}
+    >
+            <ul className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+              {STATIC_MINI_CART_ROWS.map((row) => (
+                <li
+                  key={row.key}
+                  className="relative border-b border-[#E5E7EB] px-4 py-3 last:border-b-0"
+                >
+                  <button
+                    type="button"
+                    className="absolute right-4 top-3 rounded p-1 text-[#666666] transition hover:bg-[#f5f5f5] hover:text-[#000000]"
+                    aria-label={`Remove ${row.title}`}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" strokeWidth={2} />
+                  </button>
+
+                  <div className="flex gap-3 pr-9">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-[6px] bg-[#F5F5F7]">
+                      <Image
+                        src={row.image}
+                        alt=""
+                        fill
+                        className="object-contain p-1"
+                        sizes="56px"
+                      />
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[14px] font-bold leading-snug text-[#000000]">
+                        {row.title}
+                      </p>
+
+                      <div className="mt-2 space-y-0.5 text-[12px] leading-relaxed">
+                        <p>
+                          <span className="text-[#666666]">Seller: </span>
+                          <span className="font-medium text-[#131313]">
+                            {row.seller}
+                          </span>
+                        </p>
+                        <p>
+                          <span className="text-[#666666]">Color: </span>
+                          <span className="font-medium text-[#131313]">
+                            {row.color}
+                          </span>
+                        </p>
+                        <p>
+                          <span className="text-[#666666]">Size: </span>
+                          <span className="font-medium text-[#131313]">
+                            {row.size}
+                          </span>
+                        </p>
+                        <p>
+                          <span className="text-[#666666]">SKU: </span>
+                          <span className="font-medium text-[#131313]">
+                            {row.sku}
+                          </span>
+                        </p>
+                        <p>
+                          <span className="text-[#666666]">Model Number: </span>
+                          <span className="font-medium text-[#131313]">
+                            {row.model}
+                          </span>
+                        </p>
+                      </div>
+
+                      <div className="mt-2 flex items-end justify-between gap-2">
+                        <div className="flex items-stretch overflow-hidden rounded border border-[#d1d5db] bg-white">
+                          <span className="flex min-w-[32px] items-center justify-center px-1.5 text-[12px] font-medium tabular-nums text-[#000000]">
+                            {row.qty}
+                          </span>
+                          <div className="flex flex-col border-l border-[#d1d5db]">
+                            <span className="flex h-[18px] w-6 cursor-default items-center justify-center text-[#131313]">
+                              <ChevronUp className="h-2.5 w-2.5" strokeWidth={2.5} />
+                            </span>
+                            <span className="flex h-[18px] w-6 cursor-default items-center justify-center border-t border-[#d1d5db] text-[#131313]">
+                              <ChevronDown className="h-2.5 w-2.5" strokeWidth={2.5} />
+                            </span>
+                          </div>
+                        </div>
+                        <span className="shrink-0 text-[13px] font-bold tabular-nums text-[#000000]">
+                          ${row.lineTotal.toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <div className="shrink-0 border-t border-[#E5E7EB] bg-white px-4 py-3">
+              <div className="mb-3 flex items-center justify-between text-[13px]">
+                <span className="font-normal text-[#000000]">Sub Total:</span>
+                <span className="font-bold tabular-nums text-[#000000]">
+                  ${STATIC_MINI_CART_SUBTOTAL.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/cart"
+                  className="flex min-h-[40px] w-full items-center justify-center rounded-md border border-[#d1d5db] bg-white text-[13px] font-semibold text-[#000000] transition hover:bg-[#fafafa]"
+                >
+                  View Cart
+                </Link>
+                <Link
+                  href="/checkout"
+                  className="flex min-h-[40px] w-full items-center justify-center rounded-md text-[13px] font-semibold text-white transition hover:opacity-95"
+                  style={{ backgroundColor: MAIN_BLUE }}
+                >
+                  Check Out
+                </Link>
+              </div>
+            </div>
+    </div>
+  );
+
+  return (
+    <div
+      ref={triggerRef}
+      className="relative flex flex-col items-center"
+      onMouseEnter={openPanel}
+      onMouseLeave={scheduleClose}
+    >
+      <Link
+        href="/cart"
+        className="relative flex flex-col items-center gap-[6px] text-[#131313] transition hover:opacity-80"
+        aria-label={`Cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}
+        aria-expanded={open}
+      >
+        <div className="relative">
+          <ShoppingBag className="h-[20px] w-[20px]" />
+          {cartCount > 0 && (
+            <span
+              className="absolute -right-[6px] -top-[4px] flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-[4px] text-[10px] font-bold"
+              style={{ backgroundColor: YELLOW_BTN, color: '#131313' }}
+            >
+              {cartCount > 99 ? '99+' : cartCount}
+            </span>
+          )}
+        </div>
+        <span className="text-[12px] font-medium leading-none">Cart</span>
+      </Link>
+
+      {mounted &&
+        open &&
+        createPortal(
+          <div
+            ref={panelRef}
+            role="region"
+            aria-label="Shopping cart preview"
+            className="fixed z-[200] animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200"
+            style={{
+              top: panelStyle.top,
+              left: panelStyle.left,
+              width: panelStyle.width,
+            }}
+            onMouseEnter={openPanel}
+            onMouseLeave={scheduleClose}
+          >
+            {panelContent}
+          </div>,
+          document.body
+        )}
+    </div>
+  );
+}
+
 /* ───────────────────────── DESKTOP HEADER ───────────────────────── */
 
-function DesktopHeader({ cartCount }: { cartCount: number }) {
+function DesktopHeader() {
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <>
       <header className="bg-white border-b border-[#e5e7eb]">
@@ -262,7 +552,7 @@ function DesktopHeader({ cartCount }: { cartCount: number }) {
           </div>
 
           {/* All Categories dropdown + main search (desktop) */}
-          <div className="flex flex-1 min-w-0 border-b border-[#e5e7eb] pb-3 lg:min-w-[280px] lg:border-b-0 lg:border-r lg:border-[#e5e7eb] lg:px-4 lg:pb-0 xl:min-w-[360px] xl:px-6">
+          <div className="flex flex-1 min-w-0 border-b border-[#e5e7eb] pb-3 lg:min-w-[280px] lg:border-b-0  lg:px-4 lg:pb-0 xl:min-w-[360px] xl:px-6">
             <DesktopCategorySearchBar />
           </div>
 
@@ -296,25 +586,8 @@ function DesktopHeader({ cartCount }: { cartCount: number }) {
               <span className="text-[12px] font-medium leading-none">Wishlist</span>
             </Link>
 
-            {/* Cart */}
-            <Link
-              href="/cart"
-              className="relative flex flex-col items-center gap-[6px] text-[#131313] hover:opacity-80 transition"
-              aria-label={`Cart${cartCount > 0 ? ` (${cartCount} items)` : ''}`}
-            >
-              <div className="relative">
-                <ShoppingBag className="w-[20px] h-[20px]" />
-                {cartCount > 0 && (
-                  <span
-                    className="absolute -top-[4px] -right-[6px] min-w-[16px] h-[16px] rounded-full flex items-center justify-center px-[4px] text-[10px] font-bold"
-                    style={{ backgroundColor: YELLOW_BTN, color: '#131313' }}
-                  >
-                    {cartCount > 99 ? '99+' : cartCount}
-                  </span>
-                )}
-              </div>
-              <span className="text-[12px] font-medium leading-none">Cart</span>
-            </Link>
+            {/* Cart + hover mini-cart */}
+            <CartHoverDropdown cartCount={cartCount} />
 
             {/* Profile Avatar -> Account page */}
             <Link
