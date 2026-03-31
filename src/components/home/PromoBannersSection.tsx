@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 const banners = [
   {
@@ -69,12 +70,12 @@ export default function PromoBannersSection() {
                   True Discount
                 </h3>
 
-                <button
-                  type="button"
-                  className="w-fit rounded-md bg-[var(--color-main-blue)] px-4 py-1.5 text-[12px] font-medium text-white transition hover:opacity-95 sm:px-6 sm:py-2 sm:text-[13px] lg:text-[14px]"
+                <Link
+                  href="/product-list"
+                  className="inline-flex w-fit rounded-md bg-[var(--color-main-blue)] px-4 py-1.5 text-[12px] font-medium text-white transition hover:opacity-95 sm:px-6 sm:py-2 sm:text-[13px] lg:text-[14px]"
                 >
                   Order Now
-                </button>
+                </Link>
               </div>
             </div>
           </article>

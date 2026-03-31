@@ -7,6 +7,8 @@ type ExclusivePaginationProps = {
   totalPages: number;
   onPageChange: (page: number) => void;
   compact?: boolean;
+  /** Inside its own white card — no top rule / extra offset */
+  embedded?: boolean;
 };
 
 const MAX_VISIBLE_SMALL = 3;
@@ -23,11 +25,16 @@ export default function ExclusivePagination({
   totalPages,
   onPageChange,
   compact = false,
+  embedded = false,
 }: ExclusivePaginationProps) {
   const pagesSmall = getPageRange(currentPage, totalPages, MAX_VISIBLE_SMALL);
   const pagesLarge = getPageRange(currentPage, totalPages, MAX_VISIBLE_LARGE);
 
-  const navClass = compact ? 'pt-4 border-t border-[var(--color-border)]' : 'pt-4 sm:pt-6 lg:pt-8 border-t border-[var(--color-border)] mt-4 sm:mt-6 lg:mt-8';
+  const navClass = embedded
+    ? ''
+    : compact
+      ? 'pt-4 border-t border-[var(--color-border)]'
+      : 'pt-4 sm:pt-6 lg:pt-8 border-t border-[var(--color-border)] mt-4 sm:mt-6 lg:mt-8';
   const btnClass = 'min-h-[36px] sm:min-h-[40px] rounded-lg text-xs sm:text-sm font-medium transition';
   const pageBtnClass = (page: number) =>
     page === currentPage ? 'bg-[#1e3a8a] text-white' : 'bg-white border border-[#e5e7eb] text-[#131313] hover:bg-[#f5f5f5]';

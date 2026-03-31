@@ -1,17 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { X, Copy } from "lucide-react";
-
-const SOCIAL_ICONS_BASE = "/Tibil Mall-socialicons";
-
-const SOCIAL_OPTIONS = [
-  { id: "twitter", label: "Twitter", icon: "twitter.png" },
-  { id: "facebook", label: "Facebook", icon: "facebook.png" },
-  { id: "instagram", label: "Instagram", icon: "instagram.png" },
-  { id: "reddit", label: "Reddit", icon: "redit.png" },
-  { id: "whatsapp", label: "WhatsApp", icon: "watsapp.png" },
-];
+import {
+  X,
+  Copy,
+  Facebook,
+  Instagram,
+  Twitter,
+  MessageCircle,
+  Globe,
+} from "lucide-react";
+import ShareIconImg from "@/components/ShareIconImg";
 
 type ShareProductModalProps = {
   isOpen: boolean;
@@ -20,23 +19,70 @@ type ShareProductModalProps = {
   productUrl?: string;
 };
 
+function buildShareTargets(productUrl: string, productName: string) {
+  const text = encodeURIComponent(`Check out ${productName}`);
+  const u = encodeURIComponent(productUrl);
+  return [
+    {
+      id: "twitter",
+      label: "Twitter",
+      Icon: Twitter,
+      href: `https://twitter.com/intent/tweet?url=${u}&text=${text}`,
+      className: "bg-sky-500 text-white",
+    },
+    {
+      id: "facebook",
+      label: "Facebook",
+      Icon: Facebook,
+      href: `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+      className: "bg-[#1877F2] text-white",
+    },
+    {
+      id: "whatsapp",
+      label: "WhatsApp",
+      Icon: MessageCircle,
+      href: `https://wa.me/?text=${text}%20${u}`,
+      className: "bg-[#25D366] text-white",
+    },
+    {
+      id: "reddit",
+      label: "Reddit",
+      Icon: Globe,
+      href: `https://www.reddit.com/submit?url=${u}&title=${text}`,
+      className: "bg-[#FF4500] text-white",
+    },
+    {
+      id: "instagram",
+      label: "Instagram",
+      Icon: Instagram,
+      href: `https://www.instagram.com/`,
+      className: "bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888] text-white",
+    },
+  ] as const;
+}
+
 export default function ShareProductModal({
   isOpen,
   onClose,
   productName = "Product",
-  productUrl = "https://tibilmall.com/product/iphone-17-pro",
+  productUrl = "",
 }: ShareProductModalProps) {
   const [copied, setCopied] = useState(false);
+  const resolvedUrl =
+    productUrl.trim() ||
+    (typeof window !== "undefined" ? window.location.href : "");
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(productUrl);
+      await navigator.clipboard.writeText(resolvedUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // ignore
     }
   };
+
+  const targets = buildShareTargets(resolvedUrl, productName);
 
   if (!isOpen) return null;
 
@@ -62,33 +108,33 @@ export default function ShareProductModal({
           <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
-        <h2 className="text-base sm:text-lg font-bold text-black pr-8">Share this Product</h2>
+        <h2 className="flex items-center gap-2 text-base sm:text-lg font-bold text-black pr-8">
+          <ShareIconImg className="w-5 h-5 sm:w-6 sm:h-6" size={24} />
+          Share this Product
+        </h2>
         <p className="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1 mb-4 sm:mb-6">
           If you like this product share it with your friends.
         </p>
 
-        {/* 3-per-row grid on small screens, flex wrap on larger */}
         <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 mb-4 sm:mb-6">
-          {SOCIAL_OPTIONS.map(({ id, label, icon }) => (
-            <button
+          {targets.map(({ id, label, Icon, href, className }) => (
+            <a
               key={id}
-              type="button"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex flex-col items-center gap-1 sm:gap-1.5"
               aria-label={`Share on ${label}`}
             >
-              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-gray-100 shrink-0 overflow-hidden p-1 sm:p-1.5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={encodeURI(`${SOCIAL_ICONS_BASE}/${icon}`)}
-                  alt={label}
-                  width={28}
-                  height={28}
-                  className="object-contain w-full h-full max-w-[24px] max-h-[24px] sm:max-w-[28px] sm:max-h-[28px]"
-                  loading="lazy"
-                />
+              <span
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 ${className}`}
+              >
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
               </span>
-              <span className="text-[9px] sm:text-xs font-medium text-black leading-tight">{label}</span>
-            </button>
+              <span className="text-[9px] sm:text-xs font-medium text-black leading-tight text-center">
+                {label}
+              </span>
+            </a>
           ))}
         </div>
 
@@ -96,7 +142,7 @@ export default function ShareProductModal({
           <input
             type="text"
             readOnly
-            value={productUrl}
+            value={resolvedUrl}
             className="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm text-black bg-transparent border-0 outline-none"
           />
           <button
@@ -109,7 +155,9 @@ export default function ShareProductModal({
           </button>
         </div>
         {copied && (
-          <p className="text-xs text-green-600 mt-2 text-center">Link copied to clipboard</p>
+          <p className="text-xs text-green-600 mt-2 text-center">
+            Link copied to clipboard
+          </p>
         )}
       </div>
     </div>

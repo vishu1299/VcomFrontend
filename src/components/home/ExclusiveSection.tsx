@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ChevronLeft,
   ChevronRight,
@@ -18,31 +20,51 @@ const products = [
   { name: 'Elara Gold Perfume', price: 60, image: '/images/perfume.png' },
   { name: 'Astrid Mini Tote Bag', price: 108, image: '/images/bag.png' },
   { name: 'Eclipse Chrono Watch', price: 360, image: '/images/sellerwatch (2).png' },
+  { name: 'Lumen LED Desk Lamp', price: 45, image: '/images/signin.png' },
+  { name: 'TrailRunner Hiking Boots', price: 132, image: '/images/shoes.png' },
+  { name: 'Nimbus Wireless Earbuds', price: 95, image: '/images/customerReviews/seller2.png' },
+  { name: 'Velvet Lounge Chair', price: 280, image: '/images/success.png' },
 ];
 
+const PAGE_SIZE = 4;
+
 export default function ExclusiveSection() {
+  const pageCount = Math.max(1, Math.ceil(products.length / PAGE_SIZE));
+  const [page, setPage] = useState(0);
+  const visible = products.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+
+  const goPrev = () => setPage((p) => (p - 1 + pageCount) % pageCount);
+  const goNext = () => setPage((p) => (p + 1) % pageCount);
+
   return (
-    <section className="w-full min-w-0 rounded-2xl px-3 py-10 sm:px-4 md:py-12">
+    <section className="w-full min-w-0 bg-transparent px-3 py-10 sm:px-4 md:py-12">
       {/* HEADER */}
       <div className="mb-6 flex min-w-0 items-center justify-between gap-3">
         <h2 className="flex min-w-0 items-center gap-2 text-[16px] font-semibold text-[#131313] sm:text-[18px]">
-          <span className="shrink-0 text-[#F5B700]">⚡</span>
+          <Image
+            src="/home-exclusive.svg"
+            alt=""
+            width={24}
+            height={24}
+            className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
+            aria-hidden
+          />
           <span className="truncate">Exclusive on TibilMall</span>
         </h2>
 
-        <a
-          href="#"
+        <Link
+          href="/exclusive"
           className="shrink-0 text-[13px] text-[#6B7280] hover:underline sm:text-[14px]"
         >
           View All →
-        </a>
+        </Link>
       </div>
 
       {/* GRID */}
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-        {products.map((product, i) => (
+        {visible.map((product, i) => (
           <article
-            key={i}
+            key={`${page}-${i}`}
             className="
               bg-white rounded-[20px] pt-4
               shadow-[0_8px_24px_rgba(0,0,0,0.06)]
@@ -140,17 +162,37 @@ export default function ExclusiveSection() {
 
       {/* PAGINATION */}
       <div className="flex justify-center items-center gap-3 mt-8">
-        <button className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] flex items-center justify-center">
+        <button
+          type="button"
+          onClick={goPrev}
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] flex items-center justify-center transition hover:opacity-90"
+          aria-label="Previous exclusive products"
+        >
           <ChevronLeft className="w-5 h-5" />
         </button>
 
-        <div className="flex gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-          <span className="w-2 h-2 rounded-full bg-[#D1D5DB]" />
-          <span className="w-2 h-2 rounded-full bg-[#D1D5DB]" />
+        <div className="flex gap-2" role="tablist" aria-label="Exclusive pages">
+          {Array.from({ length: pageCount }, (_, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === page}
+              onClick={() => setPage(i)}
+              className={`h-2 w-2 rounded-full transition ${
+                i === page ? 'bg-[#2563EB]' : 'bg-[#D1D5DB] hover:bg-[#9CA3AF]'
+              }`}
+              aria-label={`Page ${i + 1}`}
+            />
+          ))}
         </div>
 
-        <button className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] flex items-center justify-center">
+        <button
+          type="button"
+          onClick={goNext}
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] flex items-center justify-center transition hover:opacity-90"
+          aria-label="Next exclusive products"
+        >
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import ShareIconImg from '@/components/ShareIconImg';
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 
@@ -120,7 +121,7 @@ function OrderCardActions({ order }: { order: OrderItem }) {
         </button>
         <div className="flex gap-1 w-full">
           <Link
-            href={`/trackOrder`}
+            href={`/return-item/${order.id}`}
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center whitespace-nowrap`}
           >
             <span className="max-[480px]:hidden">View Order Details</span>
@@ -154,13 +155,13 @@ function OrderCardActions({ order }: { order: OrderItem }) {
             <span className="max-[480px]:hidden">View Order Details</span>
             <span className="min-[481px]:hidden">View Order</span>
           </Link>
-          <Link
-            href="/review-item"
+          <button
+            type="button"
             className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 inline-flex items-center justify-center gap-1`}
           >
             <Image src="/review.svg" alt="" width={16} height={16} />
             Write review
-          </Link>
+          </button>
         </div>
       </div>
     );
@@ -182,13 +183,13 @@ function OrderCardActions({ order }: { order: OrderItem }) {
           <span className="max-[480px]:hidden">View Order Details</span>
           <span className="min-[481px]:hidden">View Order</span>
         </Link>
-        <Link
-          href="/review-item"
+        <button
+          type="button"
           className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 inline-flex items-center justify-center gap-1`}
         >
           <Image src="/review.svg" alt="" width={16} height={16} />
           Write review
-        </Link>
+        </button>
       </div>
     </div>
   );
@@ -317,7 +318,7 @@ export default function MyOrdersPage() {
                         style={{ backgroundColor: '#F3F7FA' }}
                         aria-label="Share"
                       >
-                        <Image src="/share.svg" alt="" width={20} height={20} />
+                        <ShareIconImg className="w-5 h-5" size={20} />
                       </button>
                     </div>
                   </div>

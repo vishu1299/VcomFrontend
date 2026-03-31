@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import {
   Star,
   ChevronDown,
@@ -17,22 +16,23 @@ import {
   Plus,
 } from "lucide-react";
 import type { ProductDetail } from "../data/product-detail";
+import ReportReviewModal from "@/components/product/ReportReviewModal";
 
-const TABS = [
-  "Descriptions",
-  "Specifications",
-  "Reviews (0)",
-  "Questions",
-] as const;
 const ACTIVE_TAB_BG = "#2F4294";
 
+/** Bar colors + widths match product reviews summary design (Figma) */
 const RATING_DISTRIBUTION = [
-  { stars: 5, percent: 54, color: "#F9B400" },
-  { stars: 4, percent: 20, color: "#ADD836" },
-  { stars: 3, percent: 9, color: "#f97316" },
-  { stars: 2, percent: 5, color: "#ef4444" },
-  { stars: 1, percent: 12, color: "#9ca3af" },
+  { stars: 5, percent: 54, color: "#FFB800" },
+  { stars: 4, percent: 20, color: "#CCFF00" },
+  { stars: 3, percent: 9, color: "#FF6B00" },
+  { stars: 2, percent: 5, color: "#FF0000" },
+  { stars: 1, percent: 12, color: "#D9D9D9" },
 ];
+
+const REVIEWS_SUMMARY_TOTAL = 10653;
+const REVIEWS_SUMMARY_AVG = 4;
+/** Lighter than 1-star fill (#D9D9D9) so the 12% segment stays visible */
+const RATING_BAR_TRACK = "#EDEDED";
 
 const MOCK_REVIEWS = [
   {
@@ -57,6 +57,15 @@ const MOCK_REVIEWS = [
     photos: [],
   },
 ];
+
+const REVIEW_COUNT = MOCK_REVIEWS.length;
+
+const TABS = [
+  "Descriptions",
+  `Reviews (${REVIEW_COUNT})`,
+  "Questions",
+  "Specifications",
+] as const;
 
 const REVIEW_PHOTOS = [
   "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&h=100&fit=crop",
@@ -105,23 +114,18 @@ const MOCK_QA = [
 
 export default function ProductDescriptionTabs({
   product,
-  initialTab,
 }: {
   product: ProductDetail;
-  initialTab?: (typeof TABS)[number];
 }) {
-  const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>(
-    initialTab && TABS.includes(initialTab) ? initialTab : "Descriptions",
-  );
-
-  useEffect(() => {
-    const q = searchParams.get("tab");
-    if (q === "questions") setActiveTab("Questions");
-  }, [searchParams]);
+  const [activeTab, setActiveTab] =
+    useState<(typeof TABS)[number]>(TABS[0]);
   const [expandedQId, setExpandedQId] = useState<string | null>(
     MOCK_QA[0]?.id ?? null,
   );
+  const [reportReviewOpen, setReportReviewOpen] = useState(false);
+  const [reportReviewAuthor, setReportReviewAuthor] = useState<
+    string | undefined
+  >();
   const reviewPhotosScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollPhotos = (
@@ -137,8 +141,7 @@ export default function ProductDescriptionTabs({
 
   return (
     <div
-      id="product-detail-tabs"
-      className="rounded-xl overflow-hidden mt-6 scroll-mt-24"
+      className="rounded-xl overflow-hidden mt-6"
       style={{ fontFamily: "var(--font-poppins)" }}
     >
       {/* Tab navigation - single row on small screens with reduced size */}
@@ -192,60 +195,58 @@ export default function ProductDescriptionTabs({
           </div>
         )}
 
-        {/* Specifications */}
-        {activeTab === "Specifications" && (
-          <dl className="space-y-0">
-            {product.specifications.map((s, i) => (
-              <div
-                key={s.label}
-                className={`flex flex-col sm:flex-row sm:gap-6 py-3 sm:py-4 ${i < product.specifications.length - 1 ? "border-b border-gray-200" : ""}`}
-              >
-                <dt className="text-sm font-bold text-gray-900 shrink-0 sm:w-40">
-                  {s.label}
-                </dt>
-                <dd className="text-sm text-[#4b5563] mt-0.5 sm:mt-0 flex-1">
-                  {s.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        )}
-
         {/* Reviews */}
-        {activeTab === "Reviews (0)" && (
+        {activeTab.startsWith("Reviews") && (
           <div className="space-y-6">
-            <h3 className="text-base font-bold text-gray-900">
-              Customer reviews
-            </h3>
-            <div className="flex flex-col md:flex-row md:items-start gap-6">
-              <div className="flex items-center gap-3">
-                <div className="flex gap-0.5">
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="text-base font-bold text-[#131313]">
+                Customer reviews
+              </h3>
+              <Link
+                href={`/products/${product.id}/reviews`}
+                className="text-sm font-normal text-[#131313] hover:underline shrink-0"
+              >
+                View All
+              </Link>
+            </div>
+
+            <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10 lg:gap-12">
+              <div className="flex items-center gap-3 shrink-0">
+                <div className="flex gap-0.5 sm:gap-1">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star
                       key={s}
-                      className={`w-5 h-5 shrink-0 ${s <= 4 ? "fill-[#F9B400] text-[#F9B400]" : "fill-gray-200 text-gray-200"}`}
+                      className={`w-5 h-5 sm:w-6 sm:h-6 shrink-0 ${
+                        s <= REVIEWS_SUMMARY_AVG
+                          ? "fill-[#FFB800] text-[#FFB800]"
+                          : "fill-transparent text-[#D9D9D9]"
+                      }`}
+                      strokeWidth={s <= REVIEWS_SUMMARY_AVG ? 0 : 1.5}
                     />
                   ))}
                 </div>
-                <span className="text-lg font-bold text-gray-900">
-                  4 out of 5
+                <span className="text-lg sm:text-xl font-bold text-[#131313] whitespace-nowrap">
+                  {REVIEWS_SUMMARY_AVG} out of 5
                 </span>
               </div>
-              <div className="flex-1">
-                <span className="text-sm text-gray-900">(10,653 Ratings)</span>
-                <Link
-                  href={`/products/${product.id}/reviews`}
-                  className="text-sm text-[#3F8CFF] font-medium ml-2 hover:underline"
-                >
-                  View All
-                </Link>
-                <div className="mt-3 space-y-2">
+
+              <div className="flex-1 min-w-0 w-full">
+                <p className="text-sm font-bold text-[#131313] mb-3">
+                  ({REVIEWS_SUMMARY_TOTAL.toLocaleString("en-US")} Ratings)
+                </p>
+                <div className="space-y-2.5 sm:space-y-3">
                   {RATING_DISTRIBUTION.map((r) => (
-                    <div key={r.stars} className="flex items-center gap-3">
-                      <span className="text-sm text-gray-900 w-14">
+                    <div
+                      key={r.stars}
+                      className="flex items-center gap-2 sm:gap-3"
+                    >
+                      <span className="text-sm font-normal text-[#131313] w-13 sm:w-14 shrink-0">
                         {r.stars} Star
                       </span>
-                      <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className="flex-1 h-2.5 sm:h-3 min-w-0 rounded-full overflow-hidden"
+                        style={{ backgroundColor: RATING_BAR_TRACK }}
+                      >
                         <div
                           className="h-full rounded-full"
                           style={{
@@ -254,7 +255,7 @@ export default function ProductDescriptionTabs({
                           }}
                         />
                       </div>
-                      <span className="text-sm text-gray-900 w-8">
+                      <span className="text-sm font-normal text-[#131313] w-9 sm:w-10 text-right shrink-0 tabular-nums">
                         {r.percent}%
                       </span>
                     </div>
@@ -386,6 +387,10 @@ export default function ProductDescriptionTabs({
                     </button>
                     <button
                       type="button"
+                      onClick={() => {
+                        setReportReviewAuthor(rev.name);
+                        setReportReviewOpen(true);
+                      }}
                       className="text-sm text-gray-900 hover:text-gray-900 flex items-center gap-1"
                     >
                       <Flag className="w-4 h-4" /> Report
@@ -428,7 +433,7 @@ export default function ProductDescriptionTabs({
             </div>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50"
             >
               <Plus className="w-4 h-4" /> Post your question
             </button>
@@ -473,7 +478,35 @@ export default function ProductDescriptionTabs({
             </div>
           </div>
         )}
+
+        {/* Specifications */}
+        {activeTab === "Specifications" && (
+          <dl className="space-y-0">
+            {product.specifications.map((s, i) => (
+              <div
+                key={s.label}
+                className={`flex flex-col sm:flex-row sm:gap-6 py-3 sm:py-4 ${i < product.specifications.length - 1 ? "border-b border-gray-200" : ""}`}
+              >
+                <dt className="text-sm font-bold text-gray-900 shrink-0 sm:w-40">
+                  {s.label}
+                </dt>
+                <dd className="text-sm text-[#4b5563] mt-0.5 sm:mt-0 flex-1">
+                  {s.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
+
+      <ReportReviewModal
+        open={reportReviewOpen}
+        onClose={() => {
+          setReportReviewOpen(false);
+          setReportReviewAuthor(undefined);
+        }}
+        reviewAuthor={reportReviewAuthor}
+      />
     </div>
   );
 }

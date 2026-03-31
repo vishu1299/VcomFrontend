@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 const cards = [
   {
@@ -78,18 +79,18 @@ export default function AdCardsSection() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-col">
-                <button
-                  type="button"
-                  className="min-h-[40px] w-fit rounded px-6 py-2 text-design-14 font-medium text-white transition hover:opacity-95 bg-[var(--color-main-blue)]"
+                <Link
+                  href="/product-list"
+                  className="inline-flex min-h-[40px] w-fit items-center justify-center rounded px-6 py-2 text-design-14 font-medium text-white transition hover:opacity-95 bg-[var(--color-main-blue)]"
                 >
                   Order Now
-                </button>
-                <button
-                  type="button"
-                  className="min-h-[40px] w-fit rounded border border-[var(--color-main-blue)] bg-transparent px-6 py-2 text-design-14 font-medium text-[var(--color-main-blue)] transition hover:bg-[var(--color-main-blue)]/5"
+                </Link>
+                <Link
+                  href="/product-list"
+                  className="inline-flex min-h-[40px] w-fit items-center justify-center rounded border border-[var(--color-main-blue)] bg-transparent px-6 py-2 text-design-14 font-medium text-[var(--color-main-blue)] transition hover:bg-[var(--color-main-blue)]/5"
                 >
                   Explore more
-                </button>
+                </Link>
               </div>
             </div>
 

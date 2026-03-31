@@ -51,7 +51,15 @@ export default function AllLiveNowPage() {
 
     return (
         <main className="page-text-black min-h-screen bg-[#f3f7fa]">
-            <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
+            <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
+                <nav className="flex items-center gap-4 mb-4 sm:mb-6 text-[14px] sm:text-[16px] text-[#131313]">
+                    <Link href="/" className="hover:underline">
+                        Home
+                    </Link>
+                    <span className="text-[#767676]">/</span>
+                    <span className="font-medium text-[#131313]">All Live Now</span>
+                </nav>
+
                 <HeroBanner />
 
                 <FilterBar
@@ -68,25 +76,25 @@ export default function AllLiveNowPage() {
 
                 {activeTab === 'live-now' ? (
                     <>
-                        <div className="bg-white rounded-xl sm:rounded-2xl  p-4 sm:p-6">
+                        <div className="bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-5 shadow-sm">
                             <StoreHeader
                                 storeName="UrbanTech"
                                 handle="@urbantechco"
                                 profileImage="/images/profile.png"
                             />
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 mt-3 sm:mt-4">
                                 {paginatedLiveProducts.slice(0, 4).map((product) => (
                                     <LiveNowProductCard key={product.id} {...product} />
                                 ))}
                             </div>
                         </div>
-                        <div className="mt-4 sm:mt-6 bg-white rounded-xl sm:rounded-2xl  p-4 sm:p-6">
+                        <div className="mt-3 sm:mt-5 bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-5 shadow-sm">
                             <StoreHeader
                                 storeName="UrbanTech"
                                 handle="@urbantechco"
                                 profileImage="/images/profile.png"
                             />
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 mt-3 sm:mt-4">
                                 {paginatedLiveProducts.map((product) => (
                                     <LiveNowProductCard key={product.id} {...product} />
                                 ))}
@@ -94,13 +102,13 @@ export default function AllLiveNowPage() {
                         </div>
                     </>
                 ) : (
-                    <div className="p-4 sm:p-6">
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+                    <div className="bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-6 shadow-sm">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
                             {paginatedUpcomingProducts.map((product) => (
                                 <UpcomingLiveCard key={product.id} {...product} />
                             ))}
                         </div>
-                        <div className="mt-6 flex justify-center">
+                        <div className="mt-5 sm:mt-6 flex justify-center">
                             <button
                                 type="button"
                                 className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[var(--color-main-blue)] hover:underline"
@@ -120,10 +128,10 @@ export default function AllLiveNowPage() {
                     </p>
                     <div className="order-1 sm:order-2 w-full sm:w-auto overflow-x-auto">
                         <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
-                        />
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
                     </div>
                 </div>
             </div>

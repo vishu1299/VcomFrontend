@@ -1,8 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
-import SectionHeader from './SectionHeader';
 
 const products = [
   {
@@ -40,16 +41,53 @@ const products = [
     image: '/images/cloth5.png',
     badges: ['LIVE NOW', 'FLASH SALE'],
   },
+  {
+    name: 'Classic White Sneakers',
+    price: 69.99,
+    originalPrice: 79,
+    image: '/images/cloth1.png',
+    badges: ['LIVE NOW', 'NEW'],
+  },
+  {
+    name: 'Urban Cargo Pants',
+    price: 59.99,
+    originalPrice: 69,
+    image: '/images/cloth2.png',
+    badges: ['LIVE NOW', 'SALE'],
+  },
+  {
+    name: 'Silk Evening Dress',
+    price: 189.99,
+    originalPrice: 220,
+    image: '/images/cloth3.png',
+    badges: ['LIVE NOW', 'FLASH SALE'],
+  },
+  {
+    name: 'Leather Crossbody Bag',
+    price: 99.99,
+    originalPrice: 119,
+    image: '/images/cloth4.png',
+    badges: ['LIVE NOW', 'NEW'],
+  },
 ];
 
 export default function LiveNowSection() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const scrollByDir = (dir: 'left' | 'right') => {
+    const el = trackRef.current;
+    if (!el) return;
+    const step = Math.max(220, Math.floor(el.clientWidth * 0.7));
+    el.scrollBy({ left: dir === 'left' ? -step : step, behavior: 'smooth' });
+  };
+
   return (
     <section
-      className="w-full min-w-0 overflow-hidden  px-4 py-6 sm:px-5 sm:py-8 lg:px-6 lg:py-10"
+      className="w-full min-w-0 overflow-hidden px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-6"
       style={{ background: '#FAE5F1' }}
       aria-label="LIVE NOW products"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 xl:px-10 flex flex-col gap-2 pt-4 sm:pt-6 ">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-2 px-4 sm:px-6 lg:px-8 xl:px-10">
         <div className="mb-4 sm:mb-5">
           <h2 className="text-design-20  sm:text-design-24 font-bold text-[var(--color-error)] mb-1 flex items-center gap-2">
            <Image src="/images/tv.png" alt="Live Now" width={22} height={22} /> LIVE NOW
@@ -60,7 +98,10 @@ export default function LiveNowSection() {
         </div>
 
         <div className="relative">
-          <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 scrollbar-hide sm:gap-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div
+            ref={trackRef}
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 scrollbar-hide sm:gap-4 -mx-4 px-4 sm:mx-0 sm:px-0"
+          >
             {products.map((product, i) => (
               <article
                 key={i}
@@ -121,14 +162,16 @@ export default function LiveNowSection() {
           </div>
           <button
             type="button"
-            className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white/90 border border-[var(--color-border)] shadow items-center justify-center hover:bg-white transition"
+            onClick={() => scrollByDir('left')}
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white/90 border border-[var(--color-border)] shadow items-center justify-center hover:bg-white transition"
             aria-label="Previous"
           >
             <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
           </button>
           <button
             type="button"
-            className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white/90 border border-[var(--color-border)] shadow items-center justify-center hover:bg-white transition"
+            onClick={() => scrollByDir('right')}
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white/90 border border-[var(--color-border)] shadow items-center justify-center hover:bg-white transition"
             aria-label="Next"
           >
             <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />
@@ -136,9 +179,12 @@ export default function LiveNowSection() {
         </div>
 
         <div className="text-center mt-4">
-          <a href="#" className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)] hover:underline">
+          <Link
+            href="/all-live-now"
+            className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)] hover:underline"
+          >
             View all
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -7,10 +7,10 @@ import {
   Eye,
   Heart,
   Play,
-  Share2,
   VolumeX,
 } from "lucide-react";
 import { DISCOVER_STREAM_PRODUCTS } from "../data/products";
+import ShareIconImg from "@/components/ShareIconImg";
 
 const STORE = {
   name: "Urbantech",
@@ -168,7 +168,7 @@ const StreamPanel = forwardRef<StreamPanelHandle>(function StreamPanel(_, ref) {
                     aria-label="Share"
                   >
                     <span className="p-2 rounded-full bg-black/40 backdrop-blur-sm">
-                      <Share2 className="w-5 h-5" />
+                      <ShareIconImg className="w-5 h-5" size={24} />
                     </span>
                     <span className="text-[10px] sm:text-[11px] font-semibold drop-shadow">
                       {product.shares ?? "4k"}

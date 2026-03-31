@@ -37,7 +37,7 @@ export default function ExclusiveProductSection({
 
   return (
     <section
-      className="mb-6 sm:mb-8 rounded-xl overflow-hidden bg-[#f5f5f5]"
+      className="rounded-xl overflow-hidden bg-white border border-[#e5e7eb] shadow-sm"
       aria-label={title}
       style={{ fontFamily: 'var(--font-poppins)' }}
     >

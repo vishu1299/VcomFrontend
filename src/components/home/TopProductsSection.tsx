@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, type SyntheticEvent } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ChevronDown,
   ChevronLeft,
@@ -101,6 +102,76 @@ const products = [
     image: '/images/forgot.png',
     badges: ['NEW', 'SALE'],
     tags: ['DRY SKIN', '30ML', 'NATURAL'],
+  },
+  {
+    name: 'Rose Water Toner',
+    price: 79,
+    rating: 4.6,
+    reviews: '640',
+    watching: '520',
+    image: '/images/signin.png',
+    badges: ['NEW'],
+    tags: ['SENSITIVE', '200ML'],
+  },
+  {
+    name: 'Night Repair Cream',
+    price: 259,
+    rating: 4.9,
+    reviews: '2.8K',
+    watching: '3.1K',
+    image: '/images/create.png',
+    badges: ['SALE', 'NEW'],
+    tags: ['ANTI-AGING', '50ML'],
+  },
+  {
+    name: 'SPF 50 Sunscreen',
+    price: 119,
+    rating: 4.7,
+    reviews: '1.1K',
+    watching: '780',
+    image: '/images/logo.png',
+    badges: ['SALE'],
+    tags: ['UVA/UVB', '75ML'],
+  },
+  {
+    name: 'Charcoal Face Mask',
+    price: 39,
+    rating: 4.5,
+    reviews: '420',
+    watching: '310',
+    image: '/images/forgot.png',
+    badges: ['NEW'],
+    tags: ['OILY SKIN', '5 PACK'],
+  },
+  {
+    name: 'Hyaluronic Serum',
+    price: 169,
+    rating: 4.8,
+    reviews: '1.9K',
+    watching: '1.4K',
+    image: '/images/signin.png',
+    badges: ['NEW'],
+    tags: ['HYDRATION', '40ML'],
+  },
+  {
+    name: 'Caffeine Eye Cream',
+    price: 89,
+    rating: 4.6,
+    reviews: '760',
+    watching: '540',
+    image: '/images/create.png',
+    badges: ['SALE'],
+    tags: ['DARK CIRCLES', '15ML'],
+  },
+  {
+    name: 'Peptide Moisturizer',
+    price: 209,
+    rating: 4.9,
+    reviews: '3.4K',
+    watching: '2.2K',
+    image: '/images/logo.png',
+    badges: ['NEW', 'SALE'],
+    tags: ['FIRMING', '60ML'],
   },
 ];
 
@@ -297,23 +368,31 @@ export default function TopProductsSection() {
       <div
         className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 pt-4 sm:pt-6 lg:pt-8"
       >
-        <h2
-          className="font-semibold flex items-center gap-2 text-[18px] sm:text-[20px] lg:text-[24px]"
-          style={{
-            lineHeight: '100%',
-            color: FIGMA.titleColor,
-          }}
-        >
-          <Image
-            src="/images/top.png"
-            alt=""
-            width={24}
-            height={24}
-            className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
-            aria-hidden
-          />
-          Top Products
-        </h2>
+        <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+          <h2
+            className="font-semibold flex items-center gap-2 text-[18px] sm:text-[20px] lg:text-[24px]"
+            style={{
+              lineHeight: '100%',
+              color: FIGMA.titleColor,
+            }}
+          >
+            <Image
+              src="/images/top.png"
+              alt=""
+              width={24}
+              height={24}
+              className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
+              aria-hidden
+            />
+            Top Products
+          </h2>
+          <Link
+            href="/product-list"
+            className="shrink-0 text-[13px] font-medium text-[#1E3A8A] hover:underline sm:text-[14px]"
+          >
+            View all
+          </Link>
+        </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <label
             htmlFor="sort-top-products"

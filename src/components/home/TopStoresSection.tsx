@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SectionHeader from './SectionHeader';
@@ -12,16 +13,27 @@ const stores = [
   { name: 'Style & Co', rating: 4.9, reviews: '3.2K', image: '/images/4.png' },
   { name: 'Trendy Finds', rating: 4.5, reviews: '980', image: '/images/5.png' },
   { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/6.png' },
-  { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/6.png' },
-  { name: 'Daily Deals', rating: 4.7, reviews: '1.2K', image: '/images/6.png' },
+  { name: 'Gadget Grove', rating: 4.6, reviews: '2.4K', image: '/images/3.png' },
+  { name: 'Pure Pantry', rating: 4.8, reviews: '1.1K', image: '/images/4.png' },
+  { name: 'Velvet Vogue', rating: 4.9, reviews: '3.0K', image: '/images/5.png' },
+  { name: 'Outdoor Pro', rating: 4.5, reviews: '890', image: '/images/1.png' },
 ];
 
 export default function TopStoresSection() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const scrollByDir = (dir: 'left' | 'right') => {
+    const el = trackRef.current;
+    if (!el) return;
+    const step = Math.max(200, Math.floor(el.clientWidth * 0.65));
+    el.scrollBy({ left: dir === 'left' ? -step : step, behavior: 'smooth' });
+  };
+
   return (
     <section className="w-full min-w-0" aria-label="Top stores">
       <SectionHeader
         title="Top Stores"
-        viewAllHref="#"
+        viewAllHref="/top-stores"
         viewAllLabel="View All"
         icon={
           <Image
@@ -35,13 +47,16 @@ export default function TopStoresSection() {
       />
 
       <div className="relative">
-        <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto pb-2 scrollbar-hide sm:gap-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div
+          ref={trackRef}
+          className="flex snap-x snap-mandatory gap-1 overflow-x-auto pb-2 scrollbar-hide sm:gap-2 -mx-4 px-4 sm:mx-0 sm:px-0"
+        >
           {stores.map((store, i) => (
             <div
               key={i}
               className="min-w-[120px] sm:min-w-[140px] lg:min-w-[160px] flex flex-col items-center text-center snap-start shrink-0 bg-white rounded-xl p-4"
             >
-              <div className="relative pt-2">
+              <div className="relative">
                 <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-[var(--color-error)] bg-white">
                   <Image
                     src={store.image}
@@ -51,7 +66,7 @@ export default function TopStoresSection() {
                     sizes="112px"
                   />
                 </div>
-                <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 whitespace-nowrap rounded bg-[var(--color-error)] px-2 py-0.5 text-[10px] font-medium leading-none text-white shadow-sm sm:text-design-12">
+                <span className="absolute -top-0.5 left-6 border-b border-red-500 bg-[var(--color-error)] text-white text-[10px] sm:text-design-12 font-medium px-1.5 py-0.5 rounded">
                   LIVE NOW
                 </span>
               </div>
@@ -67,14 +82,16 @@ export default function TopStoresSection() {
         </div>
         <button
           type="button"
-          className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
+          onClick={() => scrollByDir('left')}
+          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
           aria-label="Previous stores"
         >
           <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
         </button>
         <button
           type="button"
-          className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
+          onClick={() => scrollByDir('right')}
+          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
           aria-label="Next stores"
         >
           <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />

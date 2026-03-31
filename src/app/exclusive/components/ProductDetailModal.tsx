@@ -10,7 +10,6 @@ import {
   ChevronDown,
   ChevronUp,
   Maximize2,
-  Share2,
   AlertOctagon,
   ShoppingCart,
   ArrowUpRight,
@@ -19,6 +18,7 @@ import {
 import type { ExclusiveProduct, ExclusiveProductBadge } from "../data/products";
 import ShareProductModal from "@/components/product/ShareProductModal";
 import ReportProductModal from "@/components/product/ReportProductModal";
+import ShareIconImg from "@/components/ShareIconImg";
 
 /* Modal-specific badge colors to match design: SALE golden, NEW blue */
 const MODAL_BADGE_STYLES: Record<ExclusiveProductBadge, string> = {
@@ -76,6 +76,15 @@ export default function ProductDetailModal({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const { name, price, originalPrice, image, badges = [], videoUrl } = product;
+
+  const [sharePageUrl, setSharePageUrl] = useState("");
+  useEffect(() => {
+    setSharePageUrl(
+      typeof window !== "undefined"
+        ? `${window.location.origin}/products/${product.id}`
+        : "",
+    );
+  }, [product.id]);
   const topBadges = badges.filter((b) => b !== "sponsored");
   // Thumbnails: first two as video thumbnails (with play icon), rest images
   const thumbnails = [image, image, image, image, image];
@@ -149,7 +158,7 @@ export default function ProductDetailModal({
             className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:bg-gray-50 shadow-sm transition"
             aria-label="Share"
           >
-            <Share2 className="w-3.5 h-3.5 lg:w-4 lg:h-4" strokeWidth={2} />
+            <ShareIconImg className="w-3.5 h-3.5 lg:w-4 lg:h-4" size={20} />
           </button>
           <button
             type="button"
@@ -436,7 +445,7 @@ export default function ProductDetailModal({
         isOpen={shareModalOpen}
         onClose={() => setShareModalOpen(false)}
         productName={name}
-        productUrl={`https://tibilmall.com/product/${encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase())}`}
+        productUrl={sharePageUrl || undefined}
       />
       <ReportProductModal
         isOpen={reportModalOpen}

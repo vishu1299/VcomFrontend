@@ -17,56 +17,52 @@ export default function Pagination({
 }: PaginationProps) {
   const startPage = Math.max(
     1,
-    Math.min(currentPage - Math.floor(MAX_VISIBLE_PAGES / 2), totalPages - MAX_VISIBLE_PAGES + 1)
+    Math.min(currentPage - Math.floor(MAX_VISIBLE_PAGES / 2), totalPages - MAX_VISIBLE_PAGES + 1),
   );
   const endPage = Math.min(startPage + MAX_VISIBLE_PAGES - 1, totalPages);
-  const pages = Array.from(
-    { length: endPage - startPage + 1 },
-    (_, i) => startPage + i
-  );
+  const pages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 
   return (
     <nav
-      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 sm:pt-8 border-t border-[var(--color-border)] mt-6 sm:mt-8"
+      className="mt-4 flex flex-col gap-3 sm:mt-5 sm:flex-row sm:items-center sm:justify-between"
       aria-label="Pagination"
     >
-      <p className="text-design-14 text-[var(--color-muted-alt-2)]">
+      <p className="text-sm text-[#6b7280]">
         Page {currentPage} of {totalPages}
       </p>
-      <div className="flex items-center gap-2">
+
+      <div className="ml-auto flex items-center gap-1.5">
         <button
           type="button"
           onClick={() => onPageChange(Math.max(1, currentPage - 1))}
           disabled={currentPage <= 1}
-          className="min-h-[40px] px-3 sm:px-4 rounded-lg border border-[var(--color-border)] bg-white text-design-14 font-medium text-[var(--color-black)] hover:bg-[var(--color-border)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
+          className="inline-flex h-9 items-center gap-1 rounded-md border border-[#e5e7eb] bg-white px-3 text-xs font-medium text-[#6b7280] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <ChevronLeft className="w-4 h-4" />
-          Prev
+          <ChevronLeft className="h-3.5 w-3.5" /> Prev
         </button>
-        <div className="flex items-center gap-1">
-          {pages.map((page) => (
-            <button
-              key={page}
-              type="button"
-              onClick={() => onPageChange(page)}
-              className={`min-w-[40px] h-10 rounded-lg text-design-14 font-medium transition ${
-                page === currentPage
-                  ? 'bg-[var(--color-main-blue)] text-white'
-                  : 'bg-[var(--color-border)] text-[var(--color-black)] hover:bg-[var(--color-muted-alt-2)]/20'
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
+
+        {pages.map((page) => (
+          <button
+            key={page}
+            type="button"
+            onClick={() => onPageChange(page)}
+            className={`h-9 min-w-[36px] rounded-md px-2.5 text-sm font-medium transition ${
+              page === currentPage
+                ? 'bg-[#2447A6] text-white'
+                : 'bg-white text-[#131313] hover:bg-white/90'
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+
         <button
           type="button"
           onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage >= totalPages}
-          className="min-h-[40px] px-3 sm:px-4 rounded-lg border border-[var(--color-border)] bg-white text-design-14 font-medium text-[var(--color-black)] hover:bg-[var(--color-border)] disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
+          className="inline-flex h-9 items-center gap-1 rounded-md bg-[#2447A6] px-3 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Next
-          <ChevronRight className="w-4 h-4" />
+          Next <ChevronRight className="h-3.5 w-3.5" />
         </button>
       </div>
     </nav>

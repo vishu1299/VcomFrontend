@@ -335,15 +335,6 @@ export function BrowseCategoriesBarRow({ children }: { children: React.ReactNode
                       );
                     })}
                   </div>
-                  <div className="mt-5 border-t border-[#e5e7eb] pt-4">
-                    <Link
-                      href="/product-categories"
-                      onClick={close}
-                      className="text-[13px] font-medium text-[#1E3A8A] hover:underline"
-                    >
-                      View all categories
-                    </Link>
-                  </div>
                 </div>
               </div>
             </div>

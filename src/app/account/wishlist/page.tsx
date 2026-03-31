@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef } from 'react';
+import ShareIconImg from '@/components/ShareIconImg';
 import { Search, Heart, ShoppingCart, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface WishlistProduct {
@@ -123,7 +124,7 @@ function WishlistProductCard({ product, onRemove }: { product: WishlistProduct; 
             <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
           <button type="button" className="p-1.5 sm:p-2 rounded-lg text-gray-600 hover:bg-gray-50 flex items-center justify-center shrink-0" aria-label="Share">
-            <Image src="/share.svg" alt="" width={20} height={20} className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ShareIconImg className="w-4 h-4 sm:w-5 sm:h-5" size={24} />
           </button>
         </div>
       </div>

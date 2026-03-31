@@ -32,6 +32,20 @@ const slides = [
     brand: 'TechFlow',
     cta: 'WATCH NOW',
   },
+  {
+    image: '/images/cloth1.png',
+    liveCount: '1.2k',
+    title: 'Summer Essentials Drop',
+    brand: 'SunLane',
+    cta: 'WATCH NOW',
+  },
+  {
+    image: '/images/cloth2.png',
+    liveCount: '4.5k',
+    title: 'Home Living Flash Sale',
+    brand: 'CozyNest',
+    cta: 'WATCH NOW',
+  },
 ];
 
 const DESKTOP_HEIGHT = 388;
@@ -127,8 +141,6 @@ export default function HeroCarousel() {
   const [mobileWidth, setMobileWidth] = useState(0);
   const [desktopWidth, setDesktopWidth] = useState(0);
   const n = slides.length;
-  const isFirstSlide = current === 0;
-  const isLastSlide = current === n - 1;
   const mobileViewportRef = useRef<HTMLDivElement>(null);
   const desktopViewportRef = useRef<HTMLDivElement>(null);
 
@@ -156,11 +168,11 @@ export default function HeroCarousel() {
   }, []);
 
   const goPrev = useCallback(() => {
-    setCurrent((prev) => (prev === 0 ? 0 : prev - 1));
-  }, []);
+    setCurrent((prev) => (prev === 0 ? n - 1 : prev - 1));
+  }, [n]);
 
   const goNext = useCallback(() => {
-    setCurrent((prev) => (prev === n - 1 ? n - 1 : prev + 1));
+    setCurrent((prev) => (prev === n - 1 ? 0 : prev + 1));
   }, [n]);
 
   const heightStyle = {
@@ -230,8 +242,6 @@ export default function HeroCarousel() {
           <NavArrows
             onPrev={goPrev}
             onNext={goNext}
-            disablePrev={isFirstSlide}
-            disableNext={isLastSlide}
             leftInset={mobileLayout.arrowInset}
             rightInset={mobileLayout.arrowInset}
           />
@@ -269,8 +279,6 @@ export default function HeroCarousel() {
           <NavArrows
             onPrev={goPrev}
             onNext={goNext}
-            disablePrev={isFirstSlide}
-            disableNext={isLastSlide}
             leftInset={desktopLayout.arrowInset}
             rightInset={desktopLayout.arrowInset}
           />
@@ -284,15 +292,11 @@ export default function HeroCarousel() {
 function NavArrows({
   onPrev,
   onNext,
-  disablePrev = false,
-  disableNext = false,
   leftInset = '12px',
   rightInset = '12px',
 }: {
   onPrev: () => void;
   onNext: () => void;
-  disablePrev?: boolean;
-  disableNext?: boolean;
   leftInset?: string;
   rightInset?: string;
 }) {
@@ -302,21 +306,19 @@ function NavArrows({
         type="button"
         onClick={onPrev}
         aria-label="Previous slide"
-        disabled={disablePrev}
-        className=" absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30 sm:h-7 sm:w-7"
-        style={{ left: '190px !important' }}
+        className="absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-sm hover:bg-white/90 sm:h-11 sm:w-11"
+        style={{ left: leftInset }}
       >
-        <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-4 text-gray-500" />
+        <ChevronLeft className="h-5 w-5 text-gray-600 sm:h-6 sm:w-6" />
       </button>
       <button
         type="button"
         onClick={onNext}
         aria-label="Next slide"
-        disabled={disableNext}
-        className="absolute top-1/2  z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-30 sm:h-7 sm:w-7"
-        style={{ right: '190px !important' }}
+        className="absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-sm hover:bg-white/90 sm:h-11 sm:w-11"
+        style={{ right: rightInset }}
       >
-        <ChevronRight className="h-5 w-5 sm:h-6 sm:w-4 text-gray-500" />
+        <ChevronRight className="h-5 w-5 text-gray-600 sm:h-6 sm:w-6" />
       </button>
     </>
   );

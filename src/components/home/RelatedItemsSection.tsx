@@ -13,6 +13,9 @@ const items = [
   { name: 'NovaPulse Smartwatch', image: '/images/sellerwatch.png' },
   { name: 'NovaPulse Smartwatch', image: '/images/sellerwatch (2).png' },
   { name: 'NovaPulse Smartwatch', image: '/images/sellerwatch (2).png' },
+  { name: 'AeroFit Earbuds', image: '/images/watch.png' },
+  { name: 'Pulse Band Pro', image: '/images/sellerwatch.png' },
+  { name: 'Smart Ring X1', image: '/images/sellerwatch (2).png' },
 ];
 
 export default function RelatedItemsSection() {
@@ -33,7 +36,7 @@ export default function RelatedItemsSection() {
     <section className="w-full min-w-0" aria-label="Related to items you've viewed">
       <SectionHeader
         title="Related to items you've viewed"
-        viewAllHref="#"
+        viewAllHref="/product-list"
         viewAllLabel="View All"
       />
 
@@ -65,7 +68,7 @@ export default function RelatedItemsSection() {
         <button
           type="button"
           onClick={() => scrollByAmount('left')}
-          className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
+          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
           aria-label="Previous related items"
         >
           <ChevronLeft className="w-5 h-5 text-[var(--color-black)]" />
@@ -73,7 +76,7 @@ export default function RelatedItemsSection() {
         <button
           type="button"
           onClick={() => scrollByAmount('right')}
-          className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
+          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-white border border-[var(--color-border)] shadow items-center justify-center hover:bg-[var(--color-border)] transition"
           aria-label="Next related items"
         >
           <ChevronRight className="w-5 h-5 text-[var(--color-black)]" />

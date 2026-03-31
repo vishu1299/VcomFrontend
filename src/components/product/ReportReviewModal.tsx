@@ -1,0 +1,134 @@
+"use client";
+
+import { useState } from "react";
+
+const REPORT_REASONS = [
+  {
+    value: "off-topic",
+    label: "Off Topic",
+    description: "Not about the product.",
+  },
+  {
+    value: "inappropriate",
+    label: "Inappropriate",
+    description: "Disrespect, hateful, or obscene.",
+  },
+  { value: "fake", label: "Fake", description: "Paid for, inauthentic." },
+  { value: "other", label: "Other", description: "Something else." },
+] as const;
+
+type ReportReviewModalProps = {
+  open: boolean;
+  onClose: () => void;
+  onReport?: (reason: string) => void;
+  /** Shown under the title so users know which review they are reporting */
+  reviewAuthor?: string;
+};
+
+export default function ReportReviewModal({
+  open,
+  onClose,
+  onReport,
+  reviewAuthor,
+}: ReportReviewModalProps) {
+  const [selected, setSelected] = useState<string>("off-topic");
+
+  if (!open) return null;
+
+  const handleSubmit = () => {
+    onReport?.(selected);
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div
+        className="absolute inset-0 bg-black/50 min-h-full"
+        onClick={onClose}
+        aria-hidden
+      />
+      <div className="relative w-full max-w-3xl rounded-xl bg-white shadow-xl p-4 sm:p-6 my-auto max-h-[90vh] overflow-y-auto">
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 rounded-full flex items-center justify-center text-[#131313] hover:bg-gray-100 transition shrink-0"
+          aria-label="Close"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <h2 className="text-base sm:text-lg font-bold text-[#131313] pr-10">
+          Report this review
+        </h2>
+        <p className="text-xs sm:text-sm text-[#131313] mt-1">
+          Your report helps keep our marketplace safe.
+        </p>
+        {reviewAuthor ? (
+          <div className="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-[#131313]">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+              Review by
+            </span>
+            <p className="font-semibold">{reviewAuthor}</p>
+          </div>
+        ) : null}
+        <hr className="my-3 sm:my-4 border-gray-200" />
+        <p className="text-sm font-bold text-[#131313] mt-4 sm:mt-6 mb-2 sm:mb-3">
+          Select Reason
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-4">
+          {REPORT_REASONS.map((r) => (
+            <label
+              key={r.value}
+              className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50/50 transition min-w-0"
+            >
+              <input
+                type="radio"
+                name="report-reason"
+                value={r.value}
+                checked={selected === r.value}
+                onChange={() => setSelected(r.value)}
+                className="w-4 h-4 shrink-0 text-[#1e3a8a] border-gray-300 focus:ring-[#1e3a8a]"
+              />
+              <div className="min-w-0 flex-1">
+                <span className="text-sm font-medium text-[#131313] block">
+                  {r.label}
+                </span>
+                <span className="text-xs text-[#131313]">{r.description}</span>
+              </div>
+            </label>
+          ))}
+        </div>
+
+        <p className="text-xs sm:text-sm text-[#131313] mb-4 sm:mb-6">
+          Thank you for reporting. If this review doesn&apos;t match our
+          guidelines, we&apos;ll remove it.
+        </p>
+
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-gray-200 bg-white text-[#131313] text-sm font-medium hover:bg-gray-50 transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-[#1e3a8a] text-white text-sm font-medium hover:bg-[#233876] transition"
+          >
+            Report
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
