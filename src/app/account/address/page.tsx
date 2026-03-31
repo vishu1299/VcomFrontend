@@ -11,6 +11,10 @@ const selectClass =
   'w-full min-h-[40px] pl-3 pr-8 py-2 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] appearance-none bg-no-repeat bg-[length:14px] bg-[right_10px_center]';
 const dropdownArrowStyle = { backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%236b7280\' stroke-width=\'2\'%3E%3Cpath d=\'M6 9l6 6 6-6\'/%3E%3C/svg%3E")' };
 const labelClass = 'block text-sm font-medium text-[var(--color-black-01)] mb-1.5';
+/** Add address modal: placeholder #767676, input/select value black, labels black */
+const modalInputClass = `${inputClass} text-black placeholder:text-[#767676]`;
+const modalSelectClass = `${selectClass} text-black`;
+const modalLabelClass = 'block text-sm font-medium mb-1.5 text-black';
 
 interface SavedAddress {
   id: string;
@@ -93,19 +97,20 @@ function AddressCard({
           <p className="text-sm text-[var(--color-muted-alt-2)] mt-1">{address.phone}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-2 sm:shrink-0 sm:ml-4">
+      <div className="flex flex-row flex-wrap gap-2 sm:flex-col sm:shrink-0 sm:ml-4">
         <button
           type="button"
           onClick={() => onEdit(address.id)}
-          className="inline-flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto px-3 py-2 rounded-lg text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50"
+          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex-1 sm:flex-initial min-w-0 whitespace-nowrap sm:justify-start"
         >
-          <Pencil className="w-4 h-4" />
-          Edit Address
+          <Pencil className="w-4 h-4 shrink-0" />
+          <span className="max-[380px]:hidden">Edit Address</span>
+          <span className="min-[381px]:hidden">Edit</span>
         </button>
         <button
           type="button"
           onClick={() => onDelete(address.id)}
-          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-red-200 text-red-500 hover:bg-red-50 w-full sm:w-auto"
+          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-red-200 text-red-500 hover:bg-red-50 flex-1 sm:flex-initial min-w-0"
         >
           <Trash2 className="w-4 h-4 shrink-0" />
           Delete
@@ -146,9 +151,10 @@ function AddAddressModal({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="add-address-modal bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
+        <style dangerouslySetInnerHTML={{ __html: '.add-address-modal input::placeholder { color: #767676; }' }} />
         <div className="sticky top-0 bg-white border-b border-[var(--color-border)] px-6 py-4 flex items-start justify-between rounded-t-2xl">
           <div>
             <h2 className="text-lg font-bold text-[var(--color-black-01)]">Add new address</h2>
@@ -162,7 +168,7 @@ function AddAddressModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
           {/* Address type */}
           <div>
-            <label className={labelClass}>
+            <label className={modalLabelClass}>
               Address <span className="text-red-500">*</span>
             </label>
             <div className="flex flex-wrap gap-3">
@@ -172,7 +178,7 @@ function AddAddressModal({
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border cursor-pointer transition capitalize ${
                     addressType === type
                       ? 'border-[var(--color-main-blue)] bg-white text-[var(--color-main-blue)]'
-                      : 'border-[var(--color-border)] bg-white text-[var(--color-black-01)] hover:border-gray-400'
+                      : 'border-[var(--color-border)] bg-white text-black hover:border-gray-400'
                   }`}
                 >
                   <input
@@ -199,25 +205,25 @@ function AddAddressModal({
           {/* Street address line 1 & 2 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className={labelClass}>
+              <label className={modalLabelClass}>
                 Street Address line 1 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={line1}
                 onChange={(e) => setLine1(e.target.value)}
-                className={inputClass}
+                className={modalInputClass}
                 placeholder="Example: 2451 Lake Ridge Dr."
                 required
               />
             </div>
             <div>
-              <label className={labelClass}>Street Address Line 2 (Optional)</label>
+              <label className={modalLabelClass}>Street Address Line 2 (Optional)</label>
               <input
                 type="text"
                 value={line2}
                 onChange={(e) => setLine2(e.target.value)}
-                className={inputClass}
+                className={modalInputClass}
                 placeholder="Example: Apt 302 or Suite B"
               />
             </div>
@@ -226,24 +232,24 @@ function AddAddressModal({
           {/* City, State, Zip */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className={labelClass}>
+              <label className={modalLabelClass}>
                 City / Town <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className={inputClass}
+                className={modalInputClass}
                 required
                 placeholder="Enter City/Town"
               />
             </div>
             <div>
-              <label className={labelClass}>State</label>
+              <label className={modalLabelClass}>State</label>
               <select
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className={selectClass}
+                className={modalSelectClass}
                 style={dropdownArrowStyle}
                 required
               >
@@ -255,14 +261,14 @@ function AddAddressModal({
               </select>
             </div>
             <div>
-              <label className={labelClass}>
+              <label className={modalLabelClass}>
                 Zip Code <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={zip}
                 onChange={(e) => setZip(e.target.value)}
-                className={inputClass}
+                className={modalInputClass}
                 required
                 placeholder="Enter Zip Code"
               />
@@ -271,13 +277,13 @@ function AddAddressModal({
 
           {/* Country */}
           <div>
-            <label className={labelClass}>
+            <label className={modalLabelClass}>
               Country <span className="text-red-500">*</span>
             </label>
             <select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className={selectClass}
+              className={modalSelectClass}
               style={dropdownArrowStyle}
               required
             >
@@ -338,7 +344,7 @@ export default function SavedAddressPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-black-01)] mb-1">

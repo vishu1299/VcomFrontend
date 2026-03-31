@@ -8,7 +8,7 @@ export default function SubmitReviewButton({ onSubmit }: SubmitReviewButtonProps
       <button
         type="button"
         onClick={onSubmit}
-        className="px-6 py-3 rounded-lg text-base font-semibold  transition hover:opacity-95"
+        className="px-6 py-3 rounded-lg text-base  transition hover:opacity-95"
         style={{ backgroundColor: "#F5B700" }}
       >
         Submit Review

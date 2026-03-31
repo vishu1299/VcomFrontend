@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { SlidersHorizontal } from 'lucide-react';
 import ProductListBanner from './components/ProductListBanner';
 import TopProductsCarousel from './components/TopProductsCarousel';
 import ProductListSortBar, {
@@ -87,6 +86,7 @@ export default function ProductListPage() {
           popularSort={popularSort}
           onSortByChange={setSortBy}
           onPopularSortChange={setPopularSort}
+          onMobileFilterClick={() => setFilterDrawerOpen(true)}
         />
 
         {/* Two columns: filter (left) | product grid (right). items-start keeps sidebar at content height when grid is taller. */}
@@ -100,17 +100,6 @@ export default function ProductListPage() {
           />
 
           <div className="flex-1 min-w-0 flex flex-col">
-            <div className="lg:hidden mb-4 justify-between">
-              <button
-                type="button"
-                onClick={() => setFilterDrawerOpen(true)}
-                className="btn-outline min-h-[44px] w-[100px] md:w-full justify-end sm:w-auto flex items-center md:justify-center gap-2 text-design-14"
-              >
-                <SlidersHorizontal className="w-4 h-4" />
-                Filters
-              </button>
-            </div>
-
             <ProductGrid
               products={paginatedProducts}
               onProductClick={setQuickViewProduct}

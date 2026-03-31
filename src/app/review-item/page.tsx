@@ -60,23 +60,22 @@ export default function ReviewItemPage() {
 
   return (
     <main className="page-text-black min-h-screen bg-gray-50">
-          <div className="mx-auto max-w-[1100px] py-6">
-              <div className="bg-white rounded-xl shadow-md p-4 w-[75%]">
-                  
-        <ReviewItemHeader overallRating={overallRating} onOverallRatingChange={setOverallRating} />
-        <QuickExperienceTags selectedIds={selectedTags} onToggle={handleTagToggle} />
-        <RateSpecificAspects ratings={aspectRatings} onRatingChange={handleAspectRating} />
-        <ReviewFormSection
-          title={title}
-          onTitleChange={setTitle}
-          reviewText={reviewText}
-          onReviewTextChange={setReviewText}
-        />
-        <AddMediaSection />
-        <RecommendSection value={recommend} onChange={setRecommend} />
-        <ReportProblemSection selectedIds={reportProblems} onToggle={handleReportToggle} />
-        <SubmitReviewButton onSubmit={handleSubmit} />
-              </div>
+      <div className="mx-auto max-w-[1100px] py-6">
+        <div className="bg-white rounded-xl shadow-md p-4 w-[75%]">
+          <ReviewItemHeader overallRating={overallRating} onOverallRatingChange={setOverallRating} />
+          <QuickExperienceTags selectedIds={selectedTags} onToggle={handleTagToggle} />
+          <RateSpecificAspects ratings={aspectRatings} onRatingChange={handleAspectRating} />
+          <ReviewFormSection
+            title={title}
+            onTitleChange={setTitle}
+            reviewText={reviewText}
+            onReviewTextChange={setReviewText}
+          />
+          <AddMediaSection />
+          <RecommendSection value={recommend} onChange={setRecommend} />
+          <ReportProblemSection selectedIds={reportProblems} onToggle={handleReportToggle} />
+          <SubmitReviewButton onSubmit={handleSubmit} />
+        </div>
       </div>
     </main>
   );

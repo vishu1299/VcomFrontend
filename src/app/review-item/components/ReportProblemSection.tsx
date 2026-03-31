@@ -16,7 +16,7 @@ export default function ReportProblemSection({ selectedIds, onToggle }: ReportPr
   return (
     <section className="mb-8">
       <p className="text-sm font-medium text-[#131313] mb-3">Report a Serious Problem?</p>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {OPTIONS.map((option) => {
           const isSelected = selectedIds.has(option.id);
           return (

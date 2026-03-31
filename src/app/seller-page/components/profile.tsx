@@ -1,7 +1,10 @@
 "use client";
 
-import RelatedProductsCarousel from "@/app/customer-reviews/components/RelatedProductsCarousel";
-import { remoteGalleryImage } from "@/lib/remoteAssets";
+import RelatedProductsCarousel from "../../customer-reviews/components/RelatedProductsCarousel";
+import { useState } from "react";
+import QuickViewModal from "@/app/product-list/components/QuickViewModal";
+import type { ProductCardProps } from "@/app/product-list/components/ProductCard";
+import { getProductDetail } from "@/app/product-list/data/productDetails";
 
 function MapPinIcon() {
   return (
@@ -71,6 +74,13 @@ function TiktokIcon() {
   );
 }
 
+const CUSTOMER_REVIEW_IMAGES = [
+  "/images/customerReviews/review1.png",
+  "/images/customerReviews/review2.png",
+  "/images/customerReviews/review3.png",
+  "/images/customerReviews/review4.png",
+] as const;
+
 const DESCRIPTION =
   "UrbanTech is an official premium reseller specializing in Apple products. Operating since 2018, we provide authentic devices, accessories, and certified repairs to over 4.2M customers across India.";
 
@@ -111,21 +121,17 @@ const SOCIAL_LINKS = [
 ] as const;
 
 function SocialBrandIcon({ brand }: { brand: "ig" | "fb" | "tt" }) {
-  if (brand === "tt") return <TiktokIcon />;
-  if (brand === "fb")
-    return (
-      <span className="w-5 h-5 rounded-md bg-[#1877F2] flex items-center justify-center text-white text-[10px] font-bold">
-        f
-      </span>
-    );
+  const icon =
+    brand === "ig"
+      ? "/images/share/instagram.png"
+      : brand === "fb"
+        ? "/images/share/facebook.png"
+        : "/images/share/tiktok.png";
+
   return (
-    <span
-      className="w-5 h-5 rounded-md shrink-0"
-      style={{
-        background:
-          "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)",
-      }}
-    />
+    <span className="w-5 h-5 rounded-md bg-[#F2F2F2] flex items-center justify-center overflow-hidden shrink-0">
+      <img src={icon} alt="" className="w-4 h-4 object-contain" />
+    </span>
   );
 }
 
@@ -206,6 +212,9 @@ const SAMPLE_REVIEWS = [
 ];
 
 export default function Profile() {
+  const [quickViewProduct, setQuickViewProduct] =
+    useState<ProductCardProps | null>(null);
+
   return (
     <section className="py-4">
       <div className="w-full p-3 bg-white rounded-xl border border-gray-200">
@@ -238,8 +247,12 @@ export default function Profile() {
                 <li key={item.label} className="flex gap-3">
                   <span className="shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">
                     {item.icon === "gmail" && (
-                      <span className="w-5 h-5 rounded-md bg-[#EA4335] flex items-center justify-center text-white text-[10px] font-bold shrink-0">
-                        M
+                      <span className="w-5 h-5 rounded-md bg-[#F2F2F2] flex items-center justify-center overflow-hidden shrink-0">
+                        <img
+                          src="/images/share/gmail.png"
+                          alt=""
+                          className="w-4 h-4 object-contain"
+                        />
                       </span>
                     )}
                     {item.icon === "map" && <MapPinIcon />}
@@ -289,27 +302,30 @@ export default function Profile() {
       </div>
       {/* Ratings and Reviews - same bar colours as ReviewSummarySection */}
       <div className="mt-4 w-full p-4 bg-white rounded-xl border border-gray-200">
-        <h2 className="text-xl sm:text-2xl font-bold text-[#131313] mb-1">
-          Ratings and Reviews
-        </h2>
-        <p className="text-sm text-[#131313] mb-6">Customer reviews</p>
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-8 mb-6">
+          <div className="min-w-0">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#131313]">
+              Ratings and Reviews
+            </h2>
+            <p className="text-sm text-[#131313] mt-0.5">Customer reviews</p>
 
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 mb-8">
-          <div className="flex flex-wrap items-baseline gap-2 mb-4">
-            <div className="flex items-center gap-0.5">
-              <StarIconSmall filled />
-              <StarIconSmall filled />
-              <StarIconSmall filled />
-              <StarIconSmall filled />
-              <StarIconSmall />
+            <div className="mt-3 flex items-center gap-2">
+              <div className="flex items-center gap-0.5">
+                <StarIconSmall filled />
+                <StarIconSmall filled />
+                <StarIconSmall filled />
+                <StarIconSmall filled />
+                <StarIconSmall />
+              </div>
+              <span className="text-xl sm:text-2xl font-bold text-[#131313] leading-none">
+                4 out of 5
+              </span>
             </div>
-            <span className="text-lg font-bold text-[#131313]">4 out of 5</span>
           </div>
-          <div className="flex-1 w-full max-w-[400px]">
-            <p className="text-sm text-[#131313] mb-4 font-medium">
-              (10,653 Ratings)
-            </p>
-            <div className="space-y-3">
+
+          <div className="w-full max-w-[420px] lg:pt-0">
+            <p className="text-sm text-[#131313] mb-2 font-medium">(10,653 Ratings)</p>
+            <div className="space-y-2">
               {RATING_BARS.map(({ stars, percent, color }) => (
                 <div key={stars} className="flex items-center gap-3">
                   <span className="text-sm text-[#131313] w-14 shrink-0">
@@ -400,7 +416,7 @@ export default function Profile() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5 bg-gray-100 rounded-lg">
           {SAMPLE_REVIEWS.map((review, i) => (
             <article key={i} className=" bg-white p-4">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2 min-w-0 bg-gray-100 rounded-full p-2">
                   <svg
                     width="18"
@@ -423,8 +439,8 @@ export default function Profile() {
                   </span>
                 </div>
               </div>
-              <div className="flex flex-col gap-0.5 mb-2 ml-10">
-                <span className="text-sm font-bold text-[#131313] truncate mb-1">
+              <div className="flex flex-col gap-0.5 mb-1.5 ml-10">
+                <span className="text-sm font-bold text-[#131313] truncate">
                   {review.product}
                 </span>
                 <div className="flex items-center gap-0.5">
@@ -439,10 +455,10 @@ export default function Profile() {
                 {review.text}
               </p>
               <div className="flex gap-2 mb-3">
-                {[1, 2, 3, 4].map((j) => (
+                {CUSTOMER_REVIEW_IMAGES.map((src) => (
                   <img
-                    key={j}
-                    src={remoteGalleryImage(j + 40, 200)}
+                    key={src}
+                    src={src}
                     alt=""
                     className="w-14 h-14 rounded-lg border border-gray-200 bg-gray-100 shrink-0 object-cover"
                   />
@@ -467,9 +483,20 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="w-full overflow-hidden ">
-        <RelatedProductsCarousel title="Recently added from this Store" />
+      <div className="w-full overflow-x-visible overflow-y-visible">
+        <RelatedProductsCarousel
+          title="Recently added from this Store"
+          onProductClick={setQuickViewProduct}
+        />
       </div>
+
+      {quickViewProduct && (
+        <QuickViewModal
+          product={getProductDetail(quickViewProduct)}
+          onClose={() => setQuickViewProduct(null)}
+          onGoToProduct={() => setQuickViewProduct(null)}
+        />
+      )}
     </section>
   );
 }

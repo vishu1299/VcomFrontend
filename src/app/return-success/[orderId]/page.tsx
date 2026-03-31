@@ -102,26 +102,28 @@ export default function ReturnSuccessPage() {
               </div>
             </div>
 
-            {/* Right: Action buttons stacked, 300px width, aligned to end */}
-            <div className="flex flex-col gap-3 items-end">
+            {/* Right: Action buttons - mobile: Track Return full width, then two 50-50; web: stacked 300px right-aligned */}
+            <div className="flex flex-col gap-3 w-full lg:w-auto lg:items-end">
               <Link
                 href={`/return-details/${data.returnId}`}
-                className="min-h-[44px] w-[300px] rounded-[6px] text-sm font-medium bg-[#1E3A8A] text-white hover:opacity-90 flex items-center justify-center"
+                className="min-h-[44px] w-full lg:w-[300px] rounded-[6px] text-sm font-medium bg-[#1E3A8A] text-white hover:opacity-90 flex items-center justify-center"
               >
                 Track Return
               </Link>
-              <Link
-                href="/account/orders"
-                className="min-h-[44px] w-[300px] rounded-[6px] text-sm font-medium border border-[#D2D2D2] bg-white text-[#131313] hover:bg-gray-50 flex items-center justify-center"
-              >
-                Go to My Orders
-              </Link>
-              <Link
-                href="/product-list"
-                className="min-h-[44px] w-[300px] rounded-[6px] text-sm font-medium border border-[#D2D2D2] bg-white text-[#131313] hover:bg-gray-50 flex items-center justify-center"
-              >
-                Continue Shopping
-              </Link>
+              <div className="grid grid-cols-1 gap-3 lg:contents">
+                <Link
+                  href="/account/orders"
+                  className="min-h-[44px] w-full min-w-0 lg:w-[300px] rounded-[6px] text-sm font-medium border border-[#D2D2D2] bg-white text-[#131313] hover:bg-gray-50 flex items-center justify-center"
+                >
+                  Go to My Orders
+                </Link>
+                <Link
+                  href="/product-list"
+                  className="min-h-[44px] w-full min-w-0 lg:w-[300px] rounded-[6px] text-sm font-medium border border-[#D2D2D2] bg-white text-[#131313] hover:bg-gray-50 flex items-center justify-center"
+                >
+                  Continue Shopping
+                </Link>
+              </div>
             </div>
           </div>
 

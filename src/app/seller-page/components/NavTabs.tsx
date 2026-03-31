@@ -17,7 +17,7 @@ type NavTabsProps = {
 export default function NavTabs({ activeTab, onTabChange }: NavTabsProps) {
   return (
     <nav className="">
-      <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide py-3">
+      <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide py-0">
         {TABS.map((tab) => (
           <button
             key={tab}

@@ -48,21 +48,23 @@ export default function FashionCategoryCarousel({
           {categories.map((cat) => (
             <div
               key={cat.id}
-              className="max-w-[140px] sm:max-w-[180px] md:max-w-[200px] lg:max-w-[220px] shrink-0 snap-start flex flex-col bg-gray-100 rounded-xl border border-[#e5e7eb] shadow-sm overflow-hidden"
+              className="flex h-[268px] w-[140px] shrink-0 snap-start flex-col overflow-hidden rounded-xl border border-[#e5e7eb] bg-[#EFEFEF] shadow-sm sm:h-[292px] sm:w-[180px] md:h-[308px] md:w-[200px] lg:h-[324px] lg:w-[220px]"
             >
-              <div className="aspect-square bg-gray-100 flex items-center justify-center ">
+              {/* Same image box on every card; object-cover fills frame evenly */}
+              <div className="relative min-h-0 flex-1 overflow-hidden bg-[#EFEFEF]">
                 <img
                   src={cat.image}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="h-full w-full object-cover object-center"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
                       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop';
                   }}
                 />
               </div>
-              <div className="m-2 sm:m-3 bg-white rounded-lg p-1.5 sm:p-2 text-center">
-                <span className="text-[10px] sm:text-xs font-medium text-[#131313] line-clamp-2">
+              {/* Label strip pinned to bottom, fixed min-height so all cards align */}
+              <div className="flex min-h-[52px] shrink-0 items-center justify-center border-t border-[#e5e7eb] bg-white px-2 py-2 sm:min-h-[56px] sm:px-3 sm:py-2.5">
+                <span className="line-clamp-2 text-center text-[10px] font-semibold leading-tight text-[#131313] sm:text-xs">
                   {cat.label}
                 </span>
               </div>

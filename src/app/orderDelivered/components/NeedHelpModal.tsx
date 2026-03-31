@@ -176,8 +176,12 @@ export default function NeedHelpModal({ open, onClose }: NeedHelpModalProps) {
             {/* Right: File a Dispute */}
             <div className=" p-3">
               <h3 className="text-base font-bold text-[#131313] mb-4">File a Dispute</h3>
-              <p className="text-sm text-[#131313] mb-1">Order ID: #ORD-4349-3</p>
-              <p className="text-sm text-[#131313] mb-6">Product Name: IPhone 17 Pro Max 256GB</p>
+              <p className="mb-1 text-sm text-[#131313]">
+                Order ID: <span className="font-semibold">#ORD-4349-3</span>
+              </p>
+              <p className="mb-6 text-sm text-[#131313]">
+                Product Name: <span className="font-semibold">IPhone 17 Pro Max 256GB</span>
+              </p>
 
               <div className="mb-4" ref={issueTypeRef}>
                 <label htmlFor="issue-type" className="block text-sm font-medium text-[#131313] mb-2">

@@ -8,6 +8,8 @@ import { ChevronDown, Loader2 } from "lucide-react";
 const inputClass =
   "w-full min-h-[40px] px-3 py-2 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)]";
 const labelClass = "block text-sm font-medium mb-1.5";
+/** Form inputs: placeholder #767676, typed text black */
+const formInputClass = `${inputClass} text-black placeholder:text-[#767676]`;
 
 const CONTACT_CATEGORIES = [
   {
@@ -143,9 +145,10 @@ export default function SubmitTicketPage() {
 
               {/* Outer box: Full Name through Preferred contact method label */}
               <div
-                className="rounded-xl p-5 sm:p-6 border bg-white"
+                className="submit-ticket-form rounded-xl p-5 sm:p-6 border bg-white"
                 style={{ borderColor: "#D2D2D2", paddingBottom: "2.5rem" }}
               >
+                <style dangerouslySetInnerHTML={{ __html: ".submit-ticket-form input::placeholder, .submit-ticket-form textarea::placeholder { color: #767676; }" }} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className={labelClass} style={{ color: "#131313" }}>
@@ -155,7 +158,7 @@ export default function SubmitTicketPage() {
                       type="text"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className={inputClass}
+                      className={formInputClass}
                       required
                       placeholder="Enter Full Name"
                     />
@@ -168,7 +171,7 @@ export default function SubmitTicketPage() {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={inputClass}
+                      className={formInputClass}
                       required
                       placeholder="Enter Email"
                     />
@@ -197,7 +200,7 @@ export default function SubmitTicketPage() {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="flex-1 min-w-0 px-3 py-2 text-sm outline-none"
+                      className="flex-1 min-w-0 px-3 py-2 text-sm outline-none text-black placeholder:text-[#767676]"
                       placeholder="Enter Phone Number"
                     />
                   </div>
@@ -211,7 +214,7 @@ export default function SubmitTicketPage() {
                     type="text"
                     value={orderNumber}
                     onChange={(e) => setOrderNumber(e.target.value)}
-                    className={inputClass}
+                    className={formInputClass}
                     required
                     placeholder="Enter Order Number"
                   />
@@ -225,7 +228,7 @@ export default function SubmitTicketPage() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Write your issue"
-                    className="w-full h-[150px] px-3 py-2 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] resize-none"
+                    className="w-full h-[150px] px-3 py-2 text-sm text-black placeholder:text-[#767676] border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] resize-none"
                   />
                   <p
                     className="text-xs text-right mt-1"
@@ -273,9 +276,9 @@ export default function SubmitTicketPage() {
               </div>
 
               {/* Email option box - 300px wide, left-aligned with content, half in half outside outer box */}
-              <div className="pl-5 sm:pl-6 relative -mt-13 z-10">
+              <div className="pl-5 pr-5 sm:pl-6 sm:pr-0 relative -mt-13 z-10">
                 <label
-                  className="flex items-center justify-between gap-3 w-[300px] min-h-[48px] px-4 py-3 rounded-lg border bg-white cursor-pointer"
+                  className="flex items-center justify-between gap-3 w-full sm:w-[300px] min-h-[48px] px-4 py-3 rounded-lg border bg-white cursor-pointer"
                   style={{ borderColor: "#D2D2D2" }}
                 >
                   <span className="text-sm font-medium text-black">Email</span>

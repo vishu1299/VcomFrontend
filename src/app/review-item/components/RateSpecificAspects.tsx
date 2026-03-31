@@ -51,20 +51,20 @@ export default function RateSpecificAspects({
     <section className="mb-8">
       <h2 className="text-base font-bold text-[#131313]">
         Rate Specific Aspects{" "}
-        <span className="text-sm font-normal text-[#131313]">(Optional)</span>
+        <span className="text-sm font-normal text-[#767676]">(Optional)</span>
       </h2>
-      <p className="text-sm text-[#131313] mt-0.5 mb-4">
+      <p className="mt-0.5 mb-4 text-sm text-[#767676]">
         Tell us more about what worked (or didn&apos;t)
       </p>
-      <div className="space-y-4 w-[60%]">
+      <div className="w-full space-y-4 lg:w-[60%]">
         {ASPECTS.map((aspect) => {
           const value = ratings[aspect.id] ?? aspect.defaultRating;
           return (
             <div
               key={aspect.id}
-              className="flex items-center justify-between gap-4 flex-wrap border border-gray-200 rounded-lg p-2"
+              className="flex flex-col items-start gap-2 rounded-lg border border-gray-200 p-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
             >
-              <span className="text-sm text-[#131313]">{aspect.label}</span>
+              <span className="text-sm text-[#131313] sm:flex-1">{aspect.label}</span>
               <div
                 className="flex items-center gap-0.5"
                 role="group"

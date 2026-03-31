@@ -34,7 +34,7 @@ export default function ProductListPagination({
       <button
         type="button"
         onClick={noop}
-        className="flex items-center gap-1.5 h-9 px-3 rounded-lg text-[14px] font-medium border transition cursor-pointer shrink-0"
+        className="flex h-9 items-center gap-1.5 rounded-lg border px-2 text-[14px] font-medium transition cursor-pointer shrink-0 min-[381px]:px-3"
         style={{
           borderColor: '#D2D2D2',
           backgroundColor: '#F5F5F5',
@@ -42,8 +42,8 @@ export default function ProductListPagination({
         }}
         aria-label="Previous page"
       >
-        <ChevronLeft className="w-4 h-4" style={{ color: '#131313' }} />
-        Prev
+        <ChevronLeft className="h-4 w-4" style={{ color: '#131313' }} aria-hidden />
+        <span className="max-[380px]:hidden">Prev</span>
       </button>
       <div className="flex items-center gap-1">
         {pages.map((page) => (
@@ -66,11 +66,11 @@ export default function ProductListPagination({
       <button
         type="button"
         onClick={noop}
-        className="flex items-center gap-1.5 h-9 px-3 rounded-lg text-[14px] font-medium text-white bg-[#1e3a8a] hover:bg-[#1e40af] transition cursor-pointer shrink-0"
+        className="flex h-9 items-center gap-1.5 rounded-lg bg-[#1e3a8a] px-2 text-[14px] font-medium text-white transition cursor-pointer shrink-0 hover:bg-[#1e40af] min-[381px]:px-3"
         aria-label="Next page"
       >
-        Next
-        <ChevronRight className="w-4 h-4" />
+        <span className="max-[380px]:hidden">Next</span>
+        <ChevronRight className="h-4 w-4" aria-hidden />
       </button>
     </div>
   );

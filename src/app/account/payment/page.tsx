@@ -9,6 +9,8 @@ type PaymentType = 'card' | 'paypal' | 'netbanking';
 const inputClass =
   'w-full min-h-[40px] px-3 py-2 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)]';
 const labelClass = 'block text-sm font-medium text-[var(--color-black-01)] mb-1.5';
+/** Add payment modal: placeholder #767676, input value black */
+const modalInputClass = `${inputClass} text-black placeholder:text-[#767676]`;
 
 interface PaymentMethod {
   id: string;
@@ -107,19 +109,20 @@ function PaymentCard({
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 sm:shrink-0 sm:ml-4">
+      <div className="flex flex-row flex-wrap gap-2 sm:flex-col sm:shrink-0 sm:ml-4">
         <button
           type="button"
           onClick={() => onEdit(payment.id)}
-          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50"
+          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex-1 sm:flex-initial min-w-0 whitespace-nowrap"
         >
-          <Pencil className="w-4 h-4" />
-          Edit Payment
+          <Pencil className="w-4 h-4 shrink-0" />
+          <span className="max-[380px]:hidden">Edit Payment</span>
+          <span className="min-[381px]:hidden">Edit</span>
         </button>
         <button
           type="button"
           onClick={() => onDelete(payment.id)}
-          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-red-200 text-red-500 hover:bg-red-50 w-full sm:w-auto"
+          className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium border border-red-200 text-red-500 hover:bg-red-50 flex-1 sm:flex-initial min-w-0"
         >
           <Trash2 className="w-4 h-4 shrink-0" />
           Delete
@@ -175,9 +178,10 @@ function AddPaymentModal({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-xl w-full max-w-4xl min-h-[520px] max-h-[90vh] overflow-y-auto flex flex-col"
+        className="add-payment-modal bg-white rounded-2xl shadow-xl w-full max-w-4xl min-h-[520px] max-h-[90vh] overflow-y-auto flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
+        <style dangerouslySetInnerHTML={{ __html: '.add-payment-modal input::placeholder { color: #767676; }' }} />
         {/* Header: heading, subheading, close */}
         <div className="shrink-0 border-b border-[var(--color-border)] px-8 pt-6 pb-5 flex items-start justify-between">
           <div>
@@ -245,7 +249,7 @@ function AddPaymentModal({
                         type="text"
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
-                        className={inputClass}
+                        className={modalInputClass}
                         placeholder="Enter Card Number"
                         required
                       />
@@ -258,7 +262,7 @@ function AddPaymentModal({
                         type="text"
                         value={cardHolderName}
                         onChange={(e) => setCardHolderName(e.target.value)}
-                        className={inputClass}
+                        className={modalInputClass}
                         placeholder="Enter Card Holder Name"
                         required
                       />
@@ -271,7 +275,7 @@ function AddPaymentModal({
                         type="text"
                         value={expiry}
                         onChange={(e) => setExpiry(e.target.value)}
-                        className={inputClass}
+                        className={modalInputClass}
                         placeholder="Enter Expiry"
                         required
                       />
@@ -284,7 +288,7 @@ function AddPaymentModal({
                         type="text"
                         value={cvv}
                         onChange={(e) => setCvv(e.target.value)}
-                        className={inputClass}
+                        className={modalInputClass}
                         placeholder="Enter CVV"
                         required
                       />
@@ -303,7 +307,7 @@ function AddPaymentModal({
                       type="text"
                       value={paypalId}
                       onChange={(e) => setPaypalId(e.target.value)}
-                      className={inputClass}
+                      className={modalInputClass}
                       placeholder="Enter your PayPal ID or email"
                       required={paymentType === 'paypal'}
                     />
@@ -393,7 +397,7 @@ export default function PaymentMethodPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-[var(--color-black-01)] mb-1">

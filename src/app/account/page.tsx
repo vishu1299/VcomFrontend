@@ -30,7 +30,8 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
+      <style dangerouslySetInnerHTML={{ __html: `.account-page-phone-input::placeholder { color: #E7E7E7; }` }} />
       <h1 className="text-2xl font-bold text-[var(--color-black-01)] mb-1">
         Account Overview
       </h1>
@@ -68,7 +69,7 @@ export default function AccountPage() {
               {/* First Name */}
 
               <div className="flex flex-col gap-1">
-                <label className="text-[14px] font-medium">
+                <label className="text-[14px] font-medium text-black">
                   First Name <span className="text-red-500">*</span>
                 </label>
 
@@ -77,14 +78,15 @@ export default function AccountPage() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="input-design"
+                  className="input-design text-black placeholder:text-[#767676]"
+                  placeholder="Enter first name"
                 />
               </div>
 
               {/* Last Name */}
 
               <div className="flex flex-col gap-1">
-                <label className="text-[14px] font-medium">
+                <label className="text-[14px] font-medium text-black">
                   Last Name <span className="text-red-500">*</span>
                 </label>
 
@@ -93,14 +95,15 @@ export default function AccountPage() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="input-design"
+                  className="input-design text-black placeholder:text-[#767676]"
+                  placeholder="Enter last name"
                 />
               </div>
 
               {/* Phone */}
 
               <div className="flex flex-col gap-1">
-                <label className="text-[14px] font-medium">
+                <label className="text-[14px] font-medium text-black">
                   Phone Number <span className="text-red-500">*</span>
                 </label>
 
@@ -109,7 +112,7 @@ export default function AccountPage() {
                     name="countryCode"
                     value={formData.countryCode}
                     onChange={handleChange}
-                    className="w-[20%] min-h-[48px] pl-3 pr-8 py-3 bg-gray-50 outline-none border-r border-[var(--color-border-input)] appearance-none bg-no-repeat bg-[length:14px] bg-[right_8px_center]"
+                    className="w-[20%] min-h-[48px] pl-3 pr-8 py-3 bg-gray-50 outline-none border-r border-[var(--color-border-input)] appearance-none bg-no-repeat bg-[length:14px] bg-[right_8px_center] text-black"
                     style={{
                       backgroundImage:
                         "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
@@ -125,16 +128,16 @@ export default function AccountPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-[80%] min-h-[48px] px-4 py-3 outline-none"
+                    className="account-page-phone-input w-[80%] min-h-[48px] px-4 py-3 outline-none text-black placeholder:text-[767676]"
                     placeholder="Phone number"
                   />
                 </div>
               </div>
 
               {/* Email */}
-
+              
               <div className="flex flex-col gap-1">
-                <label className="text-[14px] font-medium">
+                <label className="text-[14px] font-medium text-black">
                   Email <span className="text-red-500">*</span>
                 </label>
 
@@ -143,7 +146,8 @@ export default function AccountPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="input-design"
+                  className="input-design text-black placeholder:text-[#E7E7E7]"
+                  placeholder="Enter email"
                 />
               </div>
             </div>
@@ -151,21 +155,18 @@ export default function AccountPage() {
             {/* Change Password */}
 
             <div>
-              <label className="block text-[14px] font-medium mb-2">
+              <label className="block text-[14px] font-medium mb-2 text-black">
                 Change Password
               </label>
 
-              <div className="flex items-center justify-between py-3 px-4 rounded-lg bg-gray-50 border border-[var(--color-border)]">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-9 h-9 rounded-md flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: "#E5E5E5" }}
-                  >
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3 px-4 rounded-lg bg-gray-50 border border-[var(--color-border)]">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-md flex items-center justify-center shrink-0 bg-[#E5E5E5]">
                     <Image src="/password.svg" alt="" width={20} height={20} />
                   </div>
 
                   <div>
-                    <p className="text-[14px] font-medium">Password</p>
+                    <p className="text-[14px] font-medium text-black">Password</p>
                     <p className="text-[12px] text-gray-500">
                       Last Changed 2 months ago
                     </p>
@@ -174,11 +175,7 @@ export default function AccountPage() {
 
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2 px-3 py-2 text-[14px] rounded-lg hover:opacity-90"
-                  style={{
-                    border: "1px solid #D2D2D2",
-                    backgroundColor: "white",
-                  }}
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-3 py-2 text-[14px] rounded-lg hover:opacity-90 border border-[#D2D2D2] bg-white text-black shrink-0 whitespace-nowrap"
                 >
                   <Image src="/pen.svg" alt="" width={16} height={16} />
                   Change

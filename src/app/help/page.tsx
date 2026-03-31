@@ -12,7 +12,7 @@ const CATEGORIES = [
   { id: 'billing', title: 'Billing & Payments', description: 'Invoices, payment methods, and billing', icon: '/bill.svg', href: '#' },
   { id: 'returns', title: 'Returns & Refunds', description: 'Return process, refunds, and exchanges', icon: '/refund.svg', href: '#' },
   { id: 'shipping', title: 'Shipping & Delivery', description: 'Tracking, delivery times, and shipping options', icon: '/delivery.svg', href: '#' },
-  { id: 'general', title: 'General FAQs', description: 'Account, security, and common questions', icon: '/faq.svg', href: '#' },
+  { id: 'general', title: 'General FAQs', description: 'Account, security, and common questions', icon: '/faq.svg', href: '/faq' },
   { id: 'ticket', title: 'Submit a Ticket', description: 'Can\'t find an answer? Submit a support ticket', icon: '/contact.svg', href: '/help/submit-ticket' },
   { id: 'contact', title: 'Contact Us', description: 'Get in touch with our support team', icon: '/contact.svg', href: '#' },
 ];
@@ -148,7 +148,7 @@ export default function HelpCenterPage() {
           </div>
 
           {/* Help Articles */}
-          <section>
+          <section id="faq">
             <h2 className="text-xl font-bold text-black mb-4">
               Help Articles
             </h2>

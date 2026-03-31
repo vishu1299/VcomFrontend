@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const STORED_CARDS = [
   { id: "axis", bankName: "Axis Bank", number: "3262", name: "Prateek Sharma", logo: "/images/axis.png" },
@@ -13,6 +14,10 @@ const CARD_LOGOS = [
   { id: "maestro", src: "/images/maestro.png", alt: "Maestro" },
   { id: "rupay", src: "/images/rupay.png", alt: "RuPay" },
 ];
+
+/** Net banking select + COD row: full width on mobile, same fixed max on lg */
+const paymentOptionBoxClass =
+  "relative w-full max-w-full lg:max-w-[280px]";
 
 function ChevronDownIcon() {
   return (
@@ -38,23 +43,28 @@ export default function PaymentMethodForm() {
           {STORED_CARDS.map((card) => (
             <label
               key={card.id}
-              className="flex items-center gap-4 p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:bg-gray-50/50 transition"
+              className="flex items-start gap-4 p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:bg-gray-50/50 transition"
             >
-              <div className="flex-1 min-w-0 grid grid-cols-1 sm:grid-cols-6 gap-3 sm:gap-4">
-                <div>
-                  <p className="text-xs text-gray-500 mb-0.5">Bank Name</p>
-                  <div className="flex items-center gap-2">
-                    <img src={card.logo} alt="" className="w-8 h-8 rounded-full object-contain shrink-0 bg-gray-100" />
-                    <span className="text-sm font-semibold text-[#131313]">{card.bankName}</span>
+              {/* Mobile: bank full width; Number + Name 50-50 row. sm+: 3 columns */}
+              <div className="grid min-w-0 flex-1 grid-cols-2 gap-x-2 gap-y-1.5 sm:grid-cols-3 sm:gap-6">
+                <div className="col-span-2 min-w-0 sm:col-span-1">
+                  <p className="mb-0.5 text-xs text-gray-500 sm:mb-1.5">Bank Name</p>
+                  <div className="flex items-center gap-2 sm:min-h-[40px]">
+                    <img src={card.logo} alt="" className="h-8 w-8 shrink-0 rounded-full bg-gray-100 object-contain" />
+                    <span className="truncate text-sm font-semibold text-[#131313]">{card.bankName}</span>
                   </div>
                 </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-0.5">Number</p>
-                  <p className="text-sm font-medium text-[#131313]">ending in {card.number}</p>
+                <div className="min-w-0">
+                  <p className="mb-0.5 text-xs text-gray-500 sm:mb-1.5">Number</p>
+                  <p className="flex items-center text-sm font-medium text-[#131313] sm:min-h-[40px]">
+                    XXXX {card.number}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-0.5">Name</p>
-                  <p className="text-sm font-medium text-[#131313]">{card.name}</p>
+                <div className="min-w-0">
+                  <p className="mb-0.5 text-xs text-gray-500 sm:mb-1.5">Name</p>
+                  <p className="flex items-center truncate text-sm font-medium text-[#131313] sm:min-h-[40px]">
+                    {card.name}
+                  </p>
                 </div>
               </div>
               <input
@@ -81,7 +91,9 @@ export default function PaymentMethodForm() {
                 key={card.id}
                 src={card.src}
                 alt={card.alt}
-                className="w-10 h-7 object-contain rounded border border-gray-200 bg-white shrink-0"
+                width={70}
+                height={40}
+                className="h-[40px] w-[70px] shrink-0 rounded border border-gray-200 bg-white object-contain"
               />
             ))}
           </div>
@@ -90,9 +102,9 @@ export default function PaymentMethodForm() {
         {/* Net Banking */}
         <div className="mb-4">
           <h3 className="text-base font-bold text-[#131313] mb-3 border-t border-gray-200 pt-2">Net Banking</h3>
-          <div className="relative">
+          <div className={paymentOptionBoxClass}>
             <select
-              className="w-[50%] pl-3 pr-10 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 appearance-none cursor-pointer"
+              className="w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white py-2.5 pl-3 pr-10 text-sm text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               defaultValue=""
             >
               <option value="" disabled>Choose Bank</option>
@@ -100,7 +112,7 @@ export default function PaymentMethodForm() {
               <option value="icici">ICICI Bank</option>
               <option value="sbi">State Bank of India</option>
             </select>
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
               <ChevronDownIcon />
             </span>
           </div>
@@ -109,7 +121,9 @@ export default function PaymentMethodForm() {
         {/* Cash on Delivery */}
         <div className="border-t border-gray-200 pt-2">
           <h3 className="text-base font-bold text-[#131313] mb-3">Cash on Delivery/Pay on Delivery</h3>
-          <label className="flex items-center justify-between gap-4 p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:bg-gray-50/50 transition w-[50%]">
+          <label
+            className={`flex cursor-pointer items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4 transition hover:bg-gray-50/50 ${paymentOptionBoxClass}`}
+          >
             <span className="text-sm font-medium text-[#131313]">Cash, UPI and cards accepted</span>
             <input
               type="radio"
@@ -120,6 +134,21 @@ export default function PaymentMethodForm() {
             />
           </label>
         </div>
+      </div>
+
+      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gray-200 pt-6">
+        <Link
+          href="/shipping"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-gray-300 bg-white px-6 text-sm font-semibold text-gray-800 transition hover:bg-gray-50"
+        >
+          Back to shipping
+        </Link>
+        <Link
+          href="/viewOrderDetails"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[#1e3a8a] px-8 text-sm font-semibold text-white transition hover:bg-[#1e3a8a]/90"
+        >
+          Place order
+        </Link>
       </div>
     </div>
   );

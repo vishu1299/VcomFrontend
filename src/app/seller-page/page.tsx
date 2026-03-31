@@ -24,7 +24,7 @@ export default function SellerPage() {
             case "Profile":
                 return <Profile />;
             case "FAQ's":
-                return <Faq/>;
+                return <Faq />;
             default:
                 return <>
                     <RecentlyAddedSection />
@@ -35,7 +35,7 @@ export default function SellerPage() {
     }
     return (
         <main className="page-text-black bg-gray-100 ">
-            <div className="mx-auto max-w-[1100px] px-4 sm:px-6 pb-4 sm:pb-6 overflow-x-hidden">
+            <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
                 <HeaderBanner />
                 <SellerProfileCard />
                 <NavTabs activeTab={activeTab} onTabChange={setActiveTab} />

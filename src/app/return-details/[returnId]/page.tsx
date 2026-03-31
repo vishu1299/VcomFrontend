@@ -119,7 +119,7 @@ export default function ReturnDetailsPage() {
                 </div>
                 <button
                   type="button"
-                  className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-[6px] text-sm font-medium border hover:opacity-90"
+                  className="w-fit shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-[6px] text-sm font-medium border hover:opacity-90"
                   style={{
                     borderColor: '#3581EA',
                     backgroundColor: '#F6F8FF',
@@ -183,53 +183,102 @@ export default function ReturnDetailsPage() {
             </div>
 
             <div className="border border-[#D2D2D2] rounded-lg bg-white p-6">
-              <div className="relative flex items-start">
-                <div
-                  className="absolute top-5 h-0.5 bg-[#1E3A8A]"
-                  style={{
-                    left: 'calc(7.14% + 1.25rem)',
-                    right: 'calc(7.14% + 1.25rem)',
-                  }}
-                  aria-hidden
-                />
-                {RETURN_STEPS.map((step) => (
-                  <div
-                    key={step.label}
-                    className="flex-1 flex flex-col items-center min-w-0 relative z-10"
-                  >
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                      style={{
-                        backgroundColor: step.isLast ? '#0C9200' : '#1E3A8A',
-                      }}
-                    >
-                      {step.icon === 'cart' && (
-                        <Image src="/cart.svg" alt="" width={20} height={20} />
-                      )}
-                      {step.icon === 'processing' && (
-                        <Image src="/processing.svg" alt="" width={20} height={20} />
-                      )}
-                      {step.icon === 'itemdelivery' && (
-                        <Image src="/Itemdelivery.svg" alt="" width={20} height={20} />
-                      )}
-                      {step.icon === 'check' && (
-                        <Image src="/check.svg" alt="" width={20} height={20} />
-                      )}
-                      {step.icon === 'tick' && (
-                        <Image src="/tick.svg" alt="" width={18} height={18} />
+              {/* Mobile: vertical timeline — steps on left, label+date on right */}
+              <div className="flex flex-col lg:hidden">
+                {RETURN_STEPS.map((step, index) => (
+                  <div key={step.label} className="flex items-start gap-3">
+                    <div className="flex flex-col items-center shrink-0">
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center"
+                        style={{
+                          backgroundColor: step.isLast ? '#0C9200' : '#1E3A8A',
+                        }}
+                      >
+                        {step.icon === 'cart' && (
+                          <Image src="/cart.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'processing' && (
+                          <Image src="/processing.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'itemdelivery' && (
+                          <Image src="/Itemdelivery.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'check' && (
+                          <Image src="/check.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'tick' && (
+                          <Image src="/tick.svg" alt="" width={18} height={18} />
+                        )}
+                      </div>
+                      {index < RETURN_STEPS.length - 1 && (
+                        <div
+                          className="w-0.5 flex-1 min-h-[12px] mt-1 bg-[#1E3A8A]"
+                          aria-hidden
+                        />
                       )}
                     </div>
-                    <p className="text-[10px] sm:text-xs font-semibold mt-2 text-[#131313] text-center">
-                      {step.label}
-                    </p>
-                    <p
-                      className="text-[10px] sm:text-xs mt-0.5 text-center"
-                      style={{ color: '#767676' }}
-                    >
-                      {step.date}
-                    </p>
+                    <div className="pt-1.5 min-w-0 pb-4">
+                      <p className="text-xs font-semibold text-[#131313]">
+                        {step.label}
+                      </p>
+                      <p className="text-xs mt-0.5" style={{ color: '#767676' }}>
+                        {step.date}
+                      </p>
+                    </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Web: horizontal stepper (unchanged) */}
+              <div className="hidden lg:block relative">
+                <div className="relative flex items-start">
+                  <div
+                    className="absolute top-5 h-0.5 bg-[#1E3A8A]"
+                    style={{
+                      left: 'calc(7.14% + 1.25rem)',
+                      right: 'calc(7.14% + 1.25rem)',
+                    }}
+                    aria-hidden
+                  />
+                  {RETURN_STEPS.map((step) => (
+                    <div
+                      key={step.label}
+                      className="flex-1 flex flex-col items-center min-w-[60px] relative z-10"
+                    >
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                        style={{
+                          backgroundColor: step.isLast ? '#0C9200' : '#1E3A8A',
+                        }}
+                      >
+                        {step.icon === 'cart' && (
+                          <Image src="/cart.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'processing' && (
+                          <Image src="/processing.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'itemdelivery' && (
+                          <Image src="/Itemdelivery.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'check' && (
+                          <Image src="/check.svg" alt="" width={20} height={20} />
+                        )}
+                        {step.icon === 'tick' && (
+                          <Image src="/tick.svg" alt="" width={18} height={18} />
+                        )}
+                      </div>
+                      <p className="text-[10px] sm:text-xs font-semibold mt-2 text-[#131313] text-center whitespace-nowrap">
+                        {step.label}
+                      </p>
+                      <p
+                        className="text-[10px] sm:text-xs mt-0.5 text-center whitespace-nowrap"
+                        style={{ color: '#767676' }}
+                      >
+                        {step.date}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
               <hr className="border-0 h-px bg-[#D2D2D2] my-4" />
               <p className="text-sm text-center" style={{ color: '#000000' }}>
@@ -279,9 +328,9 @@ function Row({
   multiline?: boolean;
 }) {
   return (
-    <div className="flex items-start justify-between gap-2 text-[#000000]">
+    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2 text-[#000000]">
       <span className="font-medium shrink-0">{label}</span>
-      <span className={`text-right min-w-0 ${multiline ? 'whitespace-pre-wrap' : ''}`}>{value}</span>
+      <span className={`text-left sm:text-right min-w-0 break-words ${multiline ? 'whitespace-pre-wrap' : ''}`}>{value}</span>
     </div>
   );
 }

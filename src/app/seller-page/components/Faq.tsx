@@ -90,7 +90,7 @@ export default function Faq() {
       <input
         type="text"
         placeholder="Search any question"
-        className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 mb-6"
+        className="w-full px-4 py-3 rounded-lg border border-[#D2D2D2] bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 mb-6"
       />
 
       <div className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide pb-2 mb-6">
@@ -101,7 +101,7 @@ export default function Faq() {
             onClick={() => setActiveTab(tab)}
             className={`text-sm font-medium whitespace-nowrap transition shrink-0 ${
               activeTab === tab
-                ? "text-[#131313] border-b-2 border-blue-600 pb-1"
+                ? "text-[#131313] border-b-2 border-[#1E3A8A] pb-1"
                 : "text-[#131313] hover:text-[#131313]"
             }`}
           >

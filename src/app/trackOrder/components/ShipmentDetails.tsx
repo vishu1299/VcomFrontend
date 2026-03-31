@@ -154,7 +154,17 @@ function DetailIcon({ name }: { name: string }) {
   return <LocationIcon />;
 }
 
-export default function ShipmentDetails() {
+type ShipmentDetailsProps = {
+  delivered?: boolean;
+};
+
+export default function ShipmentDetails({ delivered = false }: ShipmentDetailsProps) {
+  const detailsRows = DETAILS.map((row) =>
+    row.label === "Expected Delivery"
+      ? { ...row, label: delivered ? "Delivered on" : "Expected Delivery" }
+      : row
+  );
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(TRACKING_NUMBER);
@@ -170,12 +180,12 @@ export default function ShipmentDetails() {
       </h2>
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm p-4 sm:p-6">
         <dl className="space-y-4">
-          {DETAILS.map(({ label, value, icon, copyable }) => (
+          {detailsRows.map(({ label, value, icon, copyable }) => (
             <div key={label} className="flex items-start sm:items-center gap-3">
               <DetailIcon name={icon} />
               <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-4">
-                <dt className="text-sm text-[#131313] font-medium">{label}</dt>
-                <dd className="text-sm text-[#131313] flex items-center">
+                <dt className="text-sm font-normal text-[#131313]">{label}</dt>
+                <dd className="flex items-center text-sm font-semibold text-[#131313]">
                   {value}
                   {copyable && (
                     <button
