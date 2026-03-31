@@ -78,7 +78,7 @@ function MobileFooter() {
             <li><Link href="#" className="text-white hover:underline">Handmade & Artisanal</Link></li>
           </FooterSection>
           <FooterSection title="Help Center">
-            <li><Link href="#" className="text-white hover:underline">Help & FAQ</Link></li>
+            <li><Link href="/faq" className="text-white hover:underline">Help & FAQ</Link></li>
             <li><Link href="#" className="text-white hover:underline">Submit a Ticket</Link></li>
             <li><Link href="#" className="text-white hover:underline">Return Policy</Link></li>
             <li><Link href="#" className="text-white hover:underline">Terms & Condition</Link></li>
@@ -172,7 +172,7 @@ function DesktopFooter() {
         </FooterColumn>
 
         <FooterColumn title="Help Center">
-          <li><Link href="#" className="text-white hover:underline">Help & FAQ</Link></li>
+          <li><Link href="/faq" className="text-white hover:underline">Help & FAQ</Link></li>
           <li><Link href="#" className="text-white hover:underline">Submit a Ticket</Link></li>
           <li><Link href="#" className="text-white hover:underline">Return Policy</Link></li>
           <li><Link href="#" className="text-white hover:underline">Terms & Condition</Link></li>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Star,
   ChevronDown,
@@ -104,11 +105,20 @@ const MOCK_QA = [
 
 export default function ProductDescriptionTabs({
   product,
+  initialTab,
 }: {
   product: ProductDetail;
+  initialTab?: (typeof TABS)[number];
 }) {
-  const [activeTab, setActiveTab] =
-    useState<(typeof TABS)[number]>("Descriptions");
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>(
+    initialTab && TABS.includes(initialTab) ? initialTab : "Descriptions",
+  );
+
+  useEffect(() => {
+    const q = searchParams.get("tab");
+    if (q === "questions") setActiveTab("Questions");
+  }, [searchParams]);
   const [expandedQId, setExpandedQId] = useState<string | null>(
     MOCK_QA[0]?.id ?? null,
   );
@@ -127,7 +137,8 @@ export default function ProductDescriptionTabs({
 
   return (
     <div
-      className="rounded-xl overflow-hidden mt-6"
+      id="product-detail-tabs"
+      className="rounded-xl overflow-hidden mt-6 scroll-mt-24"
       style={{ fontFamily: "var(--font-poppins)" }}
     >
       {/* Tab navigation - single row on small screens with reduced size */}
@@ -417,7 +428,7 @@ export default function ProductDescriptionTabs({
             </div>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50"
             >
               <Plus className="w-4 h-4" /> Post your question
             </button>

@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -57,7 +58,12 @@ export default function ProductShowcase({
     colours,
     storageOptions,
     sellerName,
+    id: productId,
   } = product;
+  const sellerDisplay =
+    typeof sellerName === "string" && sellerName.trim().length > 0
+      ? sellerName.trim()
+      : "Urbantech";
   const discount = originalPrice
     ? Math.round((1 - price / originalPrice) * 100)
     : 0;
@@ -281,13 +287,13 @@ export default function ProductShowcase({
             </div>
             <button
               type="button"
-              className="h-8 px-4 rounded-lg border-2 border-[#2563eb] bg-white text-[#2563eb] font-semibold flex items-center gap-1.5 hover:bg-blue-50 text-xs"
+              className="min-h-[48px] sm:min-h-[52px] px-5 sm:px-7 rounded-lg border-2 border-[#2563eb] bg-white text-[#2563eb] font-semibold flex items-center justify-center gap-2 hover:bg-blue-50 text-sm sm:text-base"
             >
-              <ShoppingCart className="w-4 h-4" /> Add to Cart
+              <ShoppingCart className="w-5 h-5 shrink-0" /> Add to Cart
             </button>
             <button
               type="button"
-              className="h-8 px-4 rounded-lg bg-[#1e3a8a] text-white font-semibold hover:bg-[#1e3a8a]/90 text-xs"
+              className="min-h-[48px] sm:min-h-[52px] px-5 sm:px-7 rounded-lg bg-[#1e3a8a] text-white font-semibold hover:bg-[#1e3a8a]/90 text-sm sm:text-base"
             >
               Buy now
             </button>
@@ -303,10 +309,10 @@ export default function ProductShowcase({
                   <User className="w-4 h-4 text-gray-700" />
                 </div>
                 <span className="text-xs text-black">
-                  Sold by <span className="font-bold">{sellerName}</span>
+                  Sold by <span className="font-bold">{sellerDisplay}</span>
                 </span>
               </div>
-              <div className="flex gap-1.5">
+              <div className="flex flex-wrap gap-1.5">
                 <button
                   type="button"
                   className="text-xs font-medium text-gray-700 border border-gray-300 bg-white px-3 py-1.5 rounded-lg hover:bg-gray-50 flex items-center gap-1"
@@ -319,6 +325,18 @@ export default function ProductShowcase({
                 >
                   <Check className="w-3.5 h-3.5" /> Following
                 </button>
+                <Link
+                  href={`/products/${productId}?tab=questions`}
+                  className="text-xs font-semibold text-[#2563eb] border border-[#2563eb] bg-white px-3 py-1.5 rounded-lg hover:bg-blue-50 flex items-center gap-1"
+                >
+                  Post your question
+                </Link>
+                <Link
+                  href="/seller-page"
+                  className="text-xs font-semibold text-[#1e3a8a] border border-[#1e3a8a]/30 bg-white px-3 py-1.5 rounded-lg hover:bg-gray-50 flex items-center gap-1"
+                >
+                  View seller store
+                </Link>
               </div>
             </div>
           </div>

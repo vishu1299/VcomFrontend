@@ -185,6 +185,24 @@ export default function OrderDetailsContent() {
           </div>
         )}
       </div>
+
+      <div className="mt-8 flex flex-col gap-3 border-t border-gray-200 pt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <p className="text-sm font-medium text-[#131313]">What&apos;s next?</p>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/trackOrder"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-gray-300 bg-white px-5 text-sm font-semibold text-[#131313] transition hover:bg-gray-50"
+          >
+            Track order
+          </Link>
+          <Link
+            href="/orderDelivered"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-[#1e3a8a] px-5 text-sm font-semibold text-white transition hover:bg-[#1e3a8a]/90"
+          >
+            View delivered order
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

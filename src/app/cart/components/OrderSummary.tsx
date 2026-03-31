@@ -98,7 +98,7 @@ export function OrderSummary({ price, savings, delivery, total }: OrderSummaryPr
             color: '#1F1D2B',
           }}
         >
-          Continue
+          Continue to shipping
         </Link>
         <Link
           href="/product-list"

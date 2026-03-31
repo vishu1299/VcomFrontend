@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const STORED_CARDS = [
   { id: "axis", bankName: "Axis Bank", number: "3262", name: "Prateek Sharma", logo: "/images/axis.png" },
@@ -133,6 +134,21 @@ export default function PaymentMethodForm() {
             />
           </label>
         </div>
+      </div>
+
+      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gray-200 pt-6">
+        <Link
+          href="/shipping"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-gray-300 bg-white px-6 text-sm font-semibold text-gray-800 transition hover:bg-gray-50"
+        >
+          Back to shipping
+        </Link>
+        <Link
+          href="/viewOrderDetails"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[#1e3a8a] px-8 text-sm font-semibold text-white transition hover:bg-[#1e3a8a]/90"
+        >
+          Place order
+        </Link>
       </div>
     </div>
   );

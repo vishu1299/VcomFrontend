@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 function ChevronDownIcon() {
   return (
@@ -249,6 +250,21 @@ export default function ShippingForm() {
           </div>
         </div>
       </form>
+
+      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gray-200 pt-6">
+        <Link
+          href="/cart"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-gray-300 bg-white px-6 text-sm font-semibold text-gray-800 transition hover:bg-gray-50"
+        >
+          Back to cart
+        </Link>
+        <Link
+          href="/paymentMethod"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[#1e3a8a] px-8 text-sm font-semibold text-white transition hover:bg-[#1e3a8a]/90"
+        >
+          Continue to payment
+        </Link>
+      </div>
     </div>
   );
 }

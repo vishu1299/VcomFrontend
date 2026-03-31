@@ -460,7 +460,7 @@ function CartHoverDropdown({ cartCount }: { cartCount: number }) {
                   View Cart
                 </Link>
                 <Link
-                  href="/checkout"
+                  href="/shipping"
                   className="flex min-h-[40px] w-full items-center justify-center rounded-md text-[13px] font-semibold text-white transition hover:opacity-95"
                   style={{ backgroundColor: MAIN_BLUE }}
                 >
