@@ -97,16 +97,16 @@ export default function ExclusiveFilterSidebar({
         <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" role="presentation" onClick={onClose} onKeyDown={(e) => e.key === 'Escape' && onClose()} aria-hidden />
       )}
       <aside
-        className={`bg-[#fafaf8] overflow-y-auto shrink-0 rounded-b-xl ${
+        className={`bg-white overflow-y-auto shrink-0 ${
           onClose
-            ? `${!isOpen ? 'hidden lg:block' : 'block'} fixed lg:relative inset-y-0 left-0 lg:inset-auto w-full max-w-[85vw] sm:max-w-[300px] lg:max-w-none lg:w-[240px] xl:w-[260px] h-full max-h-screen lg:h-auto lg:max-h-none z-50 lg:z-auto shadow-xl lg:shadow-none border border-[var(--color-border)] lg:border-0`
-            : 'lg:w-[240px] xl:w-[260px] rounded-b-xl border border-[var(--color-border)]'
+            ? `${!isOpen ? 'hidden lg:block' : 'block'} fixed lg:relative inset-y-0 left-0 lg:inset-auto w-full max-w-[85vw] sm:max-w-[300px] lg:max-w-none lg:w-[240px] xl:w-[260px] h-full max-h-screen lg:h-auto lg:max-h-none z-50 lg:z-auto rounded-t-xl lg:rounded-xl border border-[var(--color-border)] lg:border-[#e5e7eb] shadow-xl lg:shadow-sm`
+            : 'lg:w-[240px] xl:w-[260px] rounded-xl border border-[#e5e7eb] shadow-sm'
         }`}
         style={{ fontFamily: 'var(--font-poppins)' }}
         aria-label="Filters"
       >
         {/* Header: Filters (bold) | Clear All (red) */}
-        <div className="sticky top-0 bg-[#fafaf8] z-10 border-b border-[var(--color-border)] px-3 py-3">
+        <div className="sticky top-0 bg-white z-10 border-b border-[var(--color-border)] px-3 py-3">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-[14px] sm:text-[15px]" style={{ color: SIDEBAR.text }}>
               Filters
@@ -124,7 +124,7 @@ export default function ExclusiveFilterSidebar({
           </div>
         </div>
 
-        <div className="px-3 py-4 flex flex-col gap-7 bg-[#fafaf8]">
+        <div className="px-3 py-4 flex flex-col gap-7 bg-white">
           {/* Categories */}
           <section>
             <h4 className="font-bold text-[13px] sm:text-[14px] mb-2.5" style={{ color: SIDEBAR.text }}>

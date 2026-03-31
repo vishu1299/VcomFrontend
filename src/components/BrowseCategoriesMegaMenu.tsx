@@ -275,7 +275,7 @@ export function BrowseCategoriesBarRow({ children }: { children: React.ReactNode
                   className="w-[272px] shrink-0 border-r border-[#e5e7eb] bg-white py-2 sm:w-[280px]"
                   aria-label="Main categories"
                 >
-                  <ul className="flex flex-col gap-0.5 px-1">
+                  <ul className="flex flex-col gap-0.5 px-5">
                     {BROWSE_MEGA_DATA.map((cat) => {
                       const Icon = cat.icon;
                       const isActive = cat.id === activeId;
@@ -286,7 +286,7 @@ export function BrowseCategoriesBarRow({ children }: { children: React.ReactNode
                             onMouseEnter={() => setActiveId(cat.id)}
                             onFocus={() => setActiveId(cat.id)}
                             onClick={() => setActiveId(cat.id)}
-                            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-[#131313] transition sm:text-[14px] ${
+                            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[12px] font-medium text-[#131313] transition sm:text-[13px] ${
                               isActive
                                 ? 'bg-[#eff6ff] text-[#131313]'
                                 : 'hover:bg-[#f9fafb]'
@@ -322,7 +322,7 @@ export function BrowseCategoriesBarRow({ children }: { children: React.ReactNode
                           key={sub.label}
                           href="/product-list"
                           onClick={close}
-                          className="inline-flex items-center gap-2 rounded-full border border-transparent bg-[#f3f4f6] px-3 py-2 text-[12px] font-medium text-[#131313] transition hover:border-[#e5e7eb] hover:bg-[#e5e7eb]/60 sm:px-3.5 sm:text-[13px]"
+                          className="inline-flex items-center gap-2 rounded-lg border border-transparent bg-[#eff6ff] px-3 py-2 text-[12px] font-medium text-[#131313] transition hover:border-[#e5e7eb] hover:bg-[#eff6ff]/60 sm:px-3.5 sm:text-[13px]"
                         >
                           <SubIcon
                             className="h-4 w-4 shrink-0 text-[#131313]/70"
@@ -334,15 +334,6 @@ export function BrowseCategoriesBarRow({ children }: { children: React.ReactNode
                         </Link>
                       );
                     })}
-                  </div>
-                  <div className="mt-5 border-t border-[#e5e7eb] pt-4">
-                    <Link
-                      href="/product-categories"
-                      onClick={close}
-                      className="text-[13px] font-medium text-[#1E3A8A] hover:underline"
-                    >
-                      View all categories
-                    </Link>
                   </div>
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import ShareIconImg from '@/components/ShareIconImg';
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 
@@ -111,7 +112,7 @@ function OrderCardActions({ order }: { order: OrderItem }) {
   const { status } = order;
   if (status === 'IN TRANSIT') {
     return (
-      <div className="flex flex-col gap-2 w-[280px] shrink-0">
+      <div className="flex flex-col gap-2 w-full sm:w-[280px] shrink-0">
         <button
           type="button"
           className={`w-full ${btnHeight} px-4 ${btnRadius} text-sm font-medium bg-[var(--color-main-blue)] text-white hover:opacity-90 flex items-center justify-center`}
@@ -121,15 +122,17 @@ function OrderCardActions({ order }: { order: OrderItem }) {
         <div className="flex gap-1 w-full">
           <Link
             href={`/return-item/${order.id}`}
-            className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
+            className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center whitespace-nowrap`}
           >
-            View Order Details
+            <span className="max-[480px]:hidden">View Order Details</span>
+            <span className="min-[481px]:hidden">View Details</span>
           </Link>
           <Link
             href={`/cancel-order/${order.id}`}
-            className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-red-300 text-red-500 hover:bg-red-50 flex items-center justify-center`}
+            className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-red-300 text-red-500 hover:bg-red-50 flex items-center justify-center whitespace-nowrap`}
           >
-            Cancel Order
+            <span className="max-[480px]:hidden">Cancel Order</span>
+            <span className="min-[481px]:hidden">Cancel</span>
           </Link>
         </div>
       </div>
@@ -137,7 +140,7 @@ function OrderCardActions({ order }: { order: OrderItem }) {
   }
   if (status === 'RETURNED') {
     return (
-      <div className="flex flex-col gap-2 w-[280px] shrink-0">
+      <div className="flex flex-col gap-2 w-full sm:w-[280px] shrink-0">
         <Link
           href={`/return-details/${order.id}`}
           className={`w-full ${btnHeight} px-4 ${btnRadius} text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
@@ -147,9 +150,10 @@ function OrderCardActions({ order }: { order: OrderItem }) {
         <div className="flex gap-1 w-full">
           <Link
             href={`/return-item/${order.id}`}
-            className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
+            className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center whitespace-nowrap`}
           >
-            View Order Details
+            <span className="max-[480px]:hidden">View Order Details</span>
+            <span className="min-[481px]:hidden">View Order</span>
           </Link>
           <button
             type="button"
@@ -164,7 +168,7 @@ function OrderCardActions({ order }: { order: OrderItem }) {
   }
   // SHIPPED | DELIVERED | CANCELLED
   return (
-    <div className="flex flex-col gap-2 w-[280px] shrink-0">
+    <div className="flex flex-col gap-2 w-full sm:w-[280px] shrink-0">
       <button
         type="button"
         className={`w-full ${btnHeight} px-4 ${btnRadius} text-sm font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
@@ -174,9 +178,10 @@ function OrderCardActions({ order }: { order: OrderItem }) {
       <div className="flex gap-1 w-full">
         <Link
           href={`/return-item/${order.id}`}
-          className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center`}
+          className={`flex-1 min-w-0 px-2 ${btnHeight} ${btnRadius} text-xs font-medium border border-[var(--color-border)] text-[var(--color-black-01)] hover:bg-gray-50 flex items-center justify-center whitespace-nowrap`}
         >
-          View Order Details
+          <span className="max-[480px]:hidden">View Order Details</span>
+          <span className="min-[481px]:hidden">View Order</span>
         </Link>
         <button
           type="button"
@@ -197,7 +202,8 @@ export default function MyOrdersPage() {
   const [orders] = useState<OrderItem[]>(MOCK_ORDERS);
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
+      <style dangerouslySetInnerHTML={{ __html: `.orders-search-input::placeholder { color: #767676; }` }} />
       {/* Same row: left = title + subtext, right = search + Date + Price */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
         <div>
@@ -215,7 +221,7 @@ export default function MyOrdersPage() {
               placeholder="Search product"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full min-h-[40px] pl-3 pr-10 py-2 text-sm border border-[var(--color-border-input)] rounded-lg outline-none focus:border-[var(--color-main-blue)]"
+              className="orders-search-input w-full min-h-[40px] pl-3 pr-10 py-2 text-sm text-black border border-[var(--color-border-input)] rounded-lg outline-none focus:border-[var(--color-main-blue)]"
             />
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted-alt-2)] pointer-events-none" />
           </div>
@@ -226,7 +232,7 @@ export default function MyOrdersPage() {
             <select
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
-              className="min-h-[40px] pl-3 pr-10 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] appearance-none bg-no-repeat bg-[length:16px_16px]"
+              className="min-h-[40px] pl-3 pr-10 text-sm text-black border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] appearance-none bg-no-repeat bg-[length:16px_16px]"
               style={{
                 backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%236b7280\' stroke-width=\'2\'%3E%3Cpath d=\'M6 9l6 6 6-6\'/%3E%3C/svg%3E")',
                 backgroundPosition: 'right 12px center',
@@ -245,7 +251,7 @@ export default function MyOrdersPage() {
             <select
               value={priceFilter}
               onChange={(e) => setPriceFilter(e.target.value)}
-              className="min-h-[40px] pl-3 pr-8 text-sm border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] appearance-none bg-no-repeat bg-[length:16px] bg-[right_10px_center]"
+              className="min-h-[40px] pl-3 pr-8 text-sm text-black border border-[var(--color-border-input)] rounded-lg bg-white outline-none focus:border-[var(--color-main-blue)] appearance-none bg-no-repeat bg-[length:16px] bg-[right_10px_center]"
               style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%236b7280\' stroke-width=\'2\'%3E%3Cpath d=\'M6 9l6 6 6-6\'/%3E%3C/svg%3E")' }}
             >
               <option value="Above $1000">Above $1000</option>
@@ -276,17 +282,17 @@ export default function MyOrdersPage() {
             <div className="px-4 pb-4 flex flex-col sm:flex-row gap-4">
               <div className="flex gap-4 flex-1 min-w-0">
                 {/* Product image */}
-                <div className="shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-lg bg-gray-100 overflow-hidden relative">
+                <div className="shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-lg bg-white-100 overflow-hidden relative">
                   <Image
                     src={order.productImage}
                     alt={order.productName}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
                 {/* Product details: name, price, then color/qty row, then share row, then order date */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[var(--color-black-01)]">
+                  <p className="text-sm font-medium text-[var(--color-black-01)] line-clamp-2 sm:line-clamp-none">
                     {order.productName}
                   </p>
                   <p className="text-sm font-semibold text-[var(--color-main-blue)] mt-1">
@@ -312,7 +318,7 @@ export default function MyOrdersPage() {
                         style={{ backgroundColor: '#F3F7FA' }}
                         aria-label="Share"
                       >
-                        <Image src="/share.svg" alt="" width={20} height={20} />
+                        <ShareIconImg className="w-5 h-5" size={20} />
                       </button>
                     </div>
                   </div>
@@ -321,24 +327,24 @@ export default function MyOrdersPage() {
                   </p>
                 </div>
               </div>
-              {/* Right side: primary button (full width), then two buttons 50-50 */}
-              <div className="flex flex-col justify-start items-end sm:items-stretch">
+              {/* Right side: full width on mobile, fixed width on web */}
+              <div className="flex flex-col justify-start w-full sm:w-auto items-stretch">
                 <OrderCardActions order={order} />
               </div>
             </div>
 
-            {/* Bottom: Total (left) and Download Invoice (right), bg #F3F7FA */}
+            {/* Bottom: Total and Download Invoice - one row on mobile, same on web */}
             <div
-              className="border-t border-[var(--color-border)] px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+              className="border-t border-[var(--color-border)] px-4 py-3 flex flex-row flex-nowrap items-center justify-between gap-2"
               style={{ backgroundColor: '#F3F7FA' }}
             >
-              <p className="text-base font-bold">
+              <p className="text-xs min-[381px]:text-sm sm:text-base font-bold shrink-0">
                 <span style={{ color: '#000000' }}>Total: </span>
                 <span style={{ color: '#131313' }}>{order.total}</span>
               </p>
               <button
                 type="button"
-                className="inline-flex items-center justify-center gap-2 min-h-[40px] h-[40px] px-4 rounded-[6px] text-sm font-medium border w-fit hover:opacity-90"
+                className="inline-flex items-center justify-center gap-1 sm:gap-2 min-h-[34px] h-[34px] min-[381px]:min-h-[36px] min-[381px]:h-[36px] sm:min-h-[40px] sm:h-[40px] px-2 min-[381px]:px-3 sm:px-4 rounded-[6px] text-[10px] min-[381px]:text-xs sm:text-sm font-medium border w-fit hover:opacity-90 shrink-0 whitespace-nowrap"
                 style={{
                   borderColor: '#3581EA',
                   color: '#3581EA',
@@ -346,7 +352,8 @@ export default function MyOrdersPage() {
                 }}
               >
                 <Image src="/invoice.svg" alt="" width={20} height={20} />
-                Download Invoice
+                <span className="max-[380px]:hidden">Download Invoice</span>
+                <span className="min-[381px]:hidden">Invoice</span>
               </button>
             </div>
           </div>

@@ -76,25 +76,25 @@ export default function AllLiveNowPage() {
 
                 {activeTab === 'live-now' ? (
                     <>
-                        <div className="bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-6">
+                        <div className="bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-5 shadow-sm">
                             <StoreHeader
                                 storeName="UrbanTech"
                                 handle="@urbantechco"
                                 profileImage="/images/profile.png"
                             />
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 mt-3 sm:mt-4">
                                 {paginatedLiveProducts.slice(0, 4).map((product) => (
                                     <LiveNowProductCard key={product.id} {...product} />
                                 ))}
                             </div>
                         </div>
-                        <div className="mt-4 sm:mt-6 bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-6">
+                        <div className="mt-3 sm:mt-5 bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-5 shadow-sm">
                             <StoreHeader
                                 storeName="UrbanTech"
                                 handle="@urbantechco"
                                 profileImage="/images/profile.png"
                             />
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 mt-3 sm:mt-4">
                                 {paginatedLiveProducts.map((product) => (
                                     <LiveNowProductCard key={product.id} {...product} />
                                 ))}
@@ -102,13 +102,13 @@ export default function AllLiveNowPage() {
                         </div>
                     </>
                 ) : (
-                    <div className="p-4 sm:p-6">
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+                    <div className="bg-white rounded-xl sm:rounded-2xl border border-[#e5e7eb] p-4 sm:p-6 shadow-sm">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
                             {paginatedUpcomingProducts.map((product) => (
                                 <UpcomingLiveCard key={product.id} {...product} />
                             ))}
                         </div>
-                        <div className="mt-6 flex justify-center">
+                        <div className="mt-5 sm:mt-6 flex justify-center">
                             <button
                                 type="button"
                                 className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[var(--color-main-blue)] hover:underline"

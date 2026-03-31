@@ -5,6 +5,7 @@ import { X, Camera, Plus } from "lucide-react";
 
 const REPORT_REASONS = [
   "Incorrect or misleading information",
+  "False or misleading product name",
   "Prohibited or illegal product",
   "Duplicate listing",
   "Fake or misleading images",
@@ -94,6 +95,15 @@ export default function ReportProductModal({
         <p className="text-xs sm:text-sm text-gray-600 mt-1 mb-4 sm:mb-6">
           Help us keep the marketplace safe and accurate.
         </p>
+
+        <div className="mb-4 sm:mb-6 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 sm:px-4 sm:py-3">
+          <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-gray-500">
+            Product you are reporting
+          </p>
+          <p className="text-sm sm:text-base font-semibold text-[#131313] mt-0.5 break-words">
+            {productName}
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Select Reason - 2 boxes per row on all screens */}

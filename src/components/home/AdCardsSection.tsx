@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Headphones } from 'lucide-react';
+import Link from 'next/link';
 
 const cards = [
   {
@@ -31,23 +31,33 @@ export default function AdCardsSection() {
         {cards.map((card, i) => (
           <article
             key={i}
-            className="bg-white rounded-[12px] sm:rounded-[16px] p-4 sm:p-5 lg:p-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 overflow-hidden shadow-sm border border-[var(--color-border)] min-h-[280px] sm:min-h-[300px] lg:min-h-[320px]"
+            className="flex min-h-[280px] flex-col items-stretch overflow-hidden rounded-[12px] border border-[var(--color-border)] bg-white shadow-sm sm:min-h-[300px] sm:flex-row sm:items-center sm:rounded-[16px] lg:min-h-[320px]"
           >
-            {/* Left: Text content — ~55–60% width on desktop */}
-            <div className="flex-1 min-w-0 flex flex-col justify-center order-2 sm:order-1">
-              {/* ADVERTISEMENT badge — Figma: 12px, #F5B700, white, px-3 py-1 rounded */}
-              <span
-                className="inline-block text-design-12 font-medium text-white px-3 py-1 rounded w-fit mb-4"
-                style={{ backgroundColor: 'var(--color-ad-badge)' }}
-              >
-                {card.tag}
+            <div className="order-2 flex min-w-0 flex-1 flex-col justify-center px-4 py-5 sm:order-1 sm:px-5 sm:py-6 lg:px-6">
+              <span className="relative mb-4 inline-flex w-fit">
+                <span
+                  className="absolute left-1 top-1 h-full w-full rounded-[2px]"
+                  style={{ backgroundColor: '#E5AB00' }}
+                  aria-hidden
+                />
+                <span
+                  className="relative inline-block rounded-[2px] px-3 py-1 text-design-12 font-semibold uppercase tracking-wide text-white"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, #B48100 0%, #FFB600 100%)',
+                  }}
+                >
+                  {card.tag}
+                </span>
               </span>
 
-              {/* Brand: icon + name — 14px, font-medium, 16px below badge */}
-              <div className="flex items-center gap-1.5 mb-2">
-                <Headphones
-                  className="w-4 h-4 text-[var(--color-black)] shrink-0"
-                  strokeWidth={2}
+              <div className="mb-2 flex items-center gap-1.5">
+                <Image
+                  src="/images/dashboard12.png"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="h-4 w-4 shrink-0 object-contain"
                   aria-hidden
                 />
                 <span className="text-design-14 font-medium text-[var(--color-black)]">
@@ -55,59 +65,59 @@ export default function AdCardsSection() {
                 </span>
               </div>
 
-              {/* Title — Line 1: 18px (card1) / 16px (card2), Line 2: 24px, 16px above buttons */}
               <div className="mb-4">
                 <span
-                  className={`block font-semibold text-[var(--color-black)] leading-tight ${
+                  className={`block font-semibold leading-tight text-[var(--color-black)] ${
                     i === 0 ? 'text-design-18' : 'text-design-16'
                   }`}
                 >
                   {card.titleLine1}
                 </span>
-                <span className="block text-design-24 font-semibold text-[var(--color-black)] leading-tight">
+                <span className="block text-design-24 font-semibold leading-tight text-[var(--color-black)]">
                   {card.titleLine2}
                 </span>
               </div>
 
-              {/* Buttons — Order Now + Explore more, 12px gap, min-h-40px */}
-              <div className="flex flex-col sm:flex-col gap-3">
-                <button
-                  type="button"
-                  className="min-h-[40px] px-6 py-2 rounded text-design-14 font-medium text-white bg-[var(--color-main-blue)] hover:opacity-95 transition w-fit"
+              <div className="flex flex-col gap-3 sm:flex-col">
+                <Link
+                  href="/product-list"
+                  className="inline-flex min-h-[40px] w-fit items-center justify-center rounded px-6 py-2 text-design-14 font-medium text-white transition hover:opacity-95 bg-[var(--color-main-blue)]"
                 >
                   Order Now
-                </button>
-                <button
-                  type="button"
-                  className="min-h-[40px] px-6 py-2 rounded text-design-14 font-medium text-[var(--color-main-blue)] bg-transparent border border-[var(--color-main-blue)] hover:bg-[var(--color-main-blue)]/5 transition w-fit"
+                </Link>
+                <Link
+                  href="/product-list"
+                  className="inline-flex min-h-[40px] w-fit items-center justify-center rounded border border-[var(--color-main-blue)] bg-transparent px-6 py-2 text-design-14 font-medium text-[var(--color-main-blue)] transition hover:bg-[var(--color-main-blue)]/5"
                 >
                   Explore more
-                </button>
+                </Link>
               </div>
             </div>
 
-            {/* Right: Image + decorative shape — ~40–45% width. overflow-hidden on mobile/tablet only to prevent shape bleeding into text */}
-            <div className="relative w-full sm:w-[45%] lg:w-[50%] min-h-[180px] sm:min-h-[160px] lg:min-h-[200px] flex-shrink-0 order-1 sm:order-2 flex items-center justify-end overflow-hidden lg:overflow-visible">
-              {/* Decorative shape — organic blob from bottom-right, Figma reference */}
+            {/* Right: image + shape on their own white panel */}
+            <div className="relative order-1 flex min-h-[180px] w-full shrink-0 items-center justify-center overflow-hidden bg-white px-4 py-4 sm:order-2 sm:min-h-[200px] sm:w-[45%] sm:justify-end sm:px-3 lg:w-[50%] lg:overflow-visible lg:px-4">
               <div
-                className="absolute w-[140%] h-[140%] -right-[55%] -bottom-[75%] rounded-[70%_20%_70%_30%] opacity-90"
+                className="absolute -bottom-[75%] -right-[55%] h-[140%] w-[140%] rounded-[70%_20%_70%_30%] opacity-90"
                 style={{ backgroundColor: card.shapeColor }}
                 aria-hidden
               />
 
-              {/* Image container — Figma: headset 206×250, beauty 528×352 left -62px */}
               <div
                 className={`relative z-10 ${
                   i === 0
-                    ? 'w-[140px] h-[170px] sm:w-[160px] sm:h-[195px] lg:w-[206px] lg:h-[250px]'
-                    : 'w-[180px] h-[120px] sm:w-[220px] sm:h-[147px] lg:w-[280px] lg:h-[187px] lg:-ml-[62px]'
+                    ? 'h-[170px] w-[140px] sm:h-[195px] sm:w-[160px] lg:h-[250px] lg:w-[206px]'
+                    : 'h-[120px] w-[180px] sm:h-[147px] sm:w-[220px] lg:-ml-[62px] lg:h-[187px] lg:w-[280px]'
                 }`}
               >
                 <Image
                   src={card.image}
                   alt={card.imageAlt}
                   fill
-                  className={i === 0 ? 'object-contain object-right' : 'object-cover object-left'}
+                  className={
+                    i === 0
+                      ? 'object-contain object-right'
+                      : 'object-cover object-left'
+                  }
                   sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 280px"
                 />
               </div>

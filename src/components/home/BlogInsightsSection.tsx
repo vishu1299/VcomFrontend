@@ -45,16 +45,17 @@ export default function BlogInsightsSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         {posts.map((post, i) => (
-          <article
+          <Link
             key={i}
-            className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-sm hover:shadow transition flex flex-col"
+            href="/blogs"
+            className="overflow-hidden flex flex-col rounded-xl transition hover:opacity-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1E3A8A]"
           >
-            <div className="relative aspect-[5/3] bg-[var(--color-border)]">
+            <div className="relative aspect-[5/3] bg-[var(--color-border)] ">
               <Image
                 src={post.image}
                 alt=""
                 fill
-                className="object-cover"
+                className="object-cover rounded-l-xl rounded-lb-xl"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
@@ -67,20 +68,34 @@ export default function BlogInsightsSection() {
               <h3 className="text-design-16 sm:text-design-18 font-semibold text-[var(--color-black)] line-clamp-3 mb-3 flex-1">
                 {post.title}
               </h3>
-              <div className="flex items-center gap-2 text-design-14 text-[var(--color-muted-alt-2)]">
-                <span className="w-6 h-6 rounded-full bg-[var(--color-main-blue)] shrink-0" />
-                <span>VBCOntact</span>
-                <span>By {post.author}</span>
-                <span>{post.date}</span>
+              <div className="mt-auto flex flex-col gap-1.5 text-design-14 text-[var(--color-muted-alt-2)]">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <Image
+                      src="/images/urban.png"
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 shrink-0 rounded-full object-cover"
+                    />
+                    <span className="truncate">VBCOntact</span>
+                  </div>
+                  <span className="shrink-0 text-[13px] sm:text-design-14">
+                    {post.date}
+                  </span>
+                </div>
+                <span className="text-[13px] sm:text-design-14">
+                  By {post.author}
+                </span>
               </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
 
       <div className="text-center mt-6 sm:mt-8">
         <Link
-          href="#"
+          href="/blogs"
           className="text-design-14 sm:text-design-16 font-medium text-[var(--color-black)] hover:underline"
         >
           View all

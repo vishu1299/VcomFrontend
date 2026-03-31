@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { BadgeCheck } from "lucide-react";
 import { REMOTE_IMG } from "@/lib/remoteAssets";
+import ShareIconImg from "@/components/ShareIconImg";
 
 const ELITE_STORE_GRADIENT =
   "linear-gradient(to right, #D4AF37 0%, #FFECAF 53%, #E9CE73 100%)";
@@ -34,24 +35,6 @@ function ChatIcon() {
       strokeLinejoin="round"
     >
       <path d="M6.73594 17.8412C8.64452 18.8203 10.84 19.0855 12.9268 18.589C15.0136 18.0925 16.8545 16.8671 18.1177 15.1334C19.3809 13.3998 19.9834 11.2719 19.8165 9.13339C19.6497 6.99485 18.7245 4.9862 17.2077 3.46943C15.691 1.95265 13.6823 1.02748 11.5438 0.86065C9.40523 0.693815 7.27741 1.29628 5.54376 2.55948C3.81011 3.82268 2.58463 5.66354 2.08816 7.75035C1.59169 9.83715 1.85688 12.0327 2.83594 13.9412L0.835938 19.8412L6.73594 17.8412Z" />
-    </svg>
-  );
-}
-
-function ShareIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <circle cx="18" cy="5" r="3" />
-      <circle cx="6" cy="12" r="3" />
-      <circle cx="18" cy="19" r="3" />
-      <path d="m8.59 13.51 6.82 3.98M15.41 6.51l-6.82 3.98" />
     </svg>
   );
 }
@@ -130,7 +113,10 @@ function ShareModal({
           </svg>
         </button>
 
-        <h3 className="text-sm font-bold text-[#131313] mb-2">Share via</h3>
+        <h3 className="flex items-center gap-2 text-sm font-bold text-[#131313] mb-2">
+          <ShareIconImg className="w-4 h-4" size={18} />
+          Share via
+        </h3>
         <div className="flex gap-2 mb-4">
           {SOCIAL_ICONS.map(({ name, bg, label }) => (
             <button
@@ -471,7 +457,7 @@ export default function SellerProfileCard() {
                     onClick={() => setShareModalOpen(true)}
                     className="inline-flex items-center gap-2 border border-gray-300 text-[#131313] text-sm font-medium px-4 py-2.5 rounded-lg hover:bg-gray-50 transition"
                   >
-                    <ShareIcon />
+                    <ShareIconImg className="w-[18px] h-[18px]" size={18} />
                     Share
                   </button>
                   <button

@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 type SectionHeaderProps = {
   title: string;
+  /** When omitted, the “View all” link is hidden (avoids dead `#` links). */
   viewAllHref?: string;
   viewAllLabel?: string;
   icon?: React.ReactNode;
@@ -11,7 +12,7 @@ type SectionHeaderProps = {
 
 export default function SectionHeader({
   title,
-  viewAllHref = '#',
+  viewAllHref,
   viewAllLabel = 'View All',
   icon,
 }: SectionHeaderProps) {
@@ -21,14 +22,14 @@ export default function SectionHeader({
         {icon && <span className="shrink-0">{icon}</span>}
         <span className="truncate">{title}</span>
       </h2>
-      {viewAllHref && (
+      {viewAllHref ? (
         <Link
           href={viewAllHref}
           className="text-design-14 sm:text-design-16 font-medium text-[var(--color-main-blue)] hover:underline shrink-0"
         >
           {viewAllLabel}
         </Link>
-      )}
+      ) : null}
     </div>
   );
 }

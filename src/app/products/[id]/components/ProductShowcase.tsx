@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import {
   ChevronLeft,
@@ -12,7 +12,6 @@ import {
   RotateCcw,
   ShoppingCart,
   User,
-  Share2,
   AlertOctagon,
   MessageCircle,
   Check,
@@ -20,6 +19,7 @@ import {
 import type { ProductDetail } from "../data/product-detail";
 import ShareProductModal from "@/components/product/ShareProductModal";
 import ReportProductModal from "@/components/product/ReportProductModal";
+import ShareIconImg from "@/components/ShareIconImg";
 import CheckDeliveryModal from "@/components/product/CheckDeliveryModal";
 
 const BADGE_STYLES: Record<string, string> = {
@@ -43,7 +43,16 @@ export default function ProductShowcase({
   const [pincodeFieldOpen, setPincodeFieldOpen] = useState(false);
   const [deliveryModalOpen, setDeliveryModalOpen] = useState(false);
   const [pincode, setPincode] = useState("");
+  const [sharePageUrl, setSharePageUrl] = useState("");
   const thumbRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setSharePageUrl(
+      typeof window !== "undefined"
+        ? `${window.location.origin}/products/${product.id}`
+        : "",
+    );
+  }, [product.id]);
 
   const {
     name,
@@ -176,7 +185,7 @@ export default function ProductShowcase({
                 className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-black hover:bg-gray-50 shadow-sm"
                 aria-label="Share"
               >
-                <Share2 className="w-4 h-4" strokeWidth={2} />
+                <ShareIconImg className="w-4 h-4" size={20} />
               </button>
               <button
                 type="button"
@@ -386,7 +395,7 @@ export default function ProductShowcase({
         isOpen={shareModalOpen}
         onClose={() => setShareModalOpen(false)}
         productName={name}
-        productUrl={`https://tibilmall.com/product/${encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase())}`}
+        productUrl={sharePageUrl || undefined}
       />
       <ReportProductModal
         isOpen={reportModalOpen}

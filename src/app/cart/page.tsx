@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Share2 } from 'lucide-react';
+import ShareIconImg from '@/components/ShareIconImg';
 import { useCart } from '@/context/CartContext';
 import { CartItemCard } from './components/CartItemCard';
 import { OrderSummary } from './components/OrderSummary';
@@ -112,7 +112,7 @@ export default function CartPage() {
                 }}
                 aria-label="Share cart"
               >
-                <Share2 className="w-4 h-4" strokeWidth={2} />
+                <ShareIconImg className="w-4 h-4" size={20} />
                 Share Cart
               </button>
             </div>

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef } from 'react';
+import ShareIconImg from '@/components/ShareIconImg';
 import { Search, Heart, ShoppingCart, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface WishlistProduct {
@@ -31,6 +32,10 @@ const MOCK_WISHLIST: WishlistProduct[] = [
   { id: '2', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone2.jpg', color: 'Blue', size: '6.2INCH', outOfStock: true },
   { id: '3', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone.png', color: 'Orange', size: '6.2INCH' },
   { id: '4', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone2.jpg', color: 'Blue', size: '6.2INCH', outOfStock: true },
+  { id: '5', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone.png', color: 'Orange', size: '6.2INCH' },
+  { id: '6', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone2.jpg', color: 'Blue', size: '6.2INCH', outOfStock: true },
+  { id: '7', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone.png', color: 'Orange', size: '6.2INCH' },
+  { id: '8', name: 'iPhone 17 Pro 256 GB: 15.93 cm (6.3") Display', price: '$299.00', image: '/images/phone2.jpg', color: 'Blue', size: '6.2INCH', outOfStock: true },
 ];
 
 const MOCK_RELATED: RelatedProduct[] = [
@@ -48,22 +53,22 @@ function WishlistProductCard({ product, onRemove }: { product: WishlistProduct; 
 
   return (
     <div className="rounded-xl border border-[var(--color-border)] bg-white overflow-hidden shadow-sm">
-      <div className="relative aspect-square bg-gray-100">
-        <Image src={product.image} alt={product.name} fill className="object-cover" />
-        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+      <div className="relative aspect-square bg-white-100">
+        <Image src={product.image} alt={product.name} fill className="object-contain" />
+        <div className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2 flex flex-wrap gap-1 sm:gap-1.5">
           {product.outOfStock ? (
-            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-white whitespace-nowrap" style={{ backgroundColor: '#FF973D' }}>
+            <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-white whitespace-nowrap" style={{ backgroundColor: '#FF973D' }}>
               OUT OF STOCK
             </span>
           ) : (
             <>
               {product.sale && (
-                <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-black" style={{ backgroundColor: '#FFD93D' }}>
+                <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-black" style={{ backgroundColor: '#FFD93D' }}>
                   SALE
                 </span>
               )}
               {product.liveNow && (
-                <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-white flex items-center gap-1" style={{ backgroundColor: '#DC2626' }}>
+                <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-white flex items-center gap-0.5 sm:gap-1" style={{ backgroundColor: '#DC2626' }}>
                   <span className="w-1 h-1 rounded-full bg-white" />
                   LIVE NOW
                 </span>
@@ -73,52 +78,53 @@ function WishlistProductCard({ product, onRemove }: { product: WishlistProduct; 
         </div>
         <button
           type="button"
-          className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 hover:bg-white border border-gray-200"
+          className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 p-1 sm:p-1.5 rounded-full bg-white/90 hover:bg-white border border-gray-200"
           onClick={() => setSaved(!saved)}
           aria-label={saved ? 'Remove from wishlist' : 'Add to wishlist'}
         >
-          <Heart className={`w-4 h-4 ${saved ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} strokeWidth={1.5} />
+          <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${saved ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} strokeWidth={1.5} />
         </button>
       </div>
-      <div className="p-3">
-        <p className="text-sm font-medium text-[var(--color-black-01)] line-clamp-2 mb-1">{product.name}</p>
+      <div className="p-2 sm:p-3">
+        <p className="text-xs sm:text-sm font-medium text-[var(--color-black-01)] line-clamp-2 mb-0.5 sm:mb-1">{product.name}</p>
         {(product.color || product.size) && (
-          <p className="text-xs mb-2 flex flex-wrap gap-x-2 gap-y-0">
+          <p className="text-[10px] sm:text-xs mb-1 sm:mb-2 flex flex-nowrap items-center gap-x-2 overflow-hidden min-w-0">
             {product.color && (
-              <span>
-                <span style={{ color: '#767676' }}>Color: </span>
-                <span style={{ color: '#000000' }}>{product.color}</span>
+              <span className="flex min-w-0 shrink items-baseline gap-x-0.5 overflow-hidden">
+                <span style={{ color: '#767676' }} className="shrink-0">Color: </span>
+                <span style={{ color: '#000000' }} className="truncate">{product.color}</span>
               </span>
             )}
             {product.size && (
-              <span>
-                <span style={{ color: '#767676' }}>Size: </span>
-                <span style={{ color: '#000000' }}>{product.size}</span>
+              <span className="flex min-w-0 shrink items-baseline gap-x-0.5 overflow-hidden">
+                <span style={{ color: '#767676' }} className="shrink-0">Size: </span>
+                <span style={{ color: '#000000' }} className="truncate">{product.size}</span>
               </span>
             )}
           </p>
         )}
-        <p className="text-sm font-bold mb-3" style={{ color: '#1E3A8A' }}>{product.price}</p>
-        <div className="flex items-center gap-2">
+        <p className="text-xs sm:text-sm font-bold mb-2 sm:mb-3" style={{ color: '#1E3A8A' }}>{product.price}</p>
+        <div className="flex items-center gap-1 sm:gap-2">
           <button
             type="button"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-medium border text-black hover:bg-gray-50"
+            className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium border text-black hover:bg-gray-50"
             style={{ borderColor: '#D2D2D2' }}
           >
-            <ShoppingCart className="w-4 h-4" />
-            Add to Cart
+            <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="min-[361px]:inline sm:hidden max-[360px]:hidden">Add</span>
+            <span className="hidden sm:inline">Add to Cart</span>
           </button>
           <button
             type="button"
-            className="p-2 rounded-full text-red-500 hover:opacity-90 flex items-center justify-center"
+            className="p-1.5 sm:p-2 rounded-full text-red-500 hover:opacity-90 flex items-center justify-center shrink-0"
             style={{ backgroundColor: '#F3F7FA' }}
             onClick={() => onRemove(product.id)}
             aria-label="Remove"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
-          <button type="button" className="p-2 rounded-lg text-gray-600 hover:bg-gray-50 flex items-center justify-center" aria-label="Share">
-            <Image src="/share.svg" alt="" width={20} height={20} />
+          <button type="button" className="p-1.5 sm:p-2 rounded-lg text-gray-600 hover:bg-gray-50 flex items-center justify-center shrink-0" aria-label="Share">
+            <ShareIconImg className="w-4 h-4 sm:w-5 sm:h-5" size={24} />
           </button>
         </div>
       </div>
@@ -128,42 +134,42 @@ function WishlistProductCard({ product, onRemove }: { product: WishlistProduct; 
 
 function RelatedProductCard({ product }: { product: RelatedProduct }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-white overflow-hidden shadow-sm shrink-0 w-[200px] sm:w-[220px]">
-      <div className="relative aspect-square bg-gray-100">
-        <Image src={product.image} alt={product.name} fill className="object-cover" />
-        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+    <div className="rounded-xl border border-[var(--color-border)] bg-white overflow-hidden shadow-sm shrink-0 w-[150px] sm:w-[220px]">
+      <div className="relative aspect-square bg-white-100">
+        <Image src={product.image} alt={product.name} fill className="object-contain" />
+        <div className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2 flex flex-wrap gap-1 sm:gap-1.5">
           {product.sale && (
-            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-black" style={{ backgroundColor: '#FFD93D' }}>
+            <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-black" style={{ backgroundColor: '#FFD93D' }}>
               SALE
             </span>
           )}
           {product.isNew && (
-            <span className="rounded px-1.5 py-0.5 text-[10px] font-medium text-white" style={{ backgroundColor: '#60A5FA' }}>
+            <span className="rounded px-1 sm:px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-white" style={{ backgroundColor: '#60A5FA' }}>
               NEW
             </span>
           )}
         </div>
-        <button type="button" className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 border border-gray-200" aria-label="Add to wishlist">
-          <Heart className="w-4 h-4 text-gray-400" strokeWidth={1.5} />
+        <button type="button" className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 p-1 sm:p-1.5 rounded-full bg-white/90 border border-gray-200" aria-label="Add to wishlist">
+          <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" strokeWidth={1.5} />
         </button>
       </div>
-      <div className="p-3">
-        <p className="text-sm font-medium text-[var(--color-black-01)] line-clamp-2 mb-2">{product.name}</p>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div className="flex items-baseline gap-2">
-            <span className="text-base font-bold text-black">{product.price}</span>
+      <div className="p-2 sm:p-3">
+        <p className="text-xs sm:text-sm font-medium text-[var(--color-black-01)] line-clamp-2 mb-1 sm:mb-2">{product.name}</p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+          <div className="flex items-baseline gap-1 sm:gap-2">
+            <span className="text-xs sm:text-base font-bold text-black">{product.price}</span>
             {product.originalPrice && (
-              <span className="text-sm line-through" style={{ color: '#A6A6A6' }}>
+              <span className="text-[10px] sm:text-sm line-through" style={{ color: '#A6A6A6' }}>
                 {product.originalPrice}
               </span>
             )}
           </div>
           <button
             type="button"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg text-xs font-medium border text-black hover:bg-gray-50"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-0.5 sm:gap-1 py-1 sm:py-1.5 px-1.5 sm:px-2 rounded-lg text-[10px] sm:text-xs font-medium border text-black hover:bg-gray-50"
             style={{ borderColor: '#D2D2D2' }}
           >
-            <ShoppingCart className="w-3.5 h-3.5" />
+            <ShoppingCart className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
             ADD TO CART
           </button>
         </div>
@@ -190,7 +196,7 @@ export default function WishlistPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="px-2 lg:px-8 pt-2 lg:pt-2 pb-4 lg:pb-6">
       {/* Header: title + search + filters - no white bg */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
         <div>
@@ -241,8 +247,8 @@ export default function WishlistPage() {
       </div>
 
       {/* Wishlist - one outer box: gray border, rounded, white bg */}
-      <div className="p-4 mb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="p-0 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {wishlistProducts.map((product) => (
             <WishlistProductCard key={product.id} product={product} onRemove={handleRemoveFromWishlist} />
           ))}

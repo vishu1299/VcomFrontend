@@ -1,22 +1,28 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  type CSSProperties,
+} from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const slides = [
   {
-    image: '/images/signin.png',
-    liveCount: '2.4k',
-    title: 'New Fashion Collection Launch',
-    brand: 'UrbanTech',
-    cta: 'WATCH NOW',
-  },
-  {
     image: '/images/create.png',
     liveCount: '1.8k',
     title: 'New Fashion Collect',
     brand: 'Sarah Styl',
+    cta: 'WATCH NOW',
+  },
+  {
+    image: '/images/signin.png',
+    liveCount: '2.4k',
+    title: 'New Fashion Collection Launch',
+    brand: 'UrbanTech',
     cta: 'WATCH NOW',
   },
   {
@@ -26,9 +32,27 @@ const slides = [
     brand: 'TechFlow',
     cta: 'WATCH NOW',
   },
+  {
+    image: '/images/cloth1.png',
+    liveCount: '1.2k',
+    title: 'Summer Essentials Drop',
+    brand: 'SunLane',
+    cta: 'WATCH NOW',
+  },
+  {
+    image: '/images/cloth2.png',
+    liveCount: '4.5k',
+    title: 'Home Living Flash Sale',
+    brand: 'CozyNest',
+    cta: 'WATCH NOW',
+  },
 ];
 
 const DESKTOP_HEIGHT = 388;
+const MOBILE_SLIDE_RATIO = 0.88;
+const DESKTOP_SLIDE_RATIO = 0.7;
+const SLIDE_GAP_PX = 16;
+const INITIAL_SLIDE_INDEX = slides.length > 1 ? 1 : 0;
 
 function SlideFrame({
   slide,
@@ -43,7 +67,7 @@ function SlideFrame({
 }) {
   return (
     <div
-      className="relative h-full w-full min-h-0 overflow-hidden rounded-2xl"
+      className="relative h-full w-full min-h-0 overflow-hidden rounded-xl"
       aria-hidden={index !== current}
     >
       <Image
@@ -63,22 +87,49 @@ function SlideFrame({
         aria-hidden
       />
       <div className="absolute inset-0 flex flex-col justify-between p-4 pl-6 sm:p-6 sm:pl-10 md:pl-14 lg:p-10 lg:pl-20">
-        <span className="inline-flex w-max items-center gap-2 rounded-full bg-red-600 px-3 py-1.5 text-xs text-white sm:text-sm">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-          LIVE
-          <span className="opacity-80">{slide.liveCount} Watching</span>
-        </span>
-        <h1 className="max-w-xl text-[20px] font-semibold leading-tight text-white sm:text-[26px] lg:text-[32px]">
-          {slide.title}
-        </h1>
-        <div className="flex items-center gap-4">
-          <span className="text-xs text-white sm:text-sm">{slide.brand}</span>
-          <button
-            type="button"
-            className="rounded-lg bg-red-600 px-4 py-2.5 text-xs font-medium text-white transition hover:opacity-95 sm:text-sm"
-          >
-            {slide.cta}
-          </button>
+        <div className="inline-flex w-max items-center gap-3 text-white">
+          <span className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-3 py-1.5 text-xs font-semibold sm:text-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-white" />
+            LIVE
+          </span>
+          <span className="inline-flex items-center gap-2 text-sm font-semibold sm:text-base">
+            <Image
+              src="/images/eye.png"
+              alt="Watching"
+              width={18}
+              height={18}
+              className="h-[18px] w-[18px] object-contain"
+            />
+            <span>{slide.liveCount} Watching</span>
+          </span>
+        </div>
+        <div className="flex flex-col gap-6">
+          <h1 className="max-w-xl text-[20px] font-semibold leading-tight text-white sm:text-[26px] lg:text-[34px]">
+            <span className="block">
+              {slide.title.split(' ').slice(0, 2).join(' ')}
+            </span>
+            <span className="block">
+              {slide.title.split(' ').slice(2).join(' ')}
+            </span>
+          </h1>
+          <div className="flex items-center gap-4">
+            <span className="inline-flex items-center gap-2.5">
+              <Image
+                src="/images/urban.png"
+                alt={slide.brand}
+                width={44}
+                height={44}
+                className="h-11 w-11 rounded-full object-cover"
+              />
+              <span className="text-lg font-semibold text-white">{slide.brand}</span>
+            </span>
+            <button
+              type="button"
+              className="rounded-lg bg-red-600 px-4 py-2.5 text-xs font-medium text-white transition hover:opacity-95 sm:text-sm"
+            >
+              {slide.cta}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -86,8 +137,35 @@ function SlideFrame({
 }
 
 export default function HeroCarousel() {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(INITIAL_SLIDE_INDEX);
+  const [mobileWidth, setMobileWidth] = useState(0);
+  const [desktopWidth, setDesktopWidth] = useState(0);
   const n = slides.length;
+  const mobileViewportRef = useRef<HTMLDivElement>(null);
+  const desktopViewportRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setCurrent(INITIAL_SLIDE_INDEX);
+  }, []);
+
+  useEffect(() => {
+    const mobileElement = mobileViewportRef.current;
+    const desktopElement = desktopViewportRef.current;
+    if (!mobileElement || !desktopElement) return;
+
+    const observer = new ResizeObserver(() => {
+      setMobileWidth(mobileElement.clientWidth);
+      setDesktopWidth(desktopElement.clientWidth);
+    });
+
+    observer.observe(mobileElement);
+    observer.observe(desktopElement);
+
+    setMobileWidth(mobileElement.clientWidth);
+    setDesktopWidth(desktopElement.clientWidth);
+
+    return () => observer.disconnect();
+  }, []);
 
   const goPrev = useCallback(() => {
     setCurrent((prev) => (prev === 0 ? n - 1 : prev - 1));
@@ -101,71 +179,109 @@ export default function HeroCarousel() {
     height: `clamp(220px, 38vw, ${DESKTOP_HEIGHT}px)`,
   };
 
+  const createTrackStyle = (containerWidth: number, slideRatio: number) => {
+    if (!containerWidth) {
+      return {
+        trackStyle: {
+          gap: `${SLIDE_GAP_PX}px`,
+          transform: 'translateX(0px)',
+        } as CSSProperties,
+        slideStyle: { width: '100%' } as CSSProperties,
+        arrowInset: '12px',
+      };
+    }
+
+    const slideWidth = containerWidth * slideRatio;
+    const step = slideWidth + SLIDE_GAP_PX;
+    const centerOffset = (containerWidth - slideWidth) / 2;
+    const rawTranslate = current * step - centerOffset;
+    const maxTranslate = Math.max(0, step * (n - 1));
+    const translate = Math.min(maxTranslate, Math.max(0, rawTranslate));
+
+    return {
+      trackStyle: {
+        gap: `${SLIDE_GAP_PX}px`,
+        transform: `translateX(-${translate}px)`,
+      } as CSSProperties,
+      slideStyle: { width: `${slideWidth}px` } as CSSProperties,
+      arrowInset: `${Math.max(8, centerOffset + 10)}px`,
+    };
+  };
+
+  const mobileLayout = createTrackStyle(mobileWidth, MOBILE_SLIDE_RATIO);
+  const desktopLayout = createTrackStyle(desktopWidth, DESKTOP_SLIDE_RATIO);
+
   return (
     <section aria-label="Hero carousel" className="w-full shrink-0">
-      {/* Mobile: one full-width slide at a time */}
+      {/* Mobile: centered active slide with side peeks */}
       <div className="relative md:hidden">
         <div
-          className="relative overflow-hidden rounded-2xl bg-black"
+          ref={mobileViewportRef}
+          className="relative overflow-hidden "
           style={heightStyle}
         >
           <div
             className="flex h-full transition-transform duration-500 ease-out"
-            style={{
-              width: `${n * 100}%`,
-              transform: `translateX(-${(current * 100) / n}%)`,
-            }}
+            style={mobileLayout.trackStyle}
           >
             {slides.map((slide, index) => (
               <div
                 key={index}
                 className="h-full shrink-0"
-                style={{ width: `${100 / n}%` }}
+                style={mobileLayout.slideStyle}
               >
                 <SlideFrame
                   slide={slide}
                   index={index}
                   current={current}
-                  priority={index === 0}
+                  priority={index === INITIAL_SLIDE_INDEX}
                 />
               </div>
             ))}
           </div>
-          <NavArrows onPrev={goPrev} onNext={goNext} />
+          <NavArrows
+            onPrev={goPrev}
+            onNext={goNext}
+            leftInset={mobileLayout.arrowInset}
+            rightInset={mobileLayout.arrowInset}
+          />
         </div>
         <Dots count={n} current={current} setCurrent={setCurrent} />
       </div>
 
-      {/* Desktop: one full-width slide at a time */}
+      {/* Desktop: centered active slide with side peeks */}
       <div className="relative hidden w-full md:block">
         <div
-          className="relative overflow-hidden rounded-2xl bg-black"
+          ref={desktopViewportRef}
+          className="relative overflow-hidden"
           style={heightStyle}
         >
           <div
             className="flex h-full transition-transform duration-500 ease-out"
-            style={{
-              width: `${n * 100}%`,
-              transform: `translateX(-${(current * 100) / n}%)`,
-            }}
+            style={desktopLayout.trackStyle}
           >
             {slides.map((slide, index) => (
               <div
                 key={index}
                 className="h-full shrink-0"
-                style={{ width: `${100 / n}%` }}
+                style={desktopLayout.slideStyle}
                 aria-hidden={index !== current}
               >
                 <SlideFrame
                   slide={slide}
                   index={index}
                   current={current}
-                  priority={index === 0}
+                  priority={index === INITIAL_SLIDE_INDEX}
                 />
               </div>
             ))}
           </div>
-          <NavArrows onPrev={goPrev} onNext={goNext} />
+          <NavArrows
+            onPrev={goPrev}
+            onNext={goNext}
+            leftInset={desktopLayout.arrowInset}
+            rightInset={desktopLayout.arrowInset}
+          />
         </div>
         <Dots count={n} current={current} setCurrent={setCurrent} />
       </div>
@@ -176,9 +292,13 @@ export default function HeroCarousel() {
 function NavArrows({
   onPrev,
   onNext,
+  leftInset = '12px',
+  rightInset = '12px',
 }: {
   onPrev: () => void;
   onNext: () => void;
+  leftInset?: string;
+  rightInset?: string;
 }) {
   return (
     <>
@@ -186,17 +306,19 @@ function NavArrows({
         type="button"
         onClick={onPrev}
         aria-label="Previous slide"
-        className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 sm:left-5 sm:h-11 sm:w-11"
+        className="absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-sm hover:bg-white/90 sm:h-11 sm:w-11"
+        style={{ left: leftInset }}
       >
-        <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+        <ChevronLeft className="h-5 w-5 text-gray-600 sm:h-6 sm:w-6" />
       </button>
       <button
         type="button"
         onClick={onNext}
         aria-label="Next slide"
-        className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 sm:right-5 sm:h-11 sm:w-11"
+        className="absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-sm hover:bg-white/90 sm:h-11 sm:w-11"
+        style={{ right: rightInset }}
       >
-        <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+        <ChevronRight className="h-5 w-5 text-gray-600 sm:h-6 sm:w-6" />
       </button>
     </>
   );
@@ -220,9 +342,8 @@ function Dots({
           onClick={() => setCurrent(i)}
           aria-label={`Go to slide ${i + 1}`}
           aria-current={i === current}
-          className={`h-2 w-2 rounded-full transition ${
-            i === current ? 'bg-black' : 'bg-black/40 hover:bg-black/60'
-          }`}
+          className={`h-2 w-2 rounded-full transition ${i === current ? 'bg-black' : 'bg-black/40 hover:bg-black/60'
+            }`}
         />
       ))}
     </div>

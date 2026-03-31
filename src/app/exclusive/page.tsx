@@ -35,12 +35,13 @@ export default function ExclusivePage() {
   };
 
   return (
-    <main className="min-h-screen bg-white" style={{ fontFamily: 'var(--font-poppins)' }}>
+    <main className="min-h-screen bg-[#f3f7fa]" style={{ fontFamily: 'var(--font-poppins)' }}>
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-5 sm:py-6 lg:py-8">
         <ExclusiveHeroBanner />
         <ExclusiveHorizontalScroll />
 
-        <div className="mb-4 lg:mb-6">
+        {/* Sort / results bar — own white card, gap below shows page bg */}
+        <div className="mb-4 lg:mb-5 rounded-xl border border-[#e5e7eb] bg-white p-4 sm:p-5 shadow-sm">
           <ExclusiveFilterSortBar
             start={start}
             end={end}
@@ -49,7 +50,8 @@ export default function ExclusivePage() {
           />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-10">
+        {/* Filters (left) and product blocks (right) — separate whites; gap = #f3f7fa */}
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 xl:gap-6 items-start">
           <ExclusiveFilterSidebar
             filters={filters}
             onFiltersChange={setFilters}
@@ -58,7 +60,7 @@ export default function ExclusivePage() {
             onClose={() => setFilterDrawerOpen(false)}
           />
 
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 w-full flex flex-col gap-4 lg:gap-5 xl:gap-6">
             <ExclusiveProductSection
               title="Latest exclusive products"
               products={LATEST_EXCLUSIVE_PRODUCTS}
@@ -76,6 +78,7 @@ export default function ExclusivePage() {
               badgePointed
             />
             <ExclusivePagination
+              embedded
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={setCurrentPage}

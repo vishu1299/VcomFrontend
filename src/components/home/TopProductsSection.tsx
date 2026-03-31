@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback, type SyntheticEvent } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ShoppingCart,
   Eye,
   Play,
-  LayoutGrid,
   Shirt,
   Sparkles,
   Home,
@@ -101,16 +103,154 @@ const products = [
     badges: ['NEW', 'SALE'],
     tags: ['DRY SKIN', '30ML', 'NATURAL'],
   },
+  {
+    name: 'Rose Water Toner',
+    price: 79,
+    rating: 4.6,
+    reviews: '640',
+    watching: '520',
+    image: '/images/signin.png',
+    badges: ['NEW'],
+    tags: ['SENSITIVE', '200ML'],
+  },
+  {
+    name: 'Night Repair Cream',
+    price: 259,
+    rating: 4.9,
+    reviews: '2.8K',
+    watching: '3.1K',
+    image: '/images/create.png',
+    badges: ['SALE', 'NEW'],
+    tags: ['ANTI-AGING', '50ML'],
+  },
+  {
+    name: 'SPF 50 Sunscreen',
+    price: 119,
+    rating: 4.7,
+    reviews: '1.1K',
+    watching: '780',
+    image: '/images/logo.png',
+    badges: ['SALE'],
+    tags: ['UVA/UVB', '75ML'],
+  },
+  {
+    name: 'Charcoal Face Mask',
+    price: 39,
+    rating: 4.5,
+    reviews: '420',
+    watching: '310',
+    image: '/images/forgot.png',
+    badges: ['NEW'],
+    tags: ['OILY SKIN', '5 PACK'],
+  },
+  {
+    name: 'Hyaluronic Serum',
+    price: 169,
+    rating: 4.8,
+    reviews: '1.9K',
+    watching: '1.4K',
+    image: '/images/signin.png',
+    badges: ['NEW'],
+    tags: ['HYDRATION', '40ML'],
+  },
+  {
+    name: 'Caffeine Eye Cream',
+    price: 89,
+    rating: 4.6,
+    reviews: '760',
+    watching: '540',
+    image: '/images/create.png',
+    badges: ['SALE'],
+    tags: ['DARK CIRCLES', '15ML'],
+  },
+  {
+    name: 'Peptide Moisturizer',
+    price: 209,
+    rating: 4.9,
+    reviews: '3.4K',
+    watching: '2.2K',
+    image: '/images/logo.png',
+    badges: ['NEW', 'SALE'],
+    tags: ['FIRMING', '60ML'],
+  },
 ];
 
-function GridIcon() {
+function samplePlayTintFromImage(img: HTMLImageElement): string {
+  try {
+    const w = img.naturalWidth;
+    const h = img.naturalHeight;
+    if (!w || !h) return '#262626';
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return '#262626';
+    const sw = Math.min(48, Math.floor(w * 0.2));
+    const sh = Math.min(48, Math.floor(h * 0.2));
+    const sx = Math.floor(w / 2 - sw / 2);
+    const sy = Math.floor(h / 2 - sh / 2);
+    canvas.width = sw;
+    canvas.height = sh;
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+    const data = ctx.getImageData(0, 0, sw, sh).data;
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    let count = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] < 40) continue;
+      r += data[i];
+      g += data[i + 1];
+      b += data[i + 2];
+      count += 1;
+    }
+    if (!count) return '#262626';
+    r = Math.round(r / count);
+    g = Math.round(g / count);
+    b = Math.round(b / count);
+    const darken = 0.72;
+    r = Math.min(255, Math.round(r * darken));
+    g = Math.min(255, Math.round(g * darken));
+    b = Math.min(255, Math.round(b * darken));
+    return `rgb(${r},${g},${b})`;
+  } catch {
+    return '#262626';
+  }
+}
+
+function AdaptivePlayControl({ imageSrc }: { imageSrc: string }) {
+  const [tint, setTint] = useState('#262626');
+
+  const onHiddenImageLoad = useCallback((e: SyntheticEvent<HTMLImageElement>) => {
+    setTint(samplePlayTintFromImage(e.currentTarget));
+  }, []);
+
   return (
-    <LayoutGrid
-      className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
-      style={{ color: FIGMA.iconColor }}
-      strokeWidth={2}
-      aria-hidden
-    />
+    <>
+      {/* Same-origin image used only to sample center pixels for play icon tint */}
+      <img
+        src={imageSrc}
+        alt=""
+        width={1}
+        height={1}
+        className="pointer-events-none absolute h-px w-px overflow-hidden opacity-0"
+        aria-hidden
+        onLoad={onHiddenImageLoad}
+      />
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+        <button
+          type="button"
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/95 shadow-md transition hover:scale-105 active:scale-95 sm:h-12 sm:w-12"
+          style={{ borderColor: FIGMA.borderColor }}
+          aria-label="Play"
+        >
+          <Play
+            className="ml-0.5 h-5 w-5 sm:h-6 sm:w-6"
+            style={{ color: tint, fill: tint }}
+            fill="currentColor"
+            strokeWidth={0}
+          />
+        </button>
+      </div>
+    </>
   );
 }
 
@@ -123,131 +263,81 @@ function ProductCard({
 }) {
   return (
     <article
-      className={`bg-white overflow-hidden flex flex-col rounded-[10px] sm:rounded-[12px] border shadow-sm hover:shadow transition min-w-0 ${className}`}
-      style={{
-        borderColor: FIGMA.borderColor,
-        backgroundColor: FIGMA.cardBg,
-      }}
+      className={`relative h-[min(420px,78vw)] w-[min(280px,72vw)] shrink-0 snap-start overflow-hidden rounded-2xl shadow-md transition hover:shadow-lg sm:h-[440px] sm:w-[300px] ${className}`}
+      style={{ fontFamily: 'var(--font-poppins)' }}
     >
+      <Image
+        src={product.image}
+        alt={product.name}
+        fill
+        className="object-cover"
+        sizes="(max-width: 640px) 72vw, 300px"
+      />
       <div
-        className="relative aspect-square"
-        style={{ backgroundColor: FIGMA.imageBg }}
-      >
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover"
-          sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-        />
-        {/* Badges top-left: SALE (amber), NEW (blue) */}
-        <div className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2 flex gap-1">
-          {product.badges.includes('SALE') && (
-            <span
-              className="px-1.5 sm:px-2 py-0.5 rounded-[4px] font-medium text-[10px] sm:text-[12px]"
-              style={{
-                backgroundColor: FIGMA.saleBadge,
-                color: FIGMA.titleColor,
-                fontFamily: 'var(--font-poppins)',
-              }}
-            >
-              SALE
-            </span>
-          )}
-          {product.badges.includes('NEW') && (
-            <span
-              className="px-1.5 sm:px-2 py-0.5 rounded-[4px] font-medium text-[10px] sm:text-[12px] text-white"
-              style={{
-                backgroundColor: FIGMA.newBadge,
-                fontFamily: 'var(--font-poppins)',
-              }}
-            >
-              NEW
-            </span>
-          )}
-        </div>
-        {/* Watching badge top-right: Eye + count */}
-        <div
-          className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-white text-[9px] sm:text-[11px] font-medium"
-          style={{
-            backgroundColor: FIGMA.watchingBadge,
-            fontFamily: 'var(--font-poppins)',
-          }}
-        >
-          <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" strokeWidth={2} />
-          {product.watching} Watching
-        </div>
-        {/* Play button center */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <button
-            type="button"
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition border touch-manipulation"
-            style={{ borderColor: FIGMA.borderColor }}
-            aria-label="Play"
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10"
+        aria-hidden
+      />
+      {/* Badges top-left: SALE, NEW — no avatar / s&d overlay */}
+      <div className="absolute left-2 top-2 z-10 flex flex-wrap gap-1 sm:left-3 sm:top-3">
+        {product.badges.includes('SALE') && (
+          <span
+            className="rounded px-2 py-0.5 text-[10px] font-semibold sm:text-[11px]"
+            style={{
+              backgroundColor: FIGMA.saleBadge,
+              color: FIGMA.titleColor,
+            }}
           >
-            <Play
-              className="w-4 h-4 sm:w-5 sm:h-5 ml-0.5 text-amber-500 fill-amber-500"
-              strokeWidth={2}
-            />
-          </button>
-        </div>
+            SALE
+          </span>
+        )}
+        {product.badges.includes('NEW') && (
+          <span
+            className="rounded px-2 py-0.5 text-[10px] font-semibold text-white sm:text-[11px]"
+            style={{ backgroundColor: FIGMA.newBadge }}
+          >
+            NEW
+          </span>
+        )}
       </div>
-      <div className="p-3 sm:p-4 flex flex-col flex-1 min-w-0">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-1.5 sm:mb-2">
+      {/* Watching: eye + count only (reference) */}
+      <div
+        className="absolute right-2 top-2 z-10 flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] font-medium text-white sm:right-3 sm:top-3 sm:text-[11px]"
+        style={{ backgroundColor: FIGMA.watchingBadge }}
+      >
+        <Eye className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" strokeWidth={2} />
+        {product.watching}
+      </div>
+      <AdaptivePlayControl imageSrc={product.image} />
+      <div className="absolute bottom-0 left-0 right-0 z-10 flex flex-col gap-2 p-3 sm:p-4">
+        <div className="flex flex-wrap gap-1">
           {product.tags.map((tag) => (
             <span
               key={tag}
-              className="px-1.5 sm:px-2 py-0.5 rounded-[4px] text-[9px] sm:text-[11px] font-normal"
-              style={{
-                color: FIGMA.mutedColor,
-                backgroundColor: FIGMA.sectionBg,
-                fontFamily: 'var(--font-poppins)',
-              }}
+              className="rounded bg-black/25 px-1.5 py-0.5 text-[9px] font-normal text-white/95 backdrop-blur-[2px] sm:text-[10px]"
             >
               {tag}
             </span>
           ))}
         </div>
-        <p
-          className="font-medium line-clamp-2 mb-0.5 sm:mb-1 text-[12px] sm:text-[14px]"
-          style={{
-            color: FIGMA.titleColor,
-            fontFamily: 'var(--font-poppins)',
-          }}
-        >
+        <p className="line-clamp-2 text-[15px] font-semibold leading-snug text-white sm:text-[16px]">
           {product.name}
         </p>
-        <p
-          className="mb-1 sm:mb-2 text-[10px] sm:text-[12px]"
-          style={{
-            color: FIGMA.mutedColor,
-            fontFamily: 'var(--font-poppins)',
-          }}
-        >
-          ⭐ {product.rating} ({product.reviews} Reviews)
+        <p className="text-[11px] text-white/85 sm:text-[12px]">
+          <span className="text-amber-300">★</span> {product.rating} (
+          {product.reviews} Reviews)
         </p>
-        <p
-          className="font-semibold mb-2 sm:mb-3 text-[14px] sm:text-[16px]"
-          style={{
-            color: FIGMA.titleColor,
-            fontFamily: 'var(--font-poppins)',
-          }}
-        >
-          ${product.price}
-        </p>
-        <button
-          type="button"
-          className="mt-auto min-h-[44px] sm:min-h-[40px] py-2 flex items-center justify-center gap-2 w-full rounded-[6px] font-medium border transition hover:bg-[#f9fafb] active:bg-[#f3f4f6] touch-manipulation text-[12px] sm:text-[14px]"
-          style={{
-            color: FIGMA.titleColor,
-            borderColor: FIGMA.borderColor,
-            fontFamily: 'var(--font-poppins)',
-          }}
-        >
-          <ShoppingCart className="w-4 h-4 shrink-0" />
-          ADD TO CART
-        </button>
+        <div className="flex items-center justify-between gap-2 pt-0.5">
+          <span className="text-[22px] font-bold leading-none text-white sm:text-2xl">
+            ${product.price}
+          </span>
+          <button
+            type="button"
+            className="flex shrink-0 items-center gap-1.5 rounded-md border border-white/90 bg-transparent px-2.5 py-2 text-[10px] font-semibold uppercase tracking-wide text-white transition hover:bg-white/10 sm:gap-2 sm:px-3 sm:text-[11px]"
+          >
+            <ShoppingCart className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            ADD TO CART
+          </button>
+        </div>
       </div>
     </article>
   );
@@ -256,6 +346,14 @@ function ProductCard({
 export default function TopProductsSection() {
   const [selectedCategory, setSelectedCategory] = useState('beauty');
   const [sortBy, setSortBy] = useState('Most Browsed');
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollCarousel = (dir: 'left' | 'right') => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const step = Math.max(280, Math.floor(el.clientWidth * 0.75));
+    el.scrollBy({ left: dir === 'left' ? -step : step, behavior: 'smooth' });
+  };
 
   return (
     <section
@@ -270,16 +368,31 @@ export default function TopProductsSection() {
       <div
         className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 pt-4 sm:pt-6 lg:pt-8"
       >
-        <h2
-          className="font-semibold flex items-center gap-2 text-[18px] sm:text-[20px] lg:text-[24px]"
-          style={{
-            lineHeight: '100%',
-            color: FIGMA.titleColor,
-          }}
-        >
-          <GridIcon />
-          Top Products
-        </h2>
+        <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
+          <h2
+            className="font-semibold flex items-center gap-2 text-[18px] sm:text-[20px] lg:text-[24px]"
+            style={{
+              lineHeight: '100%',
+              color: FIGMA.titleColor,
+            }}
+          >
+            <Image
+              src="/images/top.png"
+              alt=""
+              width={24}
+              height={24}
+              className="h-5 w-5 shrink-0 object-contain sm:h-6 sm:w-6"
+              aria-hidden
+            />
+            Top Products
+          </h2>
+          <Link
+            href="/product-list"
+            className="shrink-0 text-[13px] font-medium text-[#1E3A8A] hover:underline sm:text-[14px]"
+          >
+            View all
+          </Link>
+        </div>
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <label
             htmlFor="sort-top-products"
@@ -332,7 +445,7 @@ export default function TopProductsSection() {
                   key={cat.id}
                   type="button"
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-[8px] whitespace-nowrap shrink-0 lg:shrink-none transition font-normal ${
+                  className={`flex items-center gap-2 px-4 py-3 rounded-[5px] whitespace-nowrap shrink-0 lg:shrink-none transition font-normal ${
                     selectedCategory === cat.id
                       ? 'bg-amber-400 text-[#1F1D2B] font-medium'
                       : 'text-white hover:opacity-90'
@@ -356,11 +469,32 @@ export default function TopProductsSection() {
           </nav>
         </aside>
 
-        {/* Product grid — 2 cols mobile, 3 tablet, 4 desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 flex-1 min-w-0">
-          {products.map((product, i) => (
-            <ProductCard key={i} product={product} />
-          ))}
+        {/* Product carousel — matches reference; no s&d / avatar overlay */}
+        <div className="relative min-w-0 flex-1">
+          <div
+            ref={carouselRef}
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 scrollbar-hide sm:gap-4 md:gap-5"
+          >
+            {products.map((product, i) => (
+              <ProductCard key={i} product={product} />
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => scrollCarousel('left')}
+            className="absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-x-1 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-white/95 shadow-md transition hover:bg-white md:flex"
+            aria-label="Previous products"
+          >
+            <ChevronLeft className="h-5 w-5" style={{ color: FIGMA.titleColor }} />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollCarousel('right')}
+            className="absolute right-0 top-1/2 z-10 hidden h-10 w-10 translate-x-1 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-white/95 shadow-md transition hover:bg-white md:flex"
+            aria-label="Next products"
+          >
+            <ChevronRight className="h-5 w-5" style={{ color: FIGMA.titleColor }} />
+          </button>
         </div>
       </div>
     </section>
