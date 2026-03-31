@@ -114,11 +114,13 @@ const MOCK_QA = [
 
 export default function ProductDescriptionTabs({
   product,
+  initialTab,
 }: {
   product: ProductDetail;
+  initialTab?: "Questions";
 }) {
   const [activeTab, setActiveTab] =
-    useState<(typeof TABS)[number]>(TABS[0]);
+    useState<(typeof TABS)[number]>(initialTab ?? TABS[0]);
   const [expandedQId, setExpandedQId] = useState<string | null>(
     MOCK_QA[0]?.id ?? null,
   );
