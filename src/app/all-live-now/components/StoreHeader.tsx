@@ -12,37 +12,40 @@ export default function StoreHeader({
   profileImage,
 }: StoreHeaderProps) {
   return (
-    <div className="bg-white rounded-xl p-4 sm:p-5 flex flex-wrap items-center gap-3 sm:gap-4 mb-4">
-      <img
-        src={profileImage}
-        alt={storeName}
-        className="w-10 h-10 rounded-full object-cover shrink-0 bg-[#f3f4f6] border border-[#e5e7eb]"
-      />
-      <div className="flex items-center flex-wrap gap-4">
-        <div className="flex-1">
-
-        <p className="text-[16px] sm:text-[18px] font-bold text-[#131313] truncate">
-          {storeName}
-        </p>
-        <p className="text-[13px] sm:text-[14px] text-[#767676] truncate">
-          {handle}
-        </p>
+    <div className="mb-4 rounded-xl bg-white p-2 sm:p-1">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <img
+            src={profileImage}
+            alt={storeName}
+            className="h-10 w-10 shrink-0 rounded-full border border-[#e5e7eb] bg-[#f3f4f6] object-cover"
+          />
+          <div className="min-w-0">
+            <p className="truncate text-[16px] font-bold text-[#131313] sm:text-[18px]">
+              {storeName}
+            </p>
+            <p className="truncate text-[13px] text-[#767676] sm:text-[14px]">
+              {handle}
+            </p>
+          </div>
         </div>
-      <div className="flex items-center flex-wrap gap-2">
-        <button
-          type="button"
-            className="min-h-[36px] px-4 sm:px-5 rounded-lg text-[13px] sm:text-[14px] font-bold bg-[#f5b700] hover:bg-[#eab308] transition"
-        >
-          Follow +
-        </button>
-        <button
-          type="button"
-          className="min-h-[36px] px-4 sm:px-5 rounded-lg text-[13px] sm:text-[14px] font-bold text-white bg-[#dc2626] hover:bg-[#b91c1c] transition flex items-center gap-1.5"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" aria-hidden />
-          LIVE NOW
-        </button>
-      </div>
+
+        <div className="flex items-center gap-2 sm:ml-1">
+          <button
+            type="button"
+            className="min-h-[36px] rounded-lg bg-[#f5b700] px-4 text-[13px] font-bold transition hover:bg-[#eab308] sm:px-5 sm:text-[14px]"
+          >
+            Follow +
+          </button>
+          <button
+            type="button"
+            className="flex min-h-[36px] items-center gap-1.5 rounded-lg px-4 text-[13px] font-bold text-white transition hover:brightness-95 sm:px-5 sm:text-[14px]"
+            style={{ background: 'linear-gradient(90deg, #B90000 0%, #FF0000 100%)' }}
+          >
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white" aria-hidden />
+            LIVE NOW
+          </button>
+        </div>
       </div>
     </div>
   );

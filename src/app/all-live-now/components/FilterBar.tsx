@@ -26,7 +26,7 @@ export default function FilterBar({
   onCategoryChange,
 }: FilterBarProps) {
   return (
-    <div className="flex flex-col gap-4 mb-4 sm:mb-6">
+    <div className="flex flex-col gap-2 mb-1 sm:mb-2">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
           <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#131313]">Live now</h2>

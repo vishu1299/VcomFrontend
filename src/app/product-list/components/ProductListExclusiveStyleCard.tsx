@@ -62,7 +62,7 @@ export default function ProductListExclusiveStyleCard({
   const articleClass =
     variant === 'grid'
       ? 'w-full flex flex-col overflow-hidden rounded-[12px] transition-shadow h-full cursor-pointer bg-white shadow-[0_1px_4px_rgba(0,0,0,0.08)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-[#e5e7eb]'
-      : 'w-full min-w-0 max-w-full flex flex-col overflow-hidden rounded-[12px] transition-shadow h-full cursor-pointer bg-[#fafaf8] shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] sm:min-w-[240px]';
+      : 'flex h-full min-w-0 w-full max-w-full flex-col overflow-hidden rounded-[12px] cursor-pointer bg-[#fafaf8] shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]';
 
   return (
     <article
@@ -96,7 +96,7 @@ export default function ProductListExclusiveStyleCard({
           }`}
           sizes={
             isCarousel
-              ? '240px'
+              ? '(max-width: 639px) 200px, (max-width: 767px) 220px, 240px'
               : '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
           }
         />
@@ -164,46 +164,43 @@ export default function ProductListExclusiveStyleCard({
         )}
       </div>
 
-      <div className="flex min-h-0 shrink-0 flex-col p-3 sm:h-[104px]">
-        <p
-          className="mb-1.5 line-clamp-2 h-8 shrink-0 overflow-hidden text-xs font-medium leading-snug text-[#131313] sm:mb-2 sm:h-10 sm:text-[14px]"
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical' as const,
-          }}
-        >
+      <div className="flex min-h-0 shrink-0 flex-col p-3">
+        <p className="mb-1.5 line-clamp-2 min-h-[0.25rem] shrink-0 text-xs font-medium leading-snug text-[#131313] sm:mb-1 sm:min-h-0 sm:text-[14px]">
           {name}
         </p>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-sm font-bold leading-none text-[#131313] sm:text-[18px]">
-              ${price.toFixed(2)}
+        {/*
+          Web (sm+): row1 = original only; row2 = sale price (left) + Add to cart (right). Tight gap between rows.
+          Mobile: row1 = sale price then original (strikethrough); row2 = full-width button.
+          mt-auto only on mobile so equal-height grid rows don’t leave a gap above prices on web.
+        */}
+        <div className="mt-auto flex w-full flex-col gap-2 sm:mt-0 sm:gap-0">
+          {originalPrice != null && (
+            <span className="hidden text-[11px] leading-none text-[#9ca3af] line-through sm:mb-0 sm:block md:text-[12px]">
+              ${originalPrice.toFixed(0)}
             </span>
-            {originalPrice != null && (
-              <span className="text-[10px] leading-none text-[#9ca3af] line-through sm:text-[12px]">
-                ${originalPrice.toFixed(0)}
+          )}
+
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-0">
+            <div className="flex w-full flex-row flex-nowrap items-baseline gap-1 sm:w-auto sm:flex-none sm:gap-1.5">
+              <span className="order-1 text-xs font-bold leading-none text-[#131313] sm:order-none sm:text-[16px] md:text-[17px]">
+                ${price.toFixed(2)}
               </span>
-            )}
+              {originalPrice != null && (
+                <span className="order-2 shrink-0 text-[9px] leading-none text-[#9ca3af] line-through sm:hidden sm:order-none">
+                  ${originalPrice.toFixed(0)}
+                </span>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className="box-border flex h-9 w-full shrink-0 items-center justify-center gap-1 rounded-lg border border-[#d2d2d2] bg-white px-2 text-[9px] font-semibold leading-none text-[#131313] whitespace-nowrap transition hover:bg-gray-50 sm:h-9 sm:w-auto sm:px-2.5 sm:text-[10px] md:px-3"
+            >
+              <ShoppingCart className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+              <span>ADD TO CART</span>
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            className={`flex h-8 w-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-[#d2d2d2] bg-white px-2.5 text-[9px] font-semibold text-[#131313] transition hover:bg-gray-50 sm:h-9 sm:w-auto sm:px-3 sm:text-[10px] ${
-              isCarousel ? 'whitespace-nowrap' : ''
-            }`}
-          >
-            <ShoppingCart className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
-            {isCarousel ? (
-              <>
-                {/* Very narrow viewports only; wider mobile + desktop = full label */}
-                <span className="inline min-[361px]:hidden">ADD</span>
-                <span className="hidden min-[361px]:inline">ADD TO CART</span>
-              </>
-            ) : (
-              'ADD TO CART'
-            )}
-          </button>
         </div>
       </div>
     </article>

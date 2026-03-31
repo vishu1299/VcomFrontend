@@ -1,4 +1,4 @@
-import type { DealCardProps } from '../../top-deals/components/DealCard';
+import type { JustDroppedCardProduct } from '../types';
 
 /** Men's subcategories for carousel when Fashion + Men's Clothing is selected */
 export type MensSubcategory = { id: string; label: string; image: string };
@@ -47,7 +47,7 @@ const TSHIRT_IMAGES = [
   "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=500&h=500&fit=crop",
 ];
 
-function buildDealCards(images: string[], prefix: string): DealCardProps[] {
+function buildDealCards(images: string[], prefix: string): JustDroppedCardProduct[] {
   return images.map((image, i) => ({
     id: `mens-${prefix}-${i + 1}`,
     name: "Men's Half Sleeve Solid Casual Reg...",
@@ -60,16 +60,16 @@ function buildDealCards(images: string[], prefix: string): DealCardProps[] {
   }));
 }
 
-export const MENS_SHIRT_PRODUCTS: DealCardProps[] = buildDealCards(SHIRT_IMAGES, 'shirt');
-export const MENS_TSHIRT_PRODUCTS: DealCardProps[] = buildDealCards(TSHIRT_IMAGES, 'tshirt');
+export const MENS_SHIRT_PRODUCTS: JustDroppedCardProduct[] = buildDealCards(SHIRT_IMAGES, 'shirt');
+export const MENS_TSHIRT_PRODUCTS: JustDroppedCardProduct[] = buildDealCards(TSHIRT_IMAGES, 'tshirt');
 
 /** For "Latest in Shirt" grid when Shirts checkbox is selected – uses /images/shirt1–3.png */
 const SHIRT_GRID_IMAGES = ['/images/shirt1.png', '/images/shirt2.png', '/images/shirt3.png'];
 const SHIRT_GRID_PAGE_SIZE = 12;
 const SHIRT_GRID_TOTAL_PAGES = 45;
 
-function buildShirtGridProducts(): DealCardProps[] {
-  const out: DealCardProps[] = [];
+function buildShirtGridProducts(): JustDroppedCardProduct[] {
+  const out: JustDroppedCardProduct[] = [];
   const total = SHIRT_GRID_PAGE_SIZE * SHIRT_GRID_TOTAL_PAGES;
   for (let i = 0; i < total; i++) {
     out.push({

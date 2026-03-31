@@ -2,17 +2,23 @@
 
 export default function ReviewFilters() {
   return (
-    <div className="flex flex-col gap-4 mb-6">
-      <div className="flex-1 relative">
+    <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <div className="relative w-full lg:w-[30%]">
+        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3-3" />
+          </svg>
+        </span>
         <input
           type="text"
           placeholder="Search Customer Review..."
-          className="w-full pl-5 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400"
+          className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 bg-white text-sm text-[#131313] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400"
         />
       </div>
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-6 lg:flex-nowrap lg:gap-4">
         <div className="flex flex-col items-start gap-1.5">
-          <label htmlFor="sort-by" className="text-sm font-semibold text-[#131313]">
+          <label htmlFor="sort-by" className="text-sm text-[#131313]">
             Sort by
           </label>
           <div className="relative">
@@ -32,7 +38,7 @@ export default function ReviewFilters() {
           </div>
         </div>
         <div className="flex flex-col items-start gap-1.5">
-          <label htmlFor="filter-by" className="text-sm font-semibold text-[#131313]">
+          <label htmlFor="filter-by" className="text-sm  text-[#131313]">
             Filter by
           </label>
           <div className="relative">
@@ -52,7 +58,7 @@ export default function ReviewFilters() {
           </div>
         </div>
         <div className="flex flex-col items-start gap-1.5">
-          <label htmlFor="star" className="text-sm font-semibold text-[#131313]">
+          <label htmlFor="star" className="text-sm  text-[#131313]">
             Star
           </label>
           <div className="relative">

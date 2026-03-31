@@ -84,7 +84,7 @@ export default function ExclusiveProductCard({
       onClick={() => setDetailModalOpen(true)}
     >
       <div
-        className="relative aspect-square bg-[#f3f4f6] overflow-hidden rounded-t-[12px] shrink-0"
+        className="relative aspect-square bg-[#ffffff] overflow-hidden rounded-t-[12px] shrink-0"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -92,7 +92,7 @@ export default function ExclusiveProductCard({
           src={image}
           alt={name}
           fill
-          className={`object-cover transition-opacity ${isHovered && canPlayVideo ? 'opacity-0' : 'opacity-100'}`}
+          className={`object-contain transition-opacity ${isHovered && canPlayVideo ? 'opacity-0' : 'opacity-100'}`}
           sizes={isHorizontal ? '240px' : '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'}
           unoptimized={typeof image === 'string' && image.startsWith('http')}
         />

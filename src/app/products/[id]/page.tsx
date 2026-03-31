@@ -20,8 +20,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-white" style={{ fontFamily: 'var(--font-poppins)' }}>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <ProductShowcase product={product} />
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4 sm:py-6">
+      <ProductShowcase product={product} />
         <ProductDescriptionTabs product={product} />
         {recommended.length > 0 && <SoldBySellerCarousel products={recommended} />}
       </div>

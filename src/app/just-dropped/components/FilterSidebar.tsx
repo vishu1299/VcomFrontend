@@ -1,6 +1,6 @@
 'use client';
 
-import { getSubcategoriesForMain, MAIN_CATEGORIES } from '../../top-deals/data/categories';
+import { getSubcategoriesForMain, MAIN_CATEGORIES } from '../data/categories';
 import { MENS_SUBCATEGORIES } from '../data/mensView';
 
 export type DealFilterState = {
@@ -394,7 +394,7 @@ export default function FilterSidebar({
         <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" role="presentation" onClick={onClose} aria-hidden />
       )}
       <aside
-        className={`bg-white rounded-2xl overflow-y-auto shrink-0 ${isOpen ? 'block' : 'hidden lg:block'} ${
+        className={`bg-white rounded-2xl shrink-0 overflow-y-auto ${isOpen ? 'block' : 'hidden lg:block'} ${
           onClose ? 'fixed lg:relative inset-y-0 left-0 lg:inset-auto w-full max-w-[378px] lg:max-w-none lg:w-[338px] xl:w-[378px] z-50 lg:z-auto' : 'lg:w-[338px] xl:w-[378px]'
         }`}
         aria-label="Filters"

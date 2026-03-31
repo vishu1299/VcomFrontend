@@ -20,12 +20,12 @@ function InfoIcon() {
 
 export default function NoteSection() {
   return (
-    <div className=" border border-gray-200 bg-gray-100 p-4 mb-6">
+    <div className=" border border-gray-200 bg-[#E7E7E7] p-4 mb-6">
       <div className="flex items-start gap-3">
         <InfoIcon />
         <div>
           <span className="font-bold text-[#131313]">Note</span>
-          <p className="text-sm text-[#131313] mt-0.5">
+          <p className="text-sm text-[#767676] mt-0.5">
             Cancellation is allowed for 24 hours or until the order is shipped.
             After shipping, cancellation is not possible.
           </p>

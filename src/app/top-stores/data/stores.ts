@@ -265,7 +265,6 @@ export const RECOMMENDED_STORES: StoreCardProps[] = [
     avatar: '/images/3.png',
     badges: [
       { label: 'ELITE', bg: ELITE },
-      { label: 'TOP STORE', bg: DARK_BLUE },
       { label: 'TRENDING NOW', bg: PINK },
     ],
   },
@@ -284,7 +283,6 @@ export const RECOMMENDED_STORES: StoreCardProps[] = [
     avatar: '/images/5.png',
     badges: [
       { label: 'ELITE', bg: ELITE },
-      { label: 'TOP STORE', bg: DARK_BLUE },
       { label: 'TRENDING NOW', bg: PINK },
     ],
   },

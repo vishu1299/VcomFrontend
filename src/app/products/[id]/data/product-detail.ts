@@ -8,6 +8,16 @@ import {
 import { RECOMMENDED_PRODUCTS } from '@/app/product-categories/data/recommended-products';
 import { getSubCategoryProducts } from '@/app/product-categories/[slug]/data/products';
 import { MENS_RECOMMENDED_PRODUCTS } from '@/app/mens/data/recommended-products';
+import { ALL_DEAL_PRODUCTS } from '@/app/just-dropped/data/dealProducts';
+import { justDroppedCardToExclusive } from '@/app/just-dropped/lib/mapJustDroppedToExclusive';
+import {
+  RECENTLY_ADDED as SELLER_RECENTLY_ADDED,
+  ALL_PRODUCTS as SELLER_ALL_PRODUCTS,
+  RECENTLY_SEARCHED as SELLER_RECENTLY_SEARCHED,
+} from '@/app/seller-page/data/products';
+import { sellerProductToExclusive } from '@/app/seller-page/lib/sellerProductToExclusive';
+import { RELATED_CAROUSEL_PRODUCTS } from '@/app/customer-reviews/data/relatedCarouselProducts';
+import { productCardPropsToExclusive } from '@/app/product-list/lib/productCardPropsToExclusive';
 
 export interface ProductDetail extends ExclusiveProduct {
   productNumber: string;
@@ -53,12 +63,27 @@ function toDetail(p: ExclusiveProduct, index: number): ProductDetail {
   };
 }
 
+function sellerPageExclusiveProducts(): ExclusiveProduct[] {
+  const byId = new Map<string, ExclusiveProduct>();
+  for (const p of [
+    ...SELLER_RECENTLY_ADDED,
+    ...SELLER_ALL_PRODUCTS,
+    ...SELLER_RECENTLY_SEARCHED,
+  ]) {
+    byId.set(p.id, sellerProductToExclusive(p));
+  }
+  return Array.from(byId.values());
+}
+
 const ALL_PRODUCTS: ExclusiveProduct[] = [
   ...EXCLUSIVE_HORIZONTAL_PRODUCTS,
   ...LATEST_EXCLUSIVE_PRODUCTS,
   ...SPONSORED_EXCLUSIVE_PRODUCTS,
   ...RECOMMENDED_PRODUCTS,
   ...MENS_RECOMMENDED_PRODUCTS,
+  ...ALL_DEAL_PRODUCTS.map((p) => justDroppedCardToExclusive(p)),
+  ...sellerPageExclusiveProducts(),
+  ...RELATED_CAROUSEL_PRODUCTS.map((p) => productCardPropsToExclusive(p)),
 ];
 
 let detailCache: Map<string, ProductDetail> | null = null;
